@@ -3,7 +3,7 @@
 
 :- dynamic(map_object/3).
 
-/* map_size(X,Y) = X adalah lebar dan Y adalah tinggi 8/
+/* map_size(X,Y) = X adalah lebar dan Y adalah tinggi */
 map_size(14,14).
 
 /* map_object(X, Y, Obj) = Object Obj di posisi (X,Y), X dihitung dari kiri, Y dihitung dari atas */
