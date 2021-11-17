@@ -1,60 +1,111 @@
-/* File: start.pl */
-/* Untuk inisialisasi keadaan awal player dan memulai new game */
+/* File start.pl */
+/* Inisialisasi awal game */
 
 :- dynamic(isStart/1).
-:- dynamic(player_role/1).
 
 isStart(false).
 
-% Implementasi rule-rule kendali dasar
+startGame :-
+    ['farming.pl'],
+    ['fishing.pl'],
+    ['help.pl'],
+    ['house.pl'],
+    ['inventory.pl'],
+    ['map.pl'],
+    ['marketplace.pl'],
+    ['move.pl'],
+    ['player.pl'],
+    ['quest.pl'],
+    ['ranching.pl'],
+    ['status.pl'],
+    
+    write(' .sSs. .sSs.                                                                         '),nl,
+    write(' SSSSS SSSSS .sSSSSs.    .sSSSSSSSs. .sSs. .sSs. .sSSSSs.    .sSSSSs.    .sSs.       '),nl,
+    write(' S SSS SSSSS S SSSSSSSs. S SSS SSSSS S SSS SSSSS S SSSSSSSs. S SSSSSSSs. S SSS       '),nl,
+    write(' S  SS SSSSS S  SS SSSSS S  SS SSSS  S  SS SSSSS S  SS SSSS  S  SS SSSS  S  SS       '),nl,
+    write(' S..SS SSSSS S..SS SSSSS S..SSsSSSa. S..SS SSSSS S..SS       S..SS       S..SS       '),nl,
+    write(' S:::SSSSSSS S:::SSSSSSS S:::S SSSSS S:::S sSSS  S:::SSSS    S:::SSSSs   S:::SSSS    '),nl,
+    write(' S;;;S SSSSS S;;;S SSSSS S;;;S SSSSS S;;;S sSS   S;;;S            .SSSS. S;;;S       '),nl,
+    write(' S%%%S SSSSS S%%%S SSSSS S%%%S SSSSS S%%%SSSS    S%%%S SSSSS S%%%S SSSSS S%%%S SSSSS '),nl,
+    write(' SSSSS SSSSS SSSSS SSSSS SSSSS SSSSS SSSSS;:     SSSSSsSS;:  SSSSSsSS;:  SSSSSsSS;:  '),nl,nl,
 
-/* tipe job */
-job_type(fisherman).
-job_type(farmer).
-job_type(rancher).
+    write(' .sSSSSs.                                                                            '),nl,
+    write(' SSSSSSSSs   .sSs.       .sSSSSs.    .sSSSSSSSs.        *         *          *       '),nl,
+    write(' S SSS SSSS  S SSS       S SSSSSSSs. S SSS SSSSS                 ***                 '),nl,
+    write(' S  SS       S  SS       S  SS SSSSS S  SS SSSS           *  ***********             '),nl,
+    write(' S..SS       S..SS       S..SS SSSSS S..SSsSSSa.     *        *********        *     '),nl,
+    write(' S:::SSSSs   S:::SSSS    S:::SSSSSSS S:::S SSSSS               *******               '),nl,
+    write('      .SSSS. S;;;S       S;;;S SSSSS S;;;S SSSSS               *** ***      *        '),nl,
+    write(' S%%%S SSSSs S%%%S SSSSS S%%%S SSSSS S%%%S SSSSS       *      **     **              '),nl,
+    write(' SSSSSsSS;:  SSSSSsSS;:  SSSSS SSSSS SSSSS SSSSS                                     '),nl,nl,
 
-/* command startgame */
-command_startgame :- 
-    write_ln(' _   _                           _   '),
-    write_ln('| | | | __ _ _ ____   _____  ___| |_ '),
-    write_ln('| |_| |/ _` | '__\ \ / / _ \/ __| __|'),
-    write_ln('|  _  | (_| | |   \ V /  __/\__ \ |_ '),
-    write_ln('|_| |_|\__,_|_|    \_/ \___||___/\__|'),
-    write_ln('Harvest Star!!!),
-    write_ln('Let's play and pay our debts together!'),
-    write_ln('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),
-    write_ln('%                              ~Harvest Star~         %'),
-    write_ln('% 1. start  : untuk memulai petualanganmu             %'),
-    write_ln('% 2. map    : menampilkan peta                        %'),
-    write_ln('% 3. status : menampilkan kondisimu terkini           %'),
-    write_ln('% 4. w      : gerak ke utara 1 langkah                %'),
-    write_ln('% 5. s      : gerak ke selatan 1 langkah              %'),
-    write_ln('% 6. d      : gerak ke ke timur 1 langkah             %'),
-    write_ln('% 7. a      : gerak ke barat 1 langkah                %'),
-    write_ln('% 8. help   : menampilkan segala bantuan              %'),
-    write_ln('% (status seharusnya hanya ada 1)                     %'),
-    write_ln('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%').
+    write(' Harvest Star!!!'),nl,nl,
 
-command_start :- 
-    write_ln('Welcome to Harvest Star. Choose your job'),
-    write_ln('1. Fisherman'),
-    write_ln('2. Farmer'),
-    write_ln('3. Rancher'), read(player_job), write('Hello'), tab(1), write(player_job).
+    write(' Let\'s play and pay our debts together!'),nl,nl,
 
-choose_job(X) :- job_type, job(X,fisherman,farmer,rancher).
+    write(' %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
+    write(' %                              ~Harvest Star~                                  %'),nl,
+    write(' % 1. start  : untuk memulai petualanganmu                                      %'),nl,
+    write(' % 2. map    : menampilkan peta                                                 %'),nl,
+    write(' % 3. status : menampilkan kondisimu terkini                                    %'),nl,
+    write(' % 4. w      : gerak ke utara 1 langkah                                         %'),nl,
+    write(' % 5. s      : gerak ke selatan 1 langkah                                       %'),nl,
+    write(' % 6. d      : gerak ke ke timur 1 langkah                                      %'),nl,
+    write(' % 7. a      : gerak ke barat 1 langkah                                         %'),nl,
+    write(' % 8. help   : menampilkan segala bantuan                                       %'),nl,
+    write(' %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
 
+input_job(X) :-
+    repeat,
+    write('> '), read(X),
+    (X = 1; X = 2; X = 3).
 
-command_help:- write_ln('
-   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   %                              ~Harvest Star~                                  %
-   % 1. start  : untuk memulai petualanganmu                                      %
-   % 2. map    : menampilkan peta                                                 %
-   % 3. status : menampilkan kondisimu terkini                                    %
-   % 4. w      : gerak ke utara 1 langkah                                         %
-   % 5. s      : gerak ke selatan 1 langkah                                       %
-   % 6. d      : gerak ke ke timur 1 langkah                                      %
-   % 7. a      : gerak ke barat 1 langkah                                         %
-   % 8. help   : menampilkan segala bantuan                                       %
-   % (status seharusnya hanya ada 1)                                              %
-   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    ').
+start :-
+    retract(isStart(false)), !,
+    asserta(isStart(true)),
+    write('Welcome to Harvest Star. Choose your job'),nl,
+    write('1. Fisherman'),nl,
+    write('2. Farmer'),nl,
+    write('3. Rancher'),nl,
+    input_job(Job),nl,
+    
+    (   Job=1,
+        assertz(specialty('Fisherman'));
+        Job=2,
+        assertz(specialty('Farmer'));
+        Job=3,
+        assertz(specialty('Rancher'))
+    ),
+
+    specialty(X),
+    write('You choose '), write(X), write(', let\'s start farming!'),
+
+    % Inisialisasi Pemain
+    assertz(level_fishing(1)),
+    assertz(level_farming(1)),
+    assertz(level_ranching(1)),
+    assertz(level_player(1)),
+    assertz(exp_fishing(0)),
+    assertz(exp_farming(0)),
+    assertz(exp_ranching(0)),
+    assertz(exp_total(0)),
+    assertz(gold(1000)),
+    assertz(playerInventory([])),
+
+    % Inisialisasi Posisi Pemain dan Bangunan
+    assertz(map_object(1, 1, 'P')),
+    assertz(map_object(12, 10, 'M')),
+    assertz(map_object(10, 5, 'R')),
+    assertz(map_object(7, 6, 'H')),
+    assertz(map_object(7, 3, 'Q')).
+
+start :-
+    write('The game has already been started. Use \'help.\' to see available commands!').
+
+quit :- 
+    isStart(true),
+    write('Progress will not be saved after you quit.'),nl,
+    write('Are you sure? (y/n): '),
+    read(Param), !,
+    ((Param = y -> halt);
+    (Param = n -> fail)).

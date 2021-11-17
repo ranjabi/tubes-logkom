@@ -1,5 +1,5 @@
 /* File move.pl */
-/* Berisi aturan perpindahan pemain (exploration mechanism) */
+/* Menyimpan aturan perpindahan pemain (exploration mechanism) */
 
 /* Pesan ketika menabrak sesuatu */
 hit_fence :-
