@@ -1,22 +1,82 @@
 /* File fishing.pl */
 /* Menyimpan mekanisme fishing */
+% :- [map].
+% :- dynamic(fish_).
+:- dynamic(exp_fishing/1).
+:- dynamic(level_fishing/1).
+:- dynamic(fishing_equip/1).
 
-isAround :- 
-    map_object(X,Y,'P'), 
-    PrevX is X-1,
-    NextX is X+1,
-    PrevY is Y-1,
-    NextY is Y+1,
+init :-
+    asserta(exp_fishing(1)),
+    asserta(level_fishing(8)),
+    asserta(fishing_equip(8)).
+
+/* Daftar Ikan, Ukuran, EXP, dan Harga Jual */
+% 8. Fishing
+% Fakta:
+% - Durasi waktu aktivitas fishing.
+% Rule:
+% - Hanya bisa fishing di dekat danau/tile air
+% - Tambah exp fishing dan total setelah memancing (dapat maupun tidak dapat ikan).
+% - Ikan yang didapat bergantung pada level equipment dan level fishing.
+% - Makin besar level, makin mahal ikan.
+% - Stats equipment berpengaruh terhadap waktu memancing (stats bagus maka waktu mancing
+% sebentar)
+ikan('Tuna',1,10,100).
+ikan('Salmon',2,20,200).
+ikan('Piranha',3,30,300).
+ikan('Arwana',4,40,400).
+ikan('Mujair',5,50,500).
+ikan('Green Arwana',6,60,600).
+ikan('Dorado',7,70,700).
+ikan('Hiu',8,80,800).
+ikan('Goldfish',9,90,900).
+
+% isAround :- 
+%     map_object(X,Y,'P'), 
+%     PrevX is X-1,
+%     NextX is X+1,
+%     PrevY is Y-1,
+%     NextY is Y+1,
+%     (
+%         map_object(PrevX,PrevY,'o'); map_object(X,PrevY,'o'); map_object(NextX,PrevY,'o');
+%         map_object(PrevX,Y,'o'); map_object(NextX,Y,'o');
+%         map_object(PrevX,NextY,'o'); map_object(X,NextY,'o'); map_object(NextX,NextY,'o')
+%     ).
+
+fish :-
+    fishing_equip(EquipLevel),
+    level_fishing(FishingLevel),
     (
-        map_object(PrevX,PrevY,'o'); map_object(X,PrevY,'o'); map_object(NextX,PrevY,'o');
-        map_object(PrevX,Y,'o'); map_object(NextX,Y,'o');
-        map_object(PrevX,NextY,'o'); map_object(X,NextY,'o'); map_object(NextX,NextY,'o')
-    ).
+        EquipLevel > 0,
+        EquipLevel < 4,
+        FishingLevel > 0,
+        FishingLevel < 4 ->
+        random(1,4,Rarity),!;
 
-fish :-
-    isAround, !,
-    write('You got Tuna!'),nl,
-    write('You gained 10 fishing exp!').
+        EquipLevel > 3,
+        EquipLevel < 7,
+        FishingLevel > 3,
+        FishingLevel < 7 ->
+        random(4,7,Rarity),!;
 
-fish :-
-    write('You\'re not around the lake. Use \'map.\' to see where you are right now').
+        EquipLevel > 7,
+        EquipLevel < 10,
+        FishingLevel > 7, 
+        FishingLevel < 10 ->
+        random(7,10,Rarity),!),
+    writeln(Rarity),!,
+    % % (
+    ikan(Name,Rarity,_EXP,_Gold),
+    writeln(Name),!.
+    
+    % NewExp is EXP+ikan(_,_Rarity,EXP,_),
+    % retract(exp_fishing(_)),
+    % asserta(exp_fishing(NewExp)).
+    % writeln(exp_fishing(NewExp)).
+
+    % write('You got Tuna!'),nl,
+    % write('You gained 10 fishing exp!').
+
+% fish :-
+%     write('You\'re not around the lake. Use \'map.\' to see where you are right now').
