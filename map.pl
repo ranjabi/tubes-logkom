@@ -1,7 +1,5 @@
 /* File map.pl */
 /* Menyimpan ukuran peta, objek pada peta, dan perintah cetak peta */
-:-[start].
-:- dynamic(map_object/3).
 
 /* map_size(X,Y) = X adalah lebar dan Y adalah tinggi */
 map_size(14,14).

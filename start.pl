@@ -1,8 +1,5 @@
 /* File start.pl */
 /* Inisialisasi awal game */
-
-:- dynamic(isStart/1).
-:- dynamic(specialty/1).
 isStart(false).
 
 startGame :-
@@ -73,6 +70,7 @@ start :-
     assertz(level_fishing(1)),
     assertz(level_farming(1)),
     assertz(level_ranching(1)),
+    assertz(fishing_equip(1)),
     assertz(level_player(1)),
     assertz(exp_fishing(0)),
     assertz(exp_farming(0)),

@@ -1,7 +1,6 @@
 /* File house.pl */
 /* Menyimpan aktivitas di house */
-
-:- dynamic(isInHouse/1).
+:- [dynamic].
 
 isInHouse(false).
 

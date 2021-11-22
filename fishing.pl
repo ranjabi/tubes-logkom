@@ -1,16 +1,5 @@
 /* File fishing.pl */
 /* Menyimpan mekanisme fishing */
-:- [map].
-:- [inventory].
-% :- dynamic(fish_).
-:- dynamic(exp_fishing/1).
-:- dynamic(level_fishing/1).
-:- dynamic(fishing_equip/1).
-
-init :-
-    asserta(exp_fishing(1)),
-    asserta(level_fishing(8)),
-    asserta(fishing_equip(8)).
 
 % 8. Fishing
 % Fakta:
@@ -90,7 +79,7 @@ fish :-
 
 fish :- 
     isAround, 
-    writeln('You didnt get anything!').
+    writeln('You didnt get anything!'),!.
 
 fish :-
-    write('Youre not around the lake. Use map. to see where you are right now').
+    write('Youre not around the lake. Use map. to see where you are right now'),!.

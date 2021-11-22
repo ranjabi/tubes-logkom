@@ -1,8 +1,6 @@
 /* File marketplace.pl */
 /* Menyimpan aktivitas di market */
 
-:- dynamic(isInMarket/1).
-
 isInMarket(false).
 
 market :-
