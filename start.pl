@@ -2,22 +2,11 @@
 /* Inisialisasi awal game */
 
 :- dynamic(isStart/1).
-
+:- dynamic(specialty/1).
 isStart(false).
 
 startGame :-
-    ['farming.pl'],
-    ['fishing.pl'],
-    ['help.pl'],
-    ['house.pl'],
-    ['inventory.pl'],
-    ['map.pl'],
-    ['marketplace.pl'],
-    ['move.pl'],
-    ['player.pl'],
-    ['quest.pl'],
-    ['ranching.pl'],
-    ['status.pl'],
+
     
     write(' .sSs. .sSs.                                                                         '),nl,
     write(' SSSSS SSSSS .sSSSSs.    .sSSSSSSSs. .sSs. .sSs. .sSSSSs.    .sSSSSs.    .sSs.       '),nl,

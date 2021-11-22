@@ -1,7 +1,10 @@
-/* File : main.pl */
-/* Main driver program */
-
 :- include('start.pl').
-
+:- include('map.pl').
+:- include('inventory.pl').
+:- include('farming.pl').
+:- include('move.pl').
+:- include('marketplace.pl').
 :- include('save.pl').
 :- include('load.pl').
+:- include('player.pl').
+:- include('fishing.pl').

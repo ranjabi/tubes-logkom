@@ -74,7 +74,7 @@ fish :-
     ikan(FishName,Rarity,FishingExp,_Gold),
     addItem(1,FishName),
     write('You got '),
-    write(Name),
+    write(FishName),
     writeln('!'),!,
     
     % writeln(FishingExp),!,
@@ -88,7 +88,9 @@ fish :-
     write('Your new exp is '),
     writeln(NewExp),!.
 
-fish :- isAround, writeln('You didnt get anything!').
+fish :- 
+    isAround, 
+    writeln('You didnt get anything!').
 
 fish :-
     write('Youre not around the lake. Use map. to see where you are right now').
