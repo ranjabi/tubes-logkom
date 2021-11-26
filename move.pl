@@ -9,6 +9,10 @@ month(0, 'Summer').
 month(1, 'Fall').
 month(2, 'Winter').
 month(3, 'Spring').
+month(4, 'Summer').
+month(5, 'Fall').
+month(6, 'Winter').
+month(7, 'Spring').
 
 time(08, 00). % start at 8 oclock
 date(01, 00). % start at 1 Summer
@@ -40,7 +44,7 @@ incrementTime :-
     (
         NewDay =:= 31 ->
         FinalDay is 1,
-        FinalMonth is mod(Month + 1, 4);
+        FinalMonth is mod(Month + 1, 8);
 
         % else
         FinalMonth is Month,
@@ -49,7 +53,7 @@ incrementTime :-
     assertz(time(FinalHour, FinalMinute)),
     assertz(date(FinalDay, FinalMonth)),
     month(FinalMonth, MonthName),
-    nl, nl, write(FinalDay), write(' '), write(MonthName), write('. '),
+    write(FinalDay), write(' '), write(MonthName), write('. '),
     write(FinalHour), write(':'), write(FinalMinute), write('.'), nl.
 
 hit_fence :-
@@ -63,7 +67,7 @@ n :-
 	isStart(true),
     map_object(X,Y,'P'),
     YNew is Y-1,
-    map_object(X, YNew, 'o'), !, hit_water, incrementTime, fail.
+    map_object(X, YNew, 'o'), !, hit_water, fail.
 
 n :-       
 	isStart(true),
@@ -74,23 +78,21 @@ n :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved north.'),
-    incrementTime.
+    nl, nl, incrementTime.
 
 n :-
     isStart(false), !,
-	write('Game has not started, use \"start.\" to play the game"'),
-    incrementTime.
+	write('Game has not started, use \"start.\" to play the game"').
 
 n :-
-    hit_fence,
-    incrementTime.
+    hit_fence.
 
 /* Bergerak ke timur (kanan) */
 e :- 
 	isStart(true),
     map_object(X,Y,'P'),
     XNew is X+1,
-    map_object(XNew, Y, 'o'), !, hit_water, incrementTime, fail.
+    map_object(XNew, Y, 'o'), !, hit_water, fail.
 
 e :-
 	isStart(true),
@@ -101,23 +103,21 @@ e :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved east.'),
-    incrementTime.
+    nl, nl, incrementTime.
 
 e :-
     isStart(false), !,
-	write('Game has not started, use \"start.\" to play the game"'),
-    incrementTime.
+	write('Game has not started, use \"start.\" to play the game"').
 
 e :-
-    hit_fence,
-    incrementTime.
+    hit_fence.
 
 /* Bergerak ke selatan (bawah) */
 s :- 
 	isStart(true),
     map_object(X,Y,'P'),
     YNew is Y+1,
-    map_object(X, YNew, 'o'), !, hit_water, incrementTime, fail.
+    map_object(X, YNew, 'o'), !, hit_water, fail.
 
 s :- 
 	isStart(true),
@@ -128,23 +128,21 @@ s :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved south.'),
-    incrementTime.
+    nl, nl, incrementTime.
 
 s :-
     isStart(false), !,
-	write('Game has not started, use \"start.\" to play the game"'),
-    incrementTime.
+	write('Game has not started, use \"start.\" to play the game"').
 
 s :-
-    hit_fence,
-    incrementTime.
+    hit_fence.
 
 /* Bergerak ke barat(kiri) */
 w :- 
 	isStart(true),
     map_object(X,Y,'P'),
     XNew is X-1,
-    map_object(XNew, Y, 'o'), !, hit_water, incrementTime, fail.
+    map_object(XNew, Y, 'o'), !, hit_water, fail.
 
 w :- 
 	isStart(true),
@@ -155,13 +153,14 @@ w :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved west.'),
-    incrementTime.
+    nl, nl, incrementTime.
 
 w :-
     isStart(false), !,
-	write('Game has not started, use \"start.\" to play the game"'),
-    incrementTime.
+	write('Game has not started, use \"start.\" to play the game"').
 
 w :-
-    hit_fence,
-    incrementTime.
+    hit_fence.
+
+bengong :-
+    nl, incrementTime.

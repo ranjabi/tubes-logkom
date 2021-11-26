@@ -7,20 +7,20 @@
 :- dynamic(isSheepSick/1).
 :- dynamic(isCowSick/1).
 
-:- dynamic(waitTimeChicken/1).
-:- dynamic(waitTimeSheep/1).
-:- dynamic(waitTimeCow/1).
+:- dynamic(waitTimeChicken/5). % (WaitTime, Hour, Minute, Day, Month)
+:- dynamic(waitTimeSheep/5). % (WaitTime, Hour, Minute, Day, Month)
+:- dynamic(waitTimeCow/5). % (WaitTime, Hour, Minute, Day, Month)
 
 :- dynamic(exp_ranching/1).
 :- dynamic(level_ranching/1).
 :- dynamic(ranching_equip/1).
 
 /* Daftar waktu 'panen' berdasarkan level */
-delayTime(0, 5).
-delayTime(1, 2).
-delayTime(2, 1.5).
-delayTime(3, 1).
-delayTime(4, 0.5).
+delayTime(0, 110). % 7210
+delayTime(1, 50). % 2890
+delayTime(2, 40). % 2170
+delayTime(3, 30). % 1450
+delayTime(4, 20). % 730
 
 /* Daftar hewan ternak dan harga jual */
 cattle('chicken').
@@ -37,9 +37,9 @@ isChickenSick(false).
 isSheepSick(false).
 isCowSick(false).
 
-waitTimeChicken(0).
-waitTimeSheep(0).
-waitTimeCow(0).
+waitTimeChicken(0, 0, 0, 0, 0).
+waitTimeSheep(0, 0, 0, 0, 0).
+waitTimeCow(0, 0, 0, 0, 0).
 
 level_ranching(1).
 exp_ranching(0).
@@ -89,12 +89,18 @@ chicken :-
 chicken :-
     /* sick or not sick, waitTime = 0 */
     isInRanch,
-    waitTimeChicken(Time),
-    Time =:= 0,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    nl, incrementTime, nl,
     playerInventory(ListInventory),
     countItem('chicken', ListInventory, I),
     write('Your chicken lays '), write(I), write(' eggs.'), nl,
     write('You got '), write(I), write(' eggs'), nl,
+    addItem(I, 'egg'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -103,7 +109,7 @@ chicken :-
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
     level_ranching(CurrentLevel), % prosedur naik level
     random(17, 21, SickFactor),
-    write(SickFactor), !, nl,
+    !,
     (
         SickFactor =:= 20 ->
         (
@@ -114,8 +120,8 @@ chicken :-
             write('') % prevent invalid
         ),
         delayTime(0, TimeDelay),
-        retract(waitTimeChicken(0)),
-        asserta(waitTimeChicken(TimeDelay));
+        retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeChicken(TimeDelay, HourT, MinuteT, DayT, MonthT));
         
         % else
         (
@@ -126,8 +132,8 @@ chicken :-
             write('') % prevent invalid
         ),
         delayTime(CurrentLevel, TimeDelay),
-        retract(waitTimeChicken(0)),
-        asserta(waitTimeChicken(TimeDelay))
+        retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeChicken(TimeDelay, HourT, MinuteT, DayT, MonthT))
     ),
     !.
 
@@ -135,9 +141,14 @@ chicken :-
     /* sick, waitTime != 0 */
     isInRanch,
     isChickenSick(true),
-    waitTimeChicken(Time),
-    Time \= 0,
-    write('Your chicken is sick for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your chicken is sick for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
@@ -145,9 +156,14 @@ chicken :-
     /* not sick, waitTime != 0 */
     isInRanch,
     isChickenSick(false),
-    waitTimeChicken(Time),
-    Time \= 0,
-    write('Your chicken won\'t produce any egg for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your chicken won\'t produce any egg for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
@@ -167,12 +183,18 @@ sheep :-
 sheep :-
     /* sick or not sick, waitTime = 0 */
     isInRanch,
-    waitTimeSheep(Time),
-    Time =:= 0,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    nl, incrementTime, nl,
     playerInventory(ListInventory),
     countItem('sheep', ListInventory, I),
     write('Your sheep produces '), write(I), write(' wool.'), nl,
     write('You got '), write(I), write(' wool'), nl,
+    addItem(I, 'wool'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -181,7 +203,7 @@ sheep :-
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
     level_ranching(CurrentLevel), % prosedur naik level
     random(17, 21, SickFactor),
-    write(SickFactor), !, nl,
+    !,
     (
         SickFactor =:= 20 ->
         (
@@ -192,8 +214,8 @@ sheep :-
             write('') % prevent invalid
         ),
         delayTime(0, TimeDelay),
-        retract(waitTimeSheep(0)),
-        asserta(waitTimeSheep(TimeDelay));
+        retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeSheep(TimeDelay, HourT, MinuteT, DayT, MonthT));
         
         % else
         (
@@ -204,8 +226,8 @@ sheep :-
             write('') % prevent invalid
         ),
         delayTime(CurrentLevel, TimeDelay),
-        retract(waitTimeSheep(0)),
-        asserta(waitTimeSheep(TimeDelay))
+        retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeSheep(TimeDelay, HourT, MinuteT, DayT, MonthT))
     ),
     !.
 
@@ -213,9 +235,14 @@ sheep :-
     /* sick, waitTime != 0 */
     isInRanch,
     isSheepSick(true),
-    waitTimeSheep(Time),
-    Time \= 0,
-    write('Your sheep is sick for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your sheep is sick for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
@@ -223,9 +250,14 @@ sheep :-
     /* not sick, waitTime != 0 */
     isInRanch,
     isSheepSick(false),
-    waitTimeSheep(Time),
-    Time \= 0,
-    write('Your sheep won\'t produce any wool for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your sheep won\'t produce any wool for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
@@ -246,12 +278,18 @@ cow :-
 cow :-
     /* sick or not sick, waitTime = 0 */
     isInRanch,
-    waitTimeCow(Time),
-    Time =:= 0,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeCow(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    nl, incrementTime, nl,
     playerInventory(ListInventory),
     countItem('cow', ListInventory, I),
     write('Your cow produces '), write(I), write(' milk.'), nl,
     write('You got '), write(I), write(' milk'), nl,
+    addItem(I, 'milk'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -260,7 +298,7 @@ cow :-
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
     level_ranching(CurrentLevel), % prosedur naik level
     random(17, 21, SickFactor),
-    write(SickFactor), !, nl,
+    !,
     (
         SickFactor =:= 20 ->
         (
@@ -271,8 +309,8 @@ cow :-
             write('') % prevent invalid
         ),
         delayTime(0, TimeDelay),
-        retract(waitTimeCow(0)),
-        asserta(waitTimeCow(TimeDelay));
+        retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeCow(TimeDelay, HourT, MinuteT, DayT, MonthT));
         
         % else
         (
@@ -283,8 +321,8 @@ cow :-
             write('') % prevent invalid
         ),
         delayTime(CurrentLevel, TimeDelay),
-        retract(waitTimeCow(0)),
-        asserta(waitTimeCow(TimeDelay))
+        retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
+        asserta(waitTimeCow(TimeDelay, HourT, MinuteT, DayT, MonthT))
     ),
     !.
 
@@ -292,9 +330,14 @@ cow :-
     /* sick, waitTime != 0 */
     isInRanch,
     isCowSick(true),
-    waitTimeCow(Time),
-    Time \= 0,
-    write('Your cow is sick for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeCow(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your cow is sick for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
@@ -302,9 +345,14 @@ cow :-
     /* not sick, waitTime != 0 */
     isInRanch,
     isCowSick(false),
-    waitTimeCow(Time),
-    Time \= 0,
-    write('Your cow won\'t produce any milk for another '), write(Time), write(' days.'), nl,
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeCow(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) < Time,
+    TimeLeft is (Time) - (TimeT - TimeC),
+    write('Your cow won\'t produce any milk for another '), write(TimeLeft), write(' minutes.'), nl,
     write('Please check again later.'),
     !.
 
