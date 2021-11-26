@@ -1,7 +1,5 @@
 /* File ranching.pl */
 /* Menyimpan mekanisme ranching */
-:- [map].
-:- [inventory].
 
 :- dynamic(isChickenSick/1).
 :- dynamic(isSheepSick/1).
@@ -95,7 +93,7 @@ chicken :-
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, nl,
+    nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
     countItem('chicken', ListInventory, I),
     write('Your chicken lays '), write(I), write(' eggs.'), nl,
@@ -189,7 +187,7 @@ sheep :-
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, nl,
+    nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
     countItem('sheep', ListInventory, I),
     write('Your sheep produces '), write(I), write(' wool.'), nl,
@@ -284,7 +282,7 @@ cow :-
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, nl,
+    nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
     countItem('cow', ListInventory, I),
     write('Your cow produces '), write(I), write(' milk.'), nl,

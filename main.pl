@@ -12,3 +12,5 @@
 :- include('status.pl').
 :- include('help.pl').
 :- include('quest.pl').
+:- include('time.pl').
+:- include('stamina.pl').

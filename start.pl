@@ -80,7 +80,7 @@ start :-
     assertz(exp_farming(0)),
     assertz(exp_ranching(0)),
     assertz(exp_total(0)),
-    assertz(gold(1000)),
+    assertz(gold(10000)),
     assertz(playerInventory([])),
 
     % Inisialisasi Posisi Pemain dan Bangunan
