@@ -1,6 +1,17 @@
 /* File fishing.pl */
 /* Menyimpan mekanisme fishing */
 
+:- [map].
+:- [inventory].
+% :- dynamic(fish_).
+:- dynamic(exp_fishing/1).
+:- dynamic(level_fishing/1).
+:- dynamic(fishing_equip/1).
+
+init :-
+    asserta(exp_fishing(1)),
+    asserta(level_fishing(8)),
+    asserta(fishing_equip(8)).
 % 8. Fishing
 % Fakta:
 % - Durasi waktu aktivitas fishing.

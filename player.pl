@@ -1,6 +1,17 @@
 /* File player.pl */
 /* Menyimpan mekanisme kenaikan level dan exp pemain */
 
+:- dynamic(specialty/1).
+:- dynamic(level_fishing/1).
+:- dynamic(level_farming/1).
+:- dynamic(level_ranching/1).
+:- dynamic(level_player/1).
+:- dynamic(exp_fishing/1).
+:- dynamic(exp_farming/1).
+:- dynamic(exp_ranching/1).
+:- dynamic(exp_total/1).
+:- dynamic(gold/1).
+
 level_up_fishing :-
     level_fishing(N),
     N1 is N+1,

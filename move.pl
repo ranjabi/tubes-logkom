@@ -1,6 +1,5 @@
 /* File move.pl */
 /* Menyimpan aturan perpindahan pemain (exploration mechanism) */
-:- [start],[map].
 /* Pesan ketika menabrak sesuatu */
 hit_fence :-
     write('You hit a fence, use \'map.\' to see where you are right now').

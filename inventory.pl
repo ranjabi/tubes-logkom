@@ -1,6 +1,7 @@
 /* File inventory.pl */
 /* Menyimpan fakta dan aturan terkait inventory */
 
+:- dynamic(playerInventory/1).
 
 /* Menghitung jumlah item keseluruhan di dalam inventory */
 countLength([], 0) :- !.

@@ -1,5 +1,9 @@
 /* File start.pl */
 /* Inisialisasi awal game */
+
+:- dynamic(isStart/1).
+:- dynamic(specialty/1).
+
 isStart(false).
 
 startGame :-

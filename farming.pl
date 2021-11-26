@@ -1,6 +1,7 @@
 /* File farming.pl */
 /* Menyimpan mekanisme farming */
-:- [dynamic].
+
+:- dynamic(level_reward/2).
 level_reward(1,3).
 
 vegetable('carrot',10,25).
