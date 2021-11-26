@@ -8,3 +8,5 @@
 :- include('load.pl').
 :- include('player.pl').
 :- include('fishing.pl').
+:- include('quest.pl').
+:- include('status.pl').

@@ -1,8 +1,7 @@
 /* File fishing.pl */
 /* Menyimpan mekanisme fishing */
-
-:- [map].
-:- [inventory].
+% :- [quest].
+% :- [inventory].
 % :- dynamic(fish_).
 :- dynamic(exp_fishing/1).
 :- dynamic(level_fishing/1).
@@ -10,8 +9,8 @@
 
 init :-
     asserta(exp_fishing(1)),
-    asserta(level_fishing(8)),
-    asserta(fishing_equip(8)).
+    asserta(level_fishing(1)),
+    asserta(fishing_equip(1)).
 % 8. Fishing
 % Fakta:
 % - Durasi waktu aktivitas fishing.
@@ -47,7 +46,7 @@ isAround :-
     ).
 
 fish :-
-    isAround,
+    % isAround,
     random(1,101,FishingChance),
     0 is mod(FishingChance,2),
     fishing_equip(EquipLevel),
@@ -72,10 +71,11 @@ fish :-
         random(7,10,Rarity),!),
     % writeln(Rarity),!,
     ikan(FishName,Rarity,FishingExp,_Gold),
-    addItem(1,FishName),
     write('You got '),
     write(FishName),
     writeln('!'),!,
+    addItem(1,FishName),
+    fishingDone(1),
     
     % writeln(FishingExp),!,
     exp_fishing(CurrentExp),
