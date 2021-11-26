@@ -40,11 +40,14 @@ deleteAllX(X, [H|T1], [H|T2]) :-
     H \= X, deleteAllX(X, T1, T2), !.
 
 /* Menghapus beberapa item tertentu dari list */
+
+deleteItem(X, 1, [X], []) :- !.
+
 deleteItem(X, 1, [X|T], T) :- !.
 
-deleteItem(X, 1, List, List) :- !.
+deleteItem(X, 1, [Y|List], [Y|List2]) :- Y \= X, deleteItem(X, 1, List,List2).
 
-deleteItem(X, N, [X|T1], T2) :- deleteItem(X, N1, T1, T2), N is N1-1.
+deleteItem(X, N, [X|T1], T2) :- N1 is N-1, deleteItem(X, N1, T1, T2).
 
 deleteItem(X, N, [H|T1], [H|T2]) :- H \= X, deleteItem(X, N, T1, T2).
 
