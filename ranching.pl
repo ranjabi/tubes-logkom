@@ -44,7 +44,7 @@ waitTimeCow(0).
 level_ranching(1).
 exp_ranching(0).
 
-init :-
+initRanch :-
     /* for testing purposes */
     addItem(5, 'chicken'),
     addItem(5, 'sheep'),
