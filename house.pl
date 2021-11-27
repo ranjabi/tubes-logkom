@@ -21,26 +21,22 @@ house :-
 
 sleep :-
     isInHouse(true), !,
-    write('You went to sleep'),
-    date(Day,Month), 
-    (
-        Day =:= 31, 
-        Day1 is 1, 
-        Month1 is mod(Month + 1, 8),
-        assertz(date(Day1,Month1)),
-        retract(date(Day,Month));
-
-        Day < 31,
-        Day1 is Day + 1,
-        Month1 is Month,
-        assertz(date(Day1,Month1)),
-        retract(date(Day,Month))
-    ),
-    retract(stamina(_)),
-    assertz(stamina(100)).
+    write('You went to sleep...'),nl,nl,
+    nextDay,
+    rechargeStamina,
+    day(Days),
+    date(Day, Month),
+    month(Month, MonthName, Season),
+    write('Day '), write(Days), write(', '), write(Season), write('.'), nl,
+    write(Day), write(' '), write(MonthName), write('. '),
+    write('8:00.'), nl.
 
 sleep :-
     write('You are not in your house, use \'house.\' to enter your house').
+
+writeDiary :-
+    date(Day, Month),
+    write('Write your diary for Day ').
 
 exitHouse :-
     isInHouse(true),

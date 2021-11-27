@@ -108,3 +108,7 @@ updateStamina :-
         write(''),
         assertz(isNotifyStamina(Notif50, Notif25, Notif10))
     ).
+
+rechargeStamina :-
+    retract(stamina(_)),
+    assertz(stamina(100)).
