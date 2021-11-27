@@ -17,10 +17,126 @@ market :-
 market :-
     write('You are not at the marketplace, use \'map.\' to see where you are right now').
 
+
 sell :-
     isInMarket(true), !,
+    playerInventory(ListInventory),
+    gold(X),
     write('Here are the items in your inventory'),nl,
-    write('What do you want to sell?').
+    inventory,
+    write('What do you want to sell?'),nl,
+    write('> '),read(Item),nl,
+    searchItem(Item, ListInventory, Found),
+    (
+        Found = false, !, write('Item not found'),fail;
+
+        Found = true,
+        write('How many item do you want to sell ?'),nl,
+        write('> '),read(Amount),nl,
+        countItem(Item, ListInventory, Count),
+        (
+            Count < Amount,!,write('Cannot find enough item'),fail;
+
+            Count >= Amount,
+            Item = 'carrot seed',
+            Total is 10 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'tomato seed',
+            Total is 15 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'corn seed',
+            Total is 15 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'potato seed',
+            Total is 10 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'carrot',
+            Total is 15 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'tomato',
+            Total is 20 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'corn',
+            Total is 20 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'potato',
+            Total is 15 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX)
+
+        )
+    ).
+
 
 sell :-
     write('You are not in the marketplace, use \'market.\' to enter the marketplace').
