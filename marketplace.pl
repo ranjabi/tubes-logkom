@@ -23,7 +23,7 @@ sell :-
     playerInventory(ListInventory),
     gold(X),
     write('Here are the items in your inventory'),nl,
-    inventory,
+    writeInventory(ListInventory),
     write('What do you want to sell?'),nl,
     write('> '),read(Item),nl,
     searchItem(Item, ListInventory, Found),
@@ -133,7 +133,6 @@ sell :-
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
             write('Your gold : '),write(NewX)
-
         )
     ).
 
@@ -164,6 +163,7 @@ buy :-
     write('7. Cow (1500 golds)'),nl,
     write('8. Level 2 shovel (300 golds)'),nl,
     write('9. Level 2 fishing rod (500 golds)'),nl,
+    write('10. Level 2 rake (500 golds)'),nl,
     write('> '), read(Item), nl,
     (
         Item = 1,
@@ -172,7 +172,7 @@ buy :-
         Cost is Amount*50,
         pay(Cost),
         addItem(Amount, 'carrot seed'),
-        write('You have bought '), write(Amount), write(' carrot seed/s');
+        write('You have bought '), write(Amount), write(' carrot seed(s)');
 
         Item = 2,
         write('How many do you want to buy?'),nl,
@@ -180,7 +180,7 @@ buy :-
         Cost is Amount*50,
         pay(Cost),
         addItem(Amount, 'corn seed'),
-        write('You have bought '), write(Amount), write(' corn seed/s');
+        write('You have bought '), write(Amount), write(' corn seed(s)');
 
         Item = 3,
         write('How many do you want to buy?'),nl,
@@ -188,7 +188,7 @@ buy :-
         Cost is Amount*50,
         pay(Cost),
         addItem(Amount, 'tomato seed'),
-        write('You have bought '), write(Amount), write(' tomato seed/s');
+        write('You have bought '), write(Amount), write(' tomato seed(s)');
 
         Item = 4,
         write('How many do you want to buy?'),nl,
@@ -196,7 +196,7 @@ buy :-
         Cost is Amount*50,
         pay(Cost),
         addItem(Amount, 'potato seed'),
-        write('You have bought '), write(Amount), write(' potato seed/s');
+        write('You have bought '), write(Amount), write(' potato seed(s)');
 
         Item = 5,
         write('How many do you want to buy?'),nl,
@@ -204,7 +204,7 @@ buy :-
         Cost is Amount*500,
         pay(Cost),
         addItem(Amount, 'chicken'),
-        write('You have bought '), write(Amount), write(' chicken/s');
+        write('You have bought '), write(Amount), write(' chicken(s)');
 
         Item = 6,
         write('How many do you want to buy?'),nl,
@@ -212,7 +212,7 @@ buy :-
         Cost is Amount*1000,
         pay(Cost),
         addItem(Amount, 'sheep'),
-        write('You have bought '), write(Amount), write(' sheep/s');
+        write('You have bought '), write(Amount), write(' sheep(s)');
 
         Item = 7,
         write('How many do you want to buy?'),nl,
@@ -220,23 +220,28 @@ buy :-
         Cost is Amount*1500,
         pay(Cost),
         addItem(Amount, 'cow'),
-        write('You have bought '), write(Amount), write(' cow/s');
+        write('You have bought '), write(Amount), write(' cow(s)');
 
         Item = 8,
-        write('How many do you want to buy?'),nl,
-        write('> '), read(Amount), nl,
-        Cost is Amount*300,
-        pay(Cost),
-        addItem(Amount, 'shovel'),
-        write('You have bought '), write(Amount), write(' shovel/s');
+        pay(300),
+        addItem(1, 'shovel'),
+        retract(level_shovel(_)),
+        assertz(level_shovel(2)),
+        write('You have bought a Level 2 shovel');
 
         Item = 9,
-        write('How many do you want to buy?'),nl,
-        write('> '), read(Amount), nl,
-        Cost is Amount*500,
-        pay(Cost),
-        addItem(Amount, 'fishing rod'),
-        write('You have bought '), write(Amount), write(' fishing rod/s')
+        pay(500),
+        addItem(1, 'fishing rod'),
+        retract(level_fishing_rod(_)),
+        assertz(level_fishing_rod(2)),
+        write('You have bought a Level 2 fishing rod')
+
+        Item = 10,
+        pay(500),
+        addItem(1, 'rake'),
+        retract(level_rake(_)),
+        assertz(level_rake(2)),
+        write('You have bought a Level 2 rake')
     ).
 
 buy :-
