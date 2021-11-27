@@ -7,6 +7,10 @@
 :- dynamic(farm_equip_expUp/2).
 :- dynamic(farm_equip_exp/1).
 
+farm_equip(1,2).
+farm_equip_expUp(1,100).
+farm_equip_exp(0).
+
 expUp(1,100).
 level_reward(1,3).
 
@@ -49,7 +53,7 @@ gainStuff(Veg,Symbol,Equip):-
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
         write('level anda naik menjadi : '), write(W1),nl,
-        write('exp farming anda : '),write(S2)
+        write('exp farming anda : '),write(S2),nl
     ).
 
 gainStuff(Veg,Symbol,Equip):-
@@ -80,7 +84,7 @@ gainStuff(Veg,Symbol,Equip):-
         S1 < Z,!, write('exp farming anda : '), write(S1),nl,
         (
 
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -94,7 +98,7 @@ gainStuff(Veg,Symbol,Equip):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22)
+            write('Equipment exp : '),write(E22),nl
         );
     
         S1 >= Z,
@@ -113,7 +117,7 @@ gainStuff(Veg,Symbol,Equip):-
         write('level anda naik menjadi : '), write(W1),nl,
         write('exp farming anda : '),write(S2),nl,
         (
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -127,7 +131,7 @@ gainStuff(Veg,Symbol,Equip):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22)
+            write('Equipment exp : '),write(E22),nl
         )
     ).
 
@@ -181,7 +185,7 @@ plant :-
 
                 Found = true,
                 (
-                    Seed = 'carrot seed',
+                    Seed = 'carrot seed',!,
                     assertz(map_object(X,Y,'c')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -190,9 +194,9 @@ plant :-
                     deleteItem(Seed, 1, ListInventory, NewList),
                     write(Seed),write(' berhasil ditanam'),nl,
                     retract(playerInventory(ListInventory)),
-                    assertz(playerInventory(NewList));
+                    assertz(playerInventory(NewList)),!;
 
-                    Seed = 'corn seed',
+                    Seed = 'corn seed',!,
                     assertz(map_object(X,Y,'C')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -201,9 +205,9 @@ plant :-
                     deleteItem(Seed, 1, ListInventory, NewList),
                     write(Seed),write(' successfully planted'),nl,
                     retract(playerInventory(ListInventory)),
-                    assertz(playerInventory(NewList));
+                    assertz(playerInventory(NewList)),!;
 
-                    Seed = 'tomato seed',
+                    Seed = 'tomato seed',!,
                     assertz(map_object(X,Y,'T')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -212,9 +216,9 @@ plant :-
                     deleteItem(Seed, 1, ListInventory, NewList),
                     write(Seed),write(' successfully planted'),nl,
                     retract(playerInventory(ListInventory)),
-                    assertz(playerInventory(NewList));
+                    assertz(playerInventory(NewList)),!;
 
-                    Seed = 'potato seed',
+                    Seed = 'potato seed',!,
                     assertz(map_object(X,Y,'O')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -223,11 +227,11 @@ plant :-
                     deleteItem(Seed, 1, ListInventory, NewList),
                     write(Seed),write(' successfully planted'),nl,
                     retract(playerInventory(ListInventory)),
-                    assertz(playerInventory(NewList))
+                    assertz(playerInventory(NewList)),!
                 )
             )
         )
-    ).
+    ),!.
 
 
 harvest:- 
@@ -252,19 +256,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
+                
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
+                !,gainStuff('tomato','T',Equip)
 
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
-                !,gainStuff('tomato',T,Equip)
             )
         );
 
@@ -281,19 +279,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
 
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
+                !,gainStuff('carrot','c',Equip)
 
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
-                !,gainStuff('carrot',c,Equip)
             )
         );
 
@@ -310,19 +302,12 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (   
-                searchItem('shovel', ListInventory, Found),
-
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
-                !,gainStuff('corn',C,Equip)
+    
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
+                !,gainStuff('corn','C',Equip)
                 
             )
         );
@@ -340,19 +325,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
-
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
-                !,gainStuff('potato',O,Equip)
+                
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
+                !,gainStuff('potato','O',Equip)
+                
             )
         )
     ).
