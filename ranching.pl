@@ -375,8 +375,8 @@ addTime :-
 
 exitRanch :-
     isInRanch(true),
-    retract(isInHouse(true)),
-    asserta(isInHouse(false)), !,
+    retract(isInRanch(true)),
+    asserta(isInRanch(false)), !,
     write('Thanks for coming!').
 
 exitRanch :-
