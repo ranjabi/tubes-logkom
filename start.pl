@@ -70,15 +70,16 @@ start :-
 
     % Inisialisasi Pemain
     assertz(level_fishing(1)),
+    assertz(level_fishing_rod(1)),
     assertz(level_farming(1)),
     assertz(level_ranching(1)),
-    assertz(level_fishing_rod(1)),
     assertz(level_shovel(1)),
     assertz(level_hencoop(1)),
     assertz(level_shear(1)),
     assertz(level_bucket(1)),
     assertz(level_player(1)),
     assertz(exp_fishing(0)),
+    assertz(exp_fishing_rod(0)),
     assertz(exp_farming(0)),
     assertz(exp_ranching(0)),
     assertz(exp_total(0)),
@@ -90,7 +91,11 @@ start :-
     assertz(map_object(12, 10, 'M')),
     assertz(map_object(10, 5, 'R')),
     assertz(map_object(7, 6, 'H')),
-    assertz(map_object(7, 3, 'Q')).
+    assertz(map_object(7, 3, 'Q')),
+
+    % Inisialisasi Quest
+    assertz(questStatus(0,0,0,0)), 
+    assertz(peningkatan(1)).
 
 start :-
     write('The game has already been started. Use \'help.\' to see available commands!').

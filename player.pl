@@ -3,9 +3,11 @@
 
 :- dynamic(specialty/1).
 :- dynamic(level_fishing/1).
+:- dynamic(level_fishing_rod/1).
 :- dynamic(level_farming/1).
 :- dynamic(level_ranching/1).
 :- dynamic(level_player/1).
+:- dynamic(exp_fishing_rod/1).
 :- dynamic(exp_fishing/1).
 :- dynamic(exp_farming/1).
 :- dynamic(exp_ranching/1).
@@ -17,6 +19,12 @@ level_up_fishing :-
     N1 is N+1,
     assertz(level_fishing(N1)),
     retract(level_fishing(N)).
+
+level_up_fishing_rod :-
+    level_fishing_rod(N),
+    N1 is N+1,
+    assertz(level_fishing_rod(N1)),
+    retract(level_fishing_rod(N)).
 
 level_up_farming :-
     level_farming(N),
