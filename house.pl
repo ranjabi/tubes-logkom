@@ -35,7 +35,9 @@ sleep :-
         Month1 is Month,
         assertz(date(Day1,Month1)),
         retract(date(Day,Month))
-    ).
+    ),
+    retract(stamina(_)),
+    assertz(stamina(100)).
 
 sleep :-
     write('You are not in your house, use \'house.\' to enter your house').
