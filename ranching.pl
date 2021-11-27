@@ -379,5 +379,5 @@ exitRanch :-
     asserta(isInHouse(false)), !,
     write('Thanks for coming!').
 
-exitHouse :-
+exitRanch :-
     write('You are not in the ranch, use \'ranch.\' to enter the ranch').

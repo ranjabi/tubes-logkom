@@ -14,3 +14,4 @@
 :- include('quest.pl').
 :- include('time.pl').
 :- include('stamina.pl').
+:- include('house.pl').
