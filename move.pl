@@ -23,7 +23,7 @@ n :-
 n :-       
 	isStart(true),
     isInMarket(true), !,
-    write('Use \'exitMarket.\' to exit the market').
+    write('Use \'exitShop.\' to exit the market').
 
 n :-       
 	isStart(true),
@@ -63,7 +63,7 @@ e :-
 e :-       
 	isStart(true),
     isInMarket(true), !,
-    write('Use \'exitMarket.\' to exit the market').
+    write('Use \'exitShop.\' to exit the market').
 
 e :-       
 	isStart(true),
@@ -103,7 +103,7 @@ s :-
 s :-       
 	isStart(true),
     isInMarket(true), !,
-    write('Use \'exitMarket.\' to exit the market').
+    write('Use \'exitShop.\' to exit the market').
 
 s :-       
 	isStart(true),
@@ -143,7 +143,7 @@ w :-
 w :-       
 	isStart(true),
     isInMarket(true), !,
-    write('Use \'exitMarket.\' to exit the market').
+    write('Use \'exitShop.\' to exit the market').
 
 w :-       
 	isStart(true),
