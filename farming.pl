@@ -166,7 +166,7 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                gainStuff('tomato',T)
+                !,gainStuff('tomato',T)
             )
         );
 
@@ -177,13 +177,13 @@ harvest:-
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
             
-            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'carrot seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                gainStuff('carrot',c)
+                !,gainStuff('carrot',c)
             )
         );
 
@@ -194,13 +194,13 @@ harvest:-
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
             
-            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'corn seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                gainStuff('corn',C)
+                !,gainStuff('corn',C)
                 
             )
         );
@@ -212,13 +212,13 @@ harvest:-
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
             
-            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'potato seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                gainStuff('potato',O)
+                !,gainStuff('potato',O)
             )
         )
     ).
