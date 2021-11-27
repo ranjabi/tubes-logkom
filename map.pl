@@ -119,6 +119,50 @@ draw_point(X, Y) :- map_size(W, H),
 					NewX is X+1,
 					draw_point(NewX, Y).
 
+draw_point(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					map_object(X, Y, 'P'),
+					map_object(X, Y, 'T'), !,
+					write('P'),
+					NewX is X+1,
+					draw_point(NewX, Y).
+
+draw_point(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					map_object(X, Y, 'P'),
+					map_object(X, Y, 'c'), !,
+					write('P'),
+					NewX is X+1,
+					draw_point(NewX, Y).
+
+draw_point(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					map_object(X, Y, 'P'),
+					map_object(X, Y, 'C'), !,
+					write('P'),
+					NewX is X+1,
+					draw_point(NewX, Y).
+
+draw_point(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					map_object(X, Y, 'P'),
+					map_object(X, Y, 'O'), !,
+					write('P'),
+					NewX is X+1,
+					draw_point(NewX, Y).
+
 /* Mencetak objek yang tidak tertimpa simbol pemain */
 draw_point(X, Y) :- map_size(W, H),
 					X < W + 1,
