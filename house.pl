@@ -40,11 +40,11 @@ sleep :-
 sleep :-
     write('You are not in your house, use \'house.\' to enter your house').
 
-exit :-
+exitHouse :-
     isInHouse(true),
     retract(isInHouse(true)),
     asserta(isInHouse(false)), !,
     write('Have a wonderful day!').
 
-exit :-
+exitHouse :-
     write('You are not in your house, use \'house.\' to enter your house').

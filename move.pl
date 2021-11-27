@@ -15,6 +15,21 @@ n :-
     YNew is Y-1,
     map_object(X, YNew, 'o'), !, hit_water, fail.
 
+n :-
+	isStart(true),
+    isInHouse(true), !,
+    write('Use \'exitHouse.\' to exit your house').
+
+n :-       
+	isStart(true),
+    isInMarket(true), !,
+    write('Use \'exitMarket.\' to exit the market').
+
+n :-       
+	isStart(true),
+    isInRanch(true), !,
+    write('Use \'exitRanch.\' to exit your ranch').
+
 n :-       
 	isStart(true),
     map_object(X,Y,'P'),
@@ -42,6 +57,21 @@ e :-
 
 e :-
 	isStart(true),
+    isInHouse(true), !,
+    write('Use \'exitHouse.\' to exit your house').
+
+e :-       
+	isStart(true),
+    isInMarket(true), !,
+    write('Use \'exitMarket.\' to exit the market').
+
+e :-       
+	isStart(true),
+    isInRanch(true), !,
+    write('Use \'exitRanch.\' to exit your ranch').
+
+e :-
+	isStart(true),
     map_object(X,Y,'P'),
     XNew is X+1,
     map_size(W, _),
@@ -64,6 +94,21 @@ s :-
     map_object(X,Y,'P'),
     YNew is Y+1,
     map_object(X, YNew, 'o'), !, hit_water, fail.
+
+s :-
+	isStart(true),
+    isInHouse(true), !,
+    write('Use \'exitHouse.\' to exit your house').
+
+s :-       
+	isStart(true),
+    isInMarket(true), !,
+    write('Use \'exitMarket.\' to exit the market').
+
+s :-       
+	isStart(true),
+    isInRanch(true), !,
+    write('Use \'exitRanch.\' to exit your ranch').
 
 s :- 
 	isStart(true),
@@ -89,6 +134,21 @@ w :-
     map_object(X,Y,'P'),
     XNew is X-1,
     map_object(XNew, Y, 'o'), !, hit_water, fail.
+
+w :-
+	isStart(true),
+    isInHouse(true), !,
+    write('Use \'exitHouse.\' to exit your house').
+
+w :-       
+	isStart(true),
+    isInMarket(true), !,
+    write('Use \'exitMarket.\' to exit the market').
+
+w :-       
+	isStart(true),
+    isInRanch(true), !,
+    write('Use \'exitRanch.\' to exit your ranch').
 
 w :- 
 	isStart(true),

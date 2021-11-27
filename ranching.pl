@@ -1,6 +1,8 @@
 /* File ranching.pl */
 /* Menyimpan mekanisme ranching */
 
+:- dynamic(isInRanch/1).
+
 :- dynamic(isChickenSick/1).
 :- dynamic(isSheepSick/1).
 :- dynamic(isCowSick/1).
@@ -14,6 +16,8 @@
 :- dynamic(level_hencoop/1).
 :- dynamic(level_shear/1).
 :- dynamic(level_bucket/1).
+
+isInRanch(false).
 
 /* Daftar waktu 'panen' berdasarkan level */
 delayTime(0, 110). % 7210
@@ -50,12 +54,11 @@ initRanch :-
     addItem(5, 'sheep'),
     addItem(5, 'cow').
 
-isInRanch :-
-    map_object(X, Y, 'R'),
-    map_object(X, Y, 'P').
-
 ranch :-
-    isInRanch,
+    map_object(X, Y, 'P'),
+    map_object(X, Y, 'R'),
+    retract(isInRanch(false)),
+    assertz(isInRanch(true)), !,
     write('Welcome to the ranch!'), nl,
     playerInventory(ListInventory),
     countItem('chicken', ListInventory, I),
@@ -369,3 +372,12 @@ addTime :-
     /* for testing purposes */
     retract(waitTimeChicken(0)),
     asserta(waitTimeChicken(1)).
+
+exitRanch :-
+    isInRanch(true),
+    retract(isInHouse(true)),
+    asserta(isInHouse(false)), !,
+    write('Thanks for coming!').
+
+exitHouse :-
+    write('You are not in the ranch, use \'ranch.\' to enter the ranch').
