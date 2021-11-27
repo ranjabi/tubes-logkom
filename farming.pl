@@ -7,6 +7,10 @@
 :- dynamic(farm_equip_expUp/2).
 :- dynamic(farm_equip_exp/1).
 
+farm_equip(1,2).
+farm_equip_expUp(1,100).
+farm_equip_exp(0).
+
 expUp(1,100).
 level_reward(1,3).
 
@@ -252,19 +256,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
-
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
+                
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
                 !,gainStuff('tomato',T,Equip)
+
             )
         );
 
@@ -281,19 +279,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
 
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
                 !,gainStuff('carrot',c,Equip)
+
             )
         );
 
@@ -310,18 +302,11 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (   
-                searchItem('shovel', ListInventory, Found),
-
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
+    
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
                 !,gainStuff('corn',C,Equip)
                 
             )
@@ -340,19 +325,13 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                searchItem('shovel', ListInventory, Found),
-
-                (
-                    Found = false, write('You don\'t have any equipment'),nl,Equip is 1;
-
-                    Found = true,
-                    write('Do you want to use a shovel?'),nl,
-                    write('1. No'),nl,
-                    write('2. Yes'),nl,
-                    write('> '),read(Equip),nl
-                ),
-
+                
+                write('Do you want to use a shovel?'),nl,
+                write('1. No'),nl,
+                write('2. Yes'),nl,
+                write('> '),read(Equip),nl,
                 !,gainStuff('potato',O,Equip)
+                
             )
         )
     ).
