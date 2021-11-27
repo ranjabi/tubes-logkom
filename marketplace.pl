@@ -234,7 +234,7 @@ buy :-
         addItem(1, 'fishing rod'),
         retract(level_fishing_rod(_)),
         assertz(level_fishing_rod(2)),
-        write('You have bought a Level 2 fishing rod')
+        write('You have bought a Level 2 fishing rod');
 
         Item = 10,
         pay(500),
