@@ -3,6 +3,7 @@
 
 :- dynamic(expUp/2).
 :- dynamic(level_reward/2).
+:- dynamic(level_shovel/1).
 
 expUp(1,100).
 level_reward(1,3).

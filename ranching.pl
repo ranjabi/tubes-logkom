@@ -11,7 +11,7 @@
 
 :- dynamic(exp_ranching/1).
 :- dynamic(level_ranching/1).
-:- dynamic(ranching_equip/1).
+:- dynamic(level_rake/1).
 
 /* Daftar waktu 'panen' berdasarkan level */
 delayTime(0, 110). % 7210

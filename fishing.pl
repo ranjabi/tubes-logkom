@@ -5,12 +5,12 @@
 % :- dynamic(fish_).
 :- dynamic(exp_fishing/1).
 :- dynamic(level_fishing/1).
-:- dynamic(fishing_equip/1).
+:- dynamic(level_fishing_rod/1).
 
 init :-
     asserta(exp_fishing(1)),
     asserta(level_fishing(1)),
-    asserta(fishing_equip(1)).
+    asserta(level_fishing_rod(1)).
 % 8. Fishing
 % Fakta:
 % - Durasi waktu aktivitas fishing.
@@ -49,7 +49,7 @@ fish :-
     % isAround,
     random(1,101,FishingChance),
     0 is mod(FishingChance,2),
-    fishing_equip(EquipLevel),
+    level_fishing_rod(EquipLevel),
     level_fishing(FishingLevel),
     (
         EquipLevel > 0,
