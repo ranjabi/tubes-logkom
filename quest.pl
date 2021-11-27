@@ -32,7 +32,7 @@ quest :-
     random(NewDown,NewUp,InitFarming),
     random(NewDown,NewUp,InitRanching),
     retractall(questStatus(_,_,_,_)),
-    assertz(questStatus(InitFishing,0,0,1)), 
+    assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
     % assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
     questStatus(Fishing,Farming,Ranching,Status),
     write('- '), write(Fishing), write(' Fishing'), !, nl,
