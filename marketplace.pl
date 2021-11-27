@@ -37,55 +37,6 @@ sell :-
         (
             Count < Amount,!,write('Cannot find enough item'),fail;
 
-            Count >= Amount,
-            Item = 'carrot seed',
-            Total is 10 * Amount,
-            NewX is X + Total,
-            retract(gold(X)),
-            assertz(gold(NewX)),
-            deleteItem(Item,Amount,ListInventory,NewList),
-            retract(playerInventory(ListInventory)),
-            assertz(playerInventory(NewList)),
-            write('You sell '),write(Amount),write(' '),write(Item),nl,
-            write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
-
-            Item = 'tomato seed',
-            Total is 15 * Amount,
-            NewX is X + Total,
-            retract(gold(X)),
-            assertz(gold(NewX)),
-            deleteItem(Item,Amount,ListInventory,NewList),
-            retract(playerInventory(ListInventory)),
-            assertz(playerInventory(NewList)),
-            write('You sell '),write(Amount),write(' '),write(Item),nl,
-            write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
-
-            Item = 'corn seed',
-            Total is 15 * Amount,
-            NewX is X + Total,
-            retract(gold(X)),
-            assertz(gold(NewX)),
-            deleteItem(Item,Amount,ListInventory,NewList),
-            retract(playerInventory(ListInventory)),
-            assertz(playerInventory(NewList)),
-            write('You sell '),write(Amount),write(' '),write(Item),nl,
-            write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
-
-            Item = 'potato seed',
-            Total is 10 * Amount,
-            NewX is X + Total,
-            retract(gold(X)),
-            assertz(gold(NewX)),
-            deleteItem(Item,Amount,ListInventory,NewList),
-            retract(playerInventory(ListInventory)),
-            assertz(playerInventory(NewList)),
-            write('You sell '),write(Amount),write(' '),write(Item),nl,
-            write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
-
             Item = 'carrot',
             Total is 15 * Amount,
             NewX is X + Total,
@@ -132,6 +83,150 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'egg',
+            Total is 50 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'wool',
+            Total is 100 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'milk',
+            Total is 150 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Tuna',
+            Total is 100 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Salmon',
+            Total is 200 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Piranha',
+            Total is 300 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Arwana',
+            Total is 400 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Mujair',
+            Total is 500 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Green Arwana',
+            Total is 600 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Dorado',
+            Total is 700 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Hiu',
+            Total is 800 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
+            write('Your gold : '),write(NewX);
+
+            Item = 'Goldfish',
+            Total is 900 * Amount,
+            NewX is X + Total,
+            retract(gold(X)),
+            assertz(gold(NewX)),
+            deleteItem(Item,Amount,ListInventory,NewList),
+            retract(playerInventory(ListInventory)),
+            assertz(playerInventory(NewList)),
+            write('You sell '),write(Amount),write(' '),write(Item),nl,
+            write('gold received : '),write(Total),nl,
             write('Your gold : '),write(NewX)
         )
     ).
@@ -163,7 +258,9 @@ buy :-
     write('7. Cow (1500 golds)'),nl,
     write('8. Level 2 shovel (300 golds)'),nl,
     write('9. Level 2 fishing rod (500 golds)'),nl,
-    write('10. Level 2 rake (500 golds)'),nl,
+    write('10. Level 2 hencoop (400 golds)'),nl,    
+    write('11. Level 2 shear (300 golds)'),nl,
+    write('12. Level 2 bucket (200 golds)'),nl,
     write('> '), read(Item), nl,
     (
         Item = 1,
@@ -224,24 +321,33 @@ buy :-
 
         Item = 8,
         pay(300),
-        addItem(1, 'shovel'),
         retract(level_shovel(_)),
         assertz(level_shovel(2)),
         write('You have bought a Level 2 shovel');
 
         Item = 9,
         pay(500),
-        addItem(1, 'fishing rod'),
         retract(level_fishing_rod(_)),
         assertz(level_fishing_rod(2)),
         write('You have bought a Level 2 fishing rod');
 
         Item = 10,
-        pay(500),
-        addItem(1, 'rake'),
-        retract(level_rake(_)),
-        assertz(level_rake(2)),
-        write('You have bought a Level 2 rake')
+        pay(400),
+        retract(level_hencoop(_)),
+        assertz(level_hencoop(2)),
+        write('You have bought a Level 2 hencoop');
+
+        Item = 11,
+        pay(300),
+        retract(level_shear(_)),
+        assertz(level_shear(2)),
+        write('You have bought a Level 2 shear');
+
+        Item = 12,
+        pay(200),
+        retract(level_bucket(_)),
+        assertz(level_bucket(2)),
+        write('You have bought a Level 2 bucket')
     ).
 
 buy :-

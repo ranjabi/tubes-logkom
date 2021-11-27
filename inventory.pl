@@ -99,6 +99,41 @@ searchItem(X, [Head|Tail], Found) :-
 writeInventory([]) :- !.
 
 writeInventory([Head|Tail]) :-
+    Head = 'shovel',
+    level_shovel(X),
+    write('1 level '), write(X), write(' shovel'), nl,
+    deleteAllX(Head, [Head|Tail], NewList),
+    writeInventory(NewList), !.
+
+writeInventory([Head|Tail]) :-
+    Head = 'fishing rod',
+    level_fishing_rod(X),
+    write('1 level '), write(X), write(' fishing rod'), nl,
+    deleteAllX(Head, [Head|Tail], NewList),
+    writeInventory(NewList), !.
+
+writeInventory([Head|Tail]) :-
+    Head = 'hencoop',
+    level_hencoop(X),
+    write('1 level '), write(X), write(' hencoop'), nl,
+    deleteAllX(Head, [Head|Tail], NewList),
+    writeInventory(NewList), !.
+
+writeInventory([Head|Tail]) :-
+    Head = 'shear',
+    level_shear(X),
+    write('1 level '), write(X), write(' shear'), nl,
+    deleteAllX(Head, [Head|Tail], NewList),
+    writeInventory(NewList), !.
+
+writeInventory([Head|Tail]) :-
+    Head = 'bucket',
+    level_bucket(X),
+    write('1 level '), write(X), write(' bucket'), nl,
+    deleteAllX(Head, [Head|Tail], NewList),
+    writeInventory(NewList), !.
+
+writeInventory([Head|Tail]) :-
     countItem(Head, [Head|Tail], Count),
     write(Count), write(' '), write(Head), nl,
     deleteAllX(Head, [Head|Tail], NewList),

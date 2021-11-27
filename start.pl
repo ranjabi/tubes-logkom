@@ -7,8 +7,6 @@
 isStart(false).
 
 startGame :-
-
-    
     write(' .sSs. .sSs.                                                                         '),nl,
     write(' SSSSS SSSSS .sSSSSs.    .sSSSSSSSs. .sSs. .sSs. .sSSSSs.    .sSSSSs.    .sSs.       '),nl,
     write(' S SSS SSSSS S SSSSSSSs. S SSS SSSSS S SSS SSSSS S SSSSSSSs. S SSSSSSSs. S SSS       '),nl,
@@ -76,14 +74,16 @@ start :-
     assertz(level_ranching(1)),
     assertz(level_fishing_rod(1)),
     assertz(level_shovel(1)),
-    assertz(level_rake(1)),
+    assertz(level_hencoop(1)),
+    assertz(level_shear(1)),
+    assertz(level_bucket(1)),
     assertz(level_player(1)),
     assertz(exp_fishing(0)),
     assertz(exp_farming(0)),
     assertz(exp_ranching(0)),
     assertz(exp_total(0)),
     assertz(gold(10000)),
-    assertz(playerInventory([])),
+    assertz(playerInventory(['fishing rod', 'shovel', 'hencoop', 'shear', 'bucket'])),
 
     % Inisialisasi Posisi Pemain dan Bangunan
     assertz(map_object(1, 1, 'P')),
