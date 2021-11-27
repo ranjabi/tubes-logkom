@@ -25,7 +25,7 @@ map :-
 	draw_map.
 
 map :- !,
-	write('Game has not started, use \"start.\" to play the game"').
+	write('Game has not started, use \"start.\" to play the game').
 
 /* Mencetak tepi peta */
 /* Tepi kanan */

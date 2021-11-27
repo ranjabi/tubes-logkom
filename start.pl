@@ -95,7 +95,12 @@ start :-
 
     % Inisialisasi Quest
     assertz(questStatus(0,0,0,0)), 
-    assertz(peningkatan(1)).
+    assertz(peningkatan(1)),
+
+    % Inisialisasi Waktu
+    assertz(time(08, 00)), % start at 8 oclock
+    assertz(date(01, 00)), % start at 1 January
+    assertz(day(1)).
 
 start :-
     write('The game has already been started. Use \'help.\' to see available commands!').
