@@ -19,8 +19,14 @@ vegetable('corn',30).
 vegetable('tomato',25).
 vegetable('potato',20).
 
-gainStuff(Veg,Symbol,Equip):-
-    Equip = 1, !,
+farmingDone(X) :- 
+    questStatus(Fishing,Farming,Ranching,Status),
+    retract(questStatus(Fishing,Farming,Ranching,Status)),
+    Newfarming is Farming-X,
+    asserta(questStatus(Fishing,NewFarming,Ranching,Status)).
+
+gainStuff(Veg,Symbol,Equip,Seed):-
+    Equip = 1,\+specialty('Farmer'),!,
     level_reward(N,M),
     random(1,M,Reward),
     addItem(Reward,Veg),
@@ -56,8 +62,46 @@ gainStuff(Veg,Symbol,Equip):-
         write('exp farming anda : '),write(S2),nl
     ).
 
-gainStuff(Veg,Symbol,Equip):-
-    Equip = 2, !,
+gainStuff(Veg,Symbol,Equip,Seed):-
+    Equip = 1,specialty('Farmer'),!,
+    level_reward(N,M),
+    random(1,M,Reward),
+    addItem(Reward,Veg),
+    retract(map_object(X,Y,Symbol)),
+    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    vegetable(Veg,R),
+    exp_farming(S),
+    exp_total(AB),
+    R2 is R * 1.5,
+    S1 is S + R2,
+    AB1 is AB + R2,
+    assertz(exp_total(AB1)),
+    retract(exp_total(AB)),
+    assertz(exp_farming(S1)),
+    retract(exp_farming(S)),
+    expUp(W,Z),
+    (
+        S1 < Z,!, write('exp farming anda : '), write(S1),fail;
+
+        S1 >= Z,
+        S2 is S1 - Z,
+        assertz(exp_farming(S2)),
+        retract(exp_farming(S1)),
+        level_up_farming,
+        W1 is W + 1,
+        Z1 is Z * 2,
+        assertz(expUp(W1,Z1)),
+        retract(expUp(W,Z)),
+        N1 is N + 1,
+        M1 is M + 1,
+        assertz(level_reward(N1,M1)),
+        retract(level_reward(N,M)),
+        write('level anda naik menjadi : '), write(W1),nl,
+        write('exp farming anda : '),write(S2),nl
+    ).
+
+gainStuff(Veg,Symbol,Equip,Seed):-
+    Equip = 2,\+specialty('Farmer'),!,
     farm_equip(Level,Bonus),
     level_reward(N,M),
     M2 is M + Bonus,
@@ -72,6 +116,86 @@ gainStuff(Veg,Symbol,Equip):-
     E21 is E2 + R,
     S1 is S + R,
     AB1 is AB + R,
+    assertz(exp_total(AB1)),
+    retract(exp_total(AB)),
+    assertz(exp_farming(S1)),
+    retract(exp_farming(S)),
+    assertz(farm_equip_exp(E21)),
+    retract(farm_equip_exp(E2)),
+    farm_equip_expUp(EquipLevel,EquipExp),
+    expUp(W,Z),
+    (
+        S1 < Z,!, write('exp farming anda : '), write(S1),nl,
+        (
+
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+
+            E21 >= EquipExp,
+            Level1 is Level + 1,
+            Bonus1 is Bonus + 1,
+            assertz(farm_equip(Level1,Bonus1)),
+            E22 is E21 - EquipExp,
+            assertz(farm_equip_exp(E22)),
+            retract(farm_equip_exp(E21)),
+            EquipExp1 is EquipExp + 40,
+            EquipLevel1 is EquipLevel + 1,
+            assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
+            retract(farm_equip_expUp(EquipLevel,EquipExp)),
+            write('Equipment level increased : Level '),write(Level1),nl,
+            write('Equipment exp : '),write(E22),nl
+        );
+    
+        S1 >= Z,
+        S2 is S1 - Z,
+        assertz(exp_farming(S2)),
+        retract(exp_farming(S1)),
+        level_up_farming,
+        W1 is W + 1,
+        Z1 is Z * 2,
+        assertz(expUp(W1,Z1)),
+        retract(expUp(W,Z)),
+        N1 is N + 1,
+        M1 is M + 1,
+        assertz(level_reward(N1,M1)),
+        retract(level_reward(N,M)),
+        write('level anda naik menjadi : '), write(W1),nl,
+        write('exp farming anda : '),write(S2),nl,
+        (
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+
+            E21 >= EquipExp,
+            Level1 is Level + 1,
+            Bonus1 is Bonus + 1,
+            assertz(farm_equip(Level1,Bonus1)),
+            E22 is E21 - EquipExp,
+            assertz(farm_equip_exp(E22)),
+            retract(farm_equip_exp(E21)),
+            EquipExp1 is EquipExp + 40,
+            EquipLevel1 is EquipLevel + 1,
+            assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
+            retract(farm_equip_expUp(EquipLevel,EquipExp)),
+            write('Equipment level increased : Level '),write(Level1),nl,
+            write('Equipment exp : '),write(E22),nl
+        )
+    ).
+
+gainStuff(Veg,Symbol,Equip,Seed):-
+    Equip = 2,specialty('Farmer'),!,
+    farm_equip(Level,Bonus),
+    level_reward(N,M),
+    M2 is M + Bonus,
+    random(1,M2,Reward),
+    addItem(Reward,Veg),
+    retract(map_object(X,Y,Symbol)),
+    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    vegetable(Veg,R),
+    exp_farming(S),
+    exp_total(AB),
+    farm_equip_exp(E2),
+    R2 is R * 1.5,
+    E21 is E2 + R2,
+    S1 is S + R2,
+    AB1 is AB + R2,
     assertz(exp_total(AB1)),
     retract(exp_total(AB)),
     assertz(exp_farming(S1)),
@@ -160,14 +284,14 @@ plant :-
     (
         \+map_object(X,Y,'='), !, write('tile is not digged'),fail;
 
-        map_object(X,Y,'='),
+        map_object(X,Y,'='),!,
         \+ (map_object(X,Y,'M'), map_object(X,Y,'R'), map_object(X,Y,'H'), map_object(X,Y,'Q')),
         playerInventory(ListInventory),
         countItem('carrot seed', ListInventory, I),
         countItem('corn seed', ListInventory, J),
         countItem('tomato seed', ListInventory, K),
         countItem('potato seed', ListInventory, L),
-        M is I + J + K + L,
+        M is I + J + K + L,!,
         (
             M =:= 0, !, write('You do not have any seed'), fail;
 
@@ -183,7 +307,7 @@ plant :-
             (
                 Found = false, !, write('Seed not available!'), fail;
 
-                Found = true,
+                Found = true,!,
                 (
                     Seed = 'carrot seed',!,
                     assertz(map_object(X,Y,'c')),
@@ -256,12 +380,12 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                
+                retract(seed_grow(X,Y,'tomato seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('tomato','T',Equip)
+                !,gainStuff('tomato','T',Equip,'tomato seed')
 
             )
         );
@@ -279,12 +403,12 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-
+                retract(seed_grow(X,Y,'carrot seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('carrot','c',Equip)
+                !,gainStuff('carrot','c',Equip,'carrot seed')
 
             )
         );
@@ -303,11 +427,12 @@ harvest:-
 
             (   
     
+                retract(seed_grow(X,Y,'corn seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('corn','C',Equip)
+                !,gainStuff('corn','C',Equip,'corn seed')
                 
             )
         );
@@ -325,12 +450,12 @@ harvest:-
             (TimeT-TimeC) >= Time,
 
             (
-                
+                retract(seed_grow(X,Y,'potato seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('potato','O',Equip)
+                !,gainStuff('potato','O',Equip,'potato seed')
                 
             )
         )
