@@ -98,36 +98,48 @@ plant :-
                 (
                     Seed = 'carrot seed',
                     assertz(map_object(X,Y,'c')),
-                    assertz(seed_grow(X,Y,Seed,0)),
+                    time(HourC, MinuteC),
+                    date(DayC, MonthC),
+                    assertz(seed_grow(X,Y,Seed, 40, HourC, MinuteC, DayC, MonthC)),
                     retract(map_object(X,Y,'=')),
                     deleteItem(Seed, 1, ListInventory, NewList),
-                    write(Seed),write(' berhasil ditanam'),nl;
+                    write(Seed),write(' berhasil ditanam'),nl,
+                    retract(playerInventory(ListInventory)),
+                    assertz(playerInventory(NewList));
 
                     Seed = 'corn seed',
                     assertz(map_object(X,Y,'C')),
-                    assertz(seed_grow(X,Y,Seed,0)),
+                    time(HourC, MinuteC),
+                    date(DayC, MonthC),
+                    assertz(seed_grow(X,Y,Seed, 60, HourC, MinuteC, DayC, MonthC)),
                     retract(map_object(X,Y,'=')),
                     deleteItem(Seed, 1, ListInventory, NewList),
-                    write(Seed),write(' berhasil ditanam'),nl;
+                    write(Seed),write(' berhasil ditanam'),nl,
+                    retract(playerInventory(ListInventory)),
+                    assertz(playerInventory(NewList));
 
                     Seed = 'tomato seed',
                     assertz(map_object(X,Y,'T')),
-                    assertz(seed_grow(X,Y,Seed,0)),
+                    time(HourC, MinuteC),
+                    date(DayC, MonthC),
+                    assertz(seed_grow(X,Y,Seed, 50, HourC, MinuteC, DayC, MonthC)),
                     retract(map_object(X,Y,'=')),
                     deleteItem(Seed, 1, ListInventory, NewList),
-                    write(Seed),write(' berhasil ditanam'),nl;
+                    write(Seed),write(' berhasil ditanam'),nl,
+                    retract(playerInventory(ListInventory)),
+                    assertz(playerInventory(NewList));
 
                     Seed = 'potato seed',
                     assertz(map_object(X,Y,'O')),
-                    assertz(seed_grow(X,Y,Seed,0)),
+                    time(HourC, MinuteC),
+                    date(DayC, MonthC),
+                    assertz(seed_grow(X,Y,Seed, 40, HourC, MinuteC, DayC, MonthC)),
                     retract(map_object(X,Y,'=')),
                     deleteItem(Seed, 1, ListInventory, NewList),
-                    write(Seed),write(' berhasil ditanam'),nl
-                ),
-
-                retract(playerInventory(ListInventory)),
-                assertz(playerInventory(NewList))
-                
+                    write(Seed),write(' berhasil ditanam'),nl,
+                    retract(playerInventory(ListInventory)),
+                    assertz(playerInventory(NewList))
+                )
             )
         )
     ).
@@ -135,51 +147,78 @@ plant :-
 
 harvest:- 
     map_object(X,Y,'P'),
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+
     (
         \+ ( map_object(X,Y,'c'); map_object(X,Y,'C'); map_object(X,Y,'T'); map_object(X,Y,'O')), !, write('belum ada tanaman disini'), fail;
 
         map_object(X,Y,'T'),
         (
-            \+seed_grow(X,Y,Seed,0), !, write('Tanaman belum selesai tumbuh'), fail;
+            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
+            
+            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
 
-            seed_grow(X,Y,Seed,0),
             (
-                Seed = 'tomato seed',
-                gainStuff('tomato','T')
+                gainStuff('tomato',T)
             )
         );
 
         map_object(X,Y,'c'),
         (
-            \+seed_grow(X,Y,Seed,0), !, write('Tanaman belum selesai tumbuh'), fail;
+            seed_grow(X,Y, 'carrot seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
+            
+            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
 
-            seed_grow(X,Y,Seed,0),
             (
-                Seed = 'carrot seed',
-                gainStuff('carrot','c')
+                gainStuff('carrot',c)
             )
         );
 
         map_object(X,Y,'C'),
         (
-            \+seed_grow(X,Y,Seed,0), !, write('Tanaman belum selesai tumbuh'), fail;
+            seed_grow(X,Y, 'corn seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
+            
+            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
 
-            seed_grow(X,Y,Seed,0),
             (
-                Seed = 'corn seed',
-                gainStuff('corn','C')
+                gainStuff('corn',C)
                 
             )
         );
 
         map_object(X,Y,'O'),
         (
-            \+seed_grow(X,Y,Seed,0), !, write('Tanaman belum selesai tumbuh'), fail;
+            seed_grow(X,Y, 'potato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Tanaman belum selesai tumbuh'), fail;
+            
+            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
 
-            seed_grow(X,Y,Seed,0),
             (
-                Seed = 'potato seed',
-                gainStuff('potato','O')
+                gainStuff('potato',O)
             )
         )
     ).
