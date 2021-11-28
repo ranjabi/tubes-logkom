@@ -22,7 +22,13 @@ vegetable('potato',20).
 farmingDone(X) :- 
     questStatus(Fishing,Farming,Ranching,Status),
     retract(questStatus(Fishing,Farming,Ranching,Status)),
-    Newfarming is Farming-X,
+    (
+        X > Farming,
+        NewFarming is 0;
+        
+        X < Farming,
+        NewFarming is Farming - X
+    ),
     asserta(questStatus(Fishing,NewFarming,Ranching,Status)).
 
 gainStuff(Veg,Symbol,Equip,Seed):-
@@ -30,6 +36,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     level_reward(N,M),
     random(1,M,Reward),
     addItem(Reward,Veg),
+    farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
     write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
@@ -67,6 +74,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     level_reward(N,M),
     random(1,M,Reward),
     addItem(Reward,Veg),
+    farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
     write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
@@ -107,6 +115,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     M2 is M + Bonus,
     random(1,M2,Reward),
     addItem(Reward,Veg),
+    farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
     write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
@@ -186,6 +195,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     M2 is M + Bonus,
     random(1,M2,Reward),
     addItem(Reward,Veg),
+    farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
     write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
