@@ -83,8 +83,10 @@ isAround :-
         map_object(PrevX,NextY,'o'); map_object(X,NextY,'o'); map_object(NextX,NextY,'o')
     ).
 
+fish :- isStart(false),!, write('Game has not started, use \"start.\" to play the game').
+
 fish :-
-    % isAround,
+    isAround,
     isQuestStart(true),
     random(1,101,FishingChance),
     0 =:= mod(FishingChance,2),
@@ -154,7 +156,7 @@ fish :-
         write('dummy 2'),nl.
     
 fish :- 
-    % isAround, 
+    isAround, 
     isQuestStart(true),
     retract(exp_total(ExpTotal)),
     NewExpTotal is ExpTotal+5,
@@ -179,7 +181,7 @@ fish :-
     write('dummy 2'),nl.
 
 fish :- 
-    % isAround,
+    isAround,
     isQuestStart(false), 
     write('You must start the quest first!'),nl,!.
 
