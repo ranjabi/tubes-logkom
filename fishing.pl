@@ -147,7 +147,8 @@ fish :-
         write('level_fishing: '),write(LvlFishing),nl,!,
         write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
         levelUpFishing,
-        levelUpFishingRod.
+        levelUpFishingRod,
+        ifGoal.
     
 fish :- 
     % isAround, 
