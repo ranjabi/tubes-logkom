@@ -115,6 +115,11 @@ gain_exp_ranching(V) :-
 
 addGold(X) :- retract(gold(Gold)), NewGold is Gold+X, assertz(gold(NewGold)).
 
-goal :- gold(Gold), day(Days), Gold > 20000, Days < 365.
+goalState :- gold(Gold), day(Days), Gold > 30000, Days < 360.
+failState :- gold(Gold), day(Days), Gold < 30000, Days > 360.
 
-isGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,retract(isStart(_)),assertz(isStart(false)) ; write('')).
+isGoal :- 
+    (goalState -> write('Congratulations! You have finally collected 30000 golds!'),nl, !, retract(isStart(_)),assertz(isStart(false)));
+    (failState -> write('You have worked hard, but in the end result is all that matters.'), nl,
+            write('May God bless you in the future with kind people!'), nl, !, retract(isStart(_)),assertz(isStart(false)));
+    !.
