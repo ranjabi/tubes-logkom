@@ -9,11 +9,13 @@ countLength([], 0) :- !.
 countLength([_|Tail], Ans) :-
     countLength(Tail, Ans1), Ans is Ans1 + 1, !.
 
+/* Mengecek apakah inventory full */
 isInventoryFull :-
     playerInventory(ListItem), countLength(ListItem, Length), Length =:= 100.
 
 /* Menambah item ke dalam inventory */
-addItem(_,_) :- isInventoryFull, !.
+addItem(_,_) :- 
+    isInventoryFull, write('Inventory full!'), nl, !.
 
 addItem(1,X) :-
     playerInventory(ListItem),
