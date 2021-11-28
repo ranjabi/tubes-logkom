@@ -4,8 +4,8 @@
 :- include('farming.pl').
 :- include('move.pl').
 :- include('marketplace.pl').
-:- include('save.pl').
-:- include('load.pl').
+% :- include('save.pl').
+% :- include('load.pl').
 :- include('player.pl').
 :- include('fishing.pl').
 :- include('ranching.pl').
