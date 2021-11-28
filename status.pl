@@ -12,9 +12,9 @@ status :-
     write('Exp fishing: '), exp_fishing(ExpFish), write(ExpFish), nl,
     write('Level ranching: '), level_ranching(LvRanch), write(LvRanch), nl,
     write('Exp ranching: '), exp_ranching(ExpRanch), write(ExpRanch), nl,
-    write('Exp: '), exp_total(Exp), write(Exp), write('/300'), nl,
-    write('Gold: '), gold(Gold), write(Gold), nl,
-    write('Stamina: '), stamina(Stamina), write(Stamina), nl.
+    write('Exp: '), exp_total(Exp), write(Exp), write('/300'),!, nl,
+    write('Gold: '), gold(Gold), write(Gold), !,nl,
+    write('Stamina: '), stamina(Stamina), write(Stamina),!, nl.
 
 status :-
     isStart(false), !,
