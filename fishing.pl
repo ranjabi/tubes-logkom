@@ -85,7 +85,7 @@ isAround :-
     ).
 
 fish :-
-    % isAround,
+    isAround,
     isQuestStart(true),
     random(1,101,FishingChance),
     0 =:= mod(FishingChance,2),
@@ -148,10 +148,11 @@ fish :-
         write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
         levelUpFishing,
         levelUpFishingRod,
+        incrementNTime(10), decStamina(3), updateStamina,
         ifGoal.
     
 fish :- 
-    % isAround, 
+    isAround, 
     isQuestStart(true),
     retract(exp_total(ExpTotal)),
     NewExpTotal is ExpTotal+5,
@@ -168,10 +169,12 @@ fish :-
     write('level_fishing: '),write(LvlFishing),nl,!,
     write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
     levelUpFishing,
-    levelUpFishingRod.
+    levelUpFishingRod,
+    incrementNTime(10), decStamina(3), updateStamina,
+    ifGoal.
 
 fish :- 
-    % isAround,
+    isAround,
     isQuestStart(false), 
     write('You must start the quest first!'),nl,!.
 
