@@ -51,11 +51,12 @@ waitTimeCow(0, 0, 0, 0, 0).
 showStatusRanching :-
     /* for testing purposes only */
     exp_ranching(ExpRanch), exp_hencoop(ExpHencoop), exp_shear(ExpShear), exp_bucket(ExpBucket),
+    boundRanching(BoundRanch), boundHencoop(BoundHencoop), boundShear(BoundShear), boundBucket(BoundBucket),
     level_ranching(LevelRanch), level_hencoop(LevelHencoop), level_shear(LevelShear), level_bucket(LevelBucket),
-    write('Exp ranching  : '), write(ExpRanch), nl,
-    write('Exp hencoop   : '), write(ExpHencoop), nl,
-    write('Exp shear     : '), write(ExpShear), nl,
-    write('Exp bucket    : '), write(ExpBucket), nl,  
+    write('Exp ranching  : '), write(ExpRanch), write('/'), write(BoundRanch), nl,
+    write('Exp hencoop   : '), write(ExpHencoop), write('/'), write(BoundHencoop), nl,
+    write('Exp shear     : '), write(ExpShear), write('/'), write(BoundShear), nl,
+    write('Exp bucket    : '), write(ExpBucket), write('/'), write(BoundBucket), nl,  
     write('Level ranching: '), write(LevelRanch), nl,
     write('Level hencoop : '), write(LevelHencoop), nl,
     write('Level shear   : '), write(LevelShear), nl,
