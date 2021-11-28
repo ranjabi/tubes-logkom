@@ -29,8 +29,8 @@ quest :-
     Up = 2,
     nl,write('Down '),write(Down),nl,write('Up '),write(Up),nl,
     peningkatan(Current),
-    NewDown is Down * Current,
-    NewUp is Up * Current,
+    NewDown is Down * 2,
+    NewUp is Up * 2,
     write(NewDown),nl,write(NewUp),nl,
     /* quest barunya di init */
     random(NewDown,NewUp,InitFishing),
