@@ -56,6 +56,14 @@ quest :-
     asserta(peningkatan(NewCurrent)),
     questStatus(Fishing,Farming,Ranching,Status),
     retractall(questStatus(Fishing,Farming,Ranching,Status)),
+
+    retract(exp_total(ExpTotal)),
+    NewExpTotal is ExpTotal+5000,
+    assertz(exp_total(NewExpTotal)),
+    retract(gold(Gold)),
+    NewGold is Gold+4000,
+    assertz(gold(NewGold)),
+    write('You got '),write(NewExpTotal),write(' EXP and '),write(NewGold),write(' Gold'),nl,
     /* quest status direset lagi */
     asserta(questStatus(0,0,0,0)). 
 
