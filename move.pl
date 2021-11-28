@@ -39,7 +39,7 @@ n :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved north.'),
-    nl, nl, incrementTime, decStamina(1), updateStamina.
+    nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
 
 n :-
     isStart(false), !,
@@ -79,7 +79,7 @@ e :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved east.'),
-    nl, nl, incrementTime, decStamina(1), updateStamina.
+    nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
 
 e :-
     isStart(false), !,
@@ -119,7 +119,7 @@ s :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved south.'),
-    nl, nl, incrementTime, decStamina(1), updateStamina.
+    nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
 
 s :-
     isStart(false), !,
@@ -159,7 +159,7 @@ w :-
     retract(map_object(X, Y, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved west.'),
-    nl, nl, incrementTime, decStamina(1), updateStamina.
+    nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
 
 w :-
     isStart(false), !,
@@ -169,4 +169,4 @@ w :-
     hit_fence.
 
 bengong :-
-    nl, incrementTime.
+    nl, incrementNTime(5), showTime.

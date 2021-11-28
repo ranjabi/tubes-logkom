@@ -25,7 +25,7 @@ incrementTime :-
     retract(time(Hour, Minute)),
     retract(date(Day, Month)),
     retract(day(Days)),
-    NewMinute is Minute + 10,
+    NewMinute is Minute + 1,
     ( 
         NewMinute =:= 60 ->
         FinalMinute is 0,
@@ -57,11 +57,23 @@ incrementTime :-
     ),
     assertz(time(FinalHour, FinalMinute)),
     assertz(date(FinalDay, FinalMonth)),
-    assertz(day(NewDays)),
-    month(FinalMonth, MonthName, Season),
-    write('Day '), write(NewDays), write(', '), write(Season), write('.'), nl,
-    write(FinalDay), write(' '), write(MonthName), write('. '),
-    write(FinalHour), write(':'), write(FinalMinute), write('.'), nl.
+    assertz(day(NewDays)).
+
+incrementNTime(0).
+incrementNTime(N) :-
+    N > 0,
+    incrementTime,
+    N1 is N - 1,
+    incrementNTime(N1), !.
+
+showTime :-
+    time(Hour, Minute),
+    month(Month, MonthName, Season),
+    date(Day, Month),
+    day(DayC),
+    write('Day '), write(DayC), write(', '), write(Season), write('.'), nl,
+    write(Day), write(' '), write(MonthName), write('. '),
+    write(Hour), write(':'), write(Minute), write('.'), !, nl.
 
 nextDay :-
     date(Day, Month),
