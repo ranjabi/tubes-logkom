@@ -66,7 +66,13 @@ start :-
     ),
 
     specialty(X),
-    write('You choose '), write(X), write(', let\'s start farming!'),
+    write('You choose '),
+    write(X),
+    (
+        X = 'Fisherman' -> write(', let\'s start fishing!');
+        X = 'Farmer' -> write(', let\'s start farming!');
+        X = 'Rancher' -> write(', let\'s start ranching!')
+    ),
 
     % Inisialisasi Pemain
     assertz(level_fishing(1)),
