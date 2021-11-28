@@ -266,7 +266,7 @@ buy :-
     write('9. Level '), write(NewLvFishingRod), write(' Fishing rod ('), write(CostFishingRod), write(' golds)'), nl,
     write('10. Level '), write(NewLvHencoop), write(' Hencoop ('), write(CostHencoop), write(' golds)'), nl,
     write('11. Level '), write(NewLvShear), write(' Shear ('), write(CostShear), write(' golds)'), nl,
-    write('12. Level '), write(NewLvShear), write(' Bucket ('), write(CostBucket), write(' golds)'), nl,
+    write('12. Level '), write(NewLvBucket), write(' Bucket ('), write(CostBucket), write(' golds)'), nl,
     write('> '), read(Item), nl,
     (
         Item = 1,
