@@ -91,7 +91,7 @@ fish :-
     level_fishing_rod(EquipLevel),
     level_fishing(FishingLevel),
     (
-        EquipLevel > 0,
+        EquipLevel >= 0,
         EquipLevel < 4 ->
         random(1,4,Rarity),!;
         
@@ -99,7 +99,7 @@ fish :-
         EquipLevel < 7 ->
         random(4,7,Rarity),!;
         
-        EquipLevel > 7,
+        EquipLevel > 6,
         EquipLevel < 10 ->
         random(7,10,Rarity),!
     ),
