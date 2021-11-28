@@ -59,7 +59,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         (
             S1 < Z,!, write('farming exp : '), write(S1),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),showTime,
             level_up_player,fail;
+            
 
             S1 >= Z,!,
             S2 is S1 - Z,
@@ -77,7 +80,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('your level increased to : Level '), write(W1),nl,
             write('farming exp : '),write(S2),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),showTime,
             level_up_player
+            
         ),fail;
 
         Length + Reward > 100,
@@ -100,8 +106,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         (
             S1 < Z,!, write('farming exp : '), write(S1),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),showTime,
             level_up_player,fail;
-
+            
             S1 >= Z,!,
             S2 is S1 - Z,
             assertz(exp_farming(S2)),
@@ -118,7 +126,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('your level increased to : Level '), write(W1),nl,
             write('farming exp : '),write(S2),nl,
             write('total exp : '),write(AB1),nl,
-            level_up_player
+            decStamina(1),
+            incrementNTime(20),
+            showTime,
+            level_up_player 
         )
     ).
 
@@ -149,7 +160,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         (
             S1 < Z,!, write('farming exp : '), write(S1),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),showTime,
             level_up_player,fail;
+            
 
             S1 >= Z,!,
             S2 is S1 - Z,
@@ -167,7 +181,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('your level increased to : Level '), write(W1),nl,
             write('farming exp : '),write(S2),nl,
             write('total exp : '),write(AB1),nl,
-            level_up_player
+            decStamina(1),
+            incrementNTime(20),
+            showTime,
+            level_up_player   
         ),fail;
 
         Length + Reward > 100,
@@ -191,7 +208,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         (
             S1 < Z,!, write('farming exp : '), write(S1),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),showTime,
             level_up_player,fail;
+            
 
             S1 >= Z,!,
             S2 is S1 - Z,
@@ -209,7 +229,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('your level increased to : Level '), write(W1),nl,
             write('farming exp : '),write(S2),nl,
             write('total exp : '),write(AB1),nl,
+            decStamina(1),
+            incrementNTime(20),
+            showTime,
             level_up_player
+            
         )
     ).
     
@@ -250,7 +274,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
 
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
+                
 
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
@@ -271,7 +298,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             );
         
             S1 >= Z,!,
@@ -292,7 +323,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             (
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
+                
 
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
@@ -313,7 +347,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             )
         ),fail;
 
@@ -345,8 +383,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
 
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
-
+                
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
                 LvL2 is LvL + 1,
@@ -366,7 +406,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             );
         
             S1 >= Z,!,
@@ -387,7 +431,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             (
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
+                
 
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
@@ -408,7 +455,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             )
         )
     ).
@@ -450,8 +501,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
 
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
-
+                
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
                 LvL2 is LvL + 1,
@@ -471,7 +524,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             );
         
             S1 >= Z,!,
@@ -492,6 +549,8 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             (
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
 
                 E21 >= EquipExp,!,
@@ -513,7 +572,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             )
         ),fail;
 
@@ -546,6 +609,8 @@ gainStuff(Veg,Symbol,Equip,Seed):-
 
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
 
                 E21 >= EquipExp,!,
@@ -567,7 +632,10 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
-                level_up_player
+                level_up_player,
+                decStamina(1),
+                incrementNTime(20),
+                showTime
             );
         
             S1 >= Z,!,
@@ -588,6 +656,8 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             (
                 E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),showTime,
                 level_up_player,fail;
 
                 E21 >= EquipExp,!,
@@ -609,7 +679,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('Equipment level increased : Level '),write(Level1),nl,
                 write('Equipment exp : '),write(E22),nl,
                 write('total exp : '),write(AB1),nl,
+                decStamina(1),
+                incrementNTime(20),
+                showTime,
                 level_up_player
+                
             )
         )
     ).
@@ -628,10 +702,10 @@ dig :-
     \+map_object(X,Y,'C'),
     \+map_object(X,Y,'O'),
     assertz(map_object(X,Y,'=')),
-    addItem(25,'Carrot seed'),
-    addItem(25,'Tomato seed'),
-    addItem(25,'Potato seed'),
-    addItem(25,'Corn seed'),
+    addItem(1,'Carrot seed'),
+    addItem(1,'Tomato seed'),
+    addItem(1,'Potato seed'),
+    addItem(1,'Corn seed'),
     write('You digged the tile').
 
 /* melakukan plant */
@@ -716,6 +790,95 @@ plant :-
     ),!.
 
 /* harvest */
+
+harvest:-
+    playerInventory(ListInventory),
+    searchItem('Shovel',ListInventory,Found),
+    Found = false, !, 
+    write('shovel tidak ditemukan dalam inventory'),
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    (
+        \+ ( map_object(X,Y,'c'); map_object(X,Y,'C'); map_object(X,Y,'T'); map_object(X,Y,'O')), !, write('Cannot find any plant'), fail;
+
+        map_object(X,Y,'T'),
+        (
+            seed_grow(X,Y,'Tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
+            
+            seed_grow(X,Y,'Tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
+
+            (
+                retract(seed_grow(X,Y,'Tomato seed',Time,HourC,MinuteC,DayC,MonthC)),
+                !,gainStuff('Tomato','T',1,'Tomato seed')
+
+            )
+        );
+
+        map_object(X,Y,'c'),
+        (
+            seed_grow(X,Y, 'Carrot seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
+            
+            seed_grow(X,Y,'Carrot seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
+
+            (
+                retract(seed_grow(X,Y,'Carrot seed',Time,HourC,MinuteC,DayC,MonthC)),
+                !,gainStuff('Carrot','c',1,'Carrot seed')
+
+            )
+        );
+
+        map_object(X,Y,'C'),
+        (
+            seed_grow(X,Y, 'Corn seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
+            
+            seed_grow(X,Y,'Corn seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
+
+            (   
+    
+                retract(seed_grow(X,Y,'Corn seed',Time,HourC,MinuteC,DayC,MonthC)),
+                !,gainStuff('Corn','C',1,'Corn seed')
+                
+            )
+        );
+
+        map_object(X,Y,'O'),
+        (
+            seed_grow(X,Y, 'Potato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
+            
+            seed_grow(X,Y,'Potato seed', Time, HourC, MinuteC, DayC, MonthC),
+            TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+            TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+            (TimeT-TimeC) >= Time,
+
+            (
+                retract(seed_grow(X,Y,'Potato seed',Time,HourC,MinuteC,DayC,MonthC)),
+                !,gainStuff('Potato','O',1,'Potato seed')
+                
+            )
+        )
+    ).
+
 
 harvest:-
     playerInventory(ListInventory),
