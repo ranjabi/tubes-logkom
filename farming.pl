@@ -44,6 +44,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         Length + Reward =< 100,
         addItem(Reward,Veg),
         farmingDone(Reward),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -91,6 +92,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('Your inventory is full, some items will be thrown away'),nl,
         addItem(Reward2,Veg),
         farmingDone(Reward2),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward2),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -144,6 +146,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         Length + Reward =< 100,
         addItem(Reward,Veg),
         farmingDone(Reward),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -192,6 +195,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('Your inventory is full, some items will be thrown away'),nl,
         addItem(Reward2,Veg),
         farmingDone(Reward2),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward2),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -251,6 +255,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         Length + Reward =< 100,
         addItem(Reward,Veg),
         farmingDone(Reward),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -360,6 +365,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('Your inventory is full, some items will be thrown away'),nl,
         addItem(Reward2,Veg),
         farmingDone(Reward2),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward2),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -477,6 +483,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         Length + Reward =< 100,
         addItem(Reward,Veg),
         farmingDone(Reward),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -585,6 +592,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('Your inventory is full, some items will be thrown away'),nl,
         addItem(Reward2,Veg),
         farmingDone(Reward2),
+        map_object(X,Y,'P'),
         retract(map_object(X,Y,Symbol)),
         write('You received '),write(Reward2),write(' '),write(Veg),nl,
         vegetable(Veg,R),
@@ -691,6 +699,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     
 /* menggali tile */
 dig :-
+    isStart(true),!,
     map_object(X,Y,'P'),
     \+map_object(X,Y,'='),
     \+map_object(X,Y,'M'),
@@ -708,8 +717,13 @@ dig :-
     addItem(1,'Corn seed'),
     write('You digged the tile').
 
+dig:-
+    isStart(false),
+    write('Game has not started, use \"start.\" to play the game').
+
 /* melakukan plant */
 plant :- 
+    isStart(true),!,
     map_object(X,Y,'P'),
     (
         /* Jika belum digali */
@@ -789,13 +803,18 @@ plant :-
         )
     ),!.
 
+plant:-
+    isStart(false),
+    write('Game has not started, use \"start.\" to play the game').
+
 /* harvest */
 
 harvest:-
+    isStart(true),
     playerInventory(ListInventory),
     searchItem('Shovel',ListInventory,Found),
     Found = false, !, 
-    write('shovel tidak ditemukan dalam inventory'),
+    write('shovel tidak ditemukan dalam inventory'),nl,
     time(HourT, MinuteT),
     date(DayT, MonthT),
     (
@@ -881,12 +900,14 @@ harvest:-
 
 
 harvest:-
+    isStart(true),
     playerInventory(ListInventory),
     countLength(ListInventory,N),
     N >= 100, !, 
     write('Your inventory is full').
 
 harvest:- 
+    isStart(true),
     map_object(X,Y,'P'),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -988,3 +1009,7 @@ harvest:-
             )
         )
     ).
+
+harvest:-
+    isStart(false),
+    write('Game has not started, use \"start.\" to play the game').
