@@ -4,9 +4,6 @@
 :- dynamic(stamina/1).
 :- dynamic(isNotifyStamina/3). % (notif50, notif25, notif10), in 0 or 1
 
-stamina(100).
-isNotifyStamina(0, 0, 0).
-
 incStamina(Inc) :-
     stamina(Stamina),
     retract(stamina(Stamina)),

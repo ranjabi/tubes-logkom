@@ -11,8 +11,6 @@
 :- dynamic(waitTimeSheep/5). % (WaitTime, Hour, Minute, Day, Month)
 :- dynamic(waitTimeCow/5). % (WaitTime, Hour, Minute, Day, Month)
 
-:- dynamic(exp_ranching/1).
-:- dynamic(level_ranching/1).
 :- dynamic(level_hencoop/1).
 :- dynamic(level_shear/1).
 :- dynamic(level_bucket/1).
@@ -27,14 +25,14 @@ delayTime(3, 30). % 1450
 delayTime(4, 20). % 730
 
 /* Daftar hewan ternak dan harga jual */
-cattle('chicken').
-cattle('sheep').
-cattle('cow').
+cattle('Chicken').
+cattle('Sheep').
+cattle('Cow').
 
 /* Daftar hasil ternak dan harga jual */
-yield('egg', 50).
-yield('wool', 100).
-yield('milk', 150).
+yield('Egg', 50).
+yield('Wool', 100).
+yield('Milk', 150).
 
 /* Daftar fakta initial */
 isChickenSick(false).
@@ -45,14 +43,11 @@ waitTimeChicken(0, 0, 0, 0, 0).
 waitTimeSheep(0, 0, 0, 0, 0).
 waitTimeCow(0, 0, 0, 0, 0).
 
-level_ranching(1).
-exp_ranching(0).
-
 initRanch :-
     /* for testing purposes */
-    addItem(5, 'chicken'),
-    addItem(5, 'sheep'),
-    addItem(5, 'cow').
+    addItem(5, 'Chicken'),
+    addItem(5, 'Sheep'),
+    addItem(5, 'Cow').
 
 ranch :-
     map_object(X, Y, 'P'),
@@ -61,18 +56,18 @@ ranch :-
     assertz(isInRanch(true)), !,
     write('Welcome to the ranch!'), nl,
     playerInventory(ListInventory),
-    countItem('chicken', ListInventory, I),
-    countItem('sheep', ListInventory, J),
-    countItem('cow', ListInventory, K),
+    countItem('Chicken', ListInventory, I),
+    countItem('Sheep', ListInventory, J),
+    countItem('Cow', ListInventory, K),
     M is I + J + K,
     (
         M =:= 0, write('You don\'t have any cattle.');
 
         M > 0,
         write('You have:'), nl,
-        write(I), write(' chicken'), nl,
-        write(J), write(' sheep'), nl,
-        write(K), write(' cow'), nl,
+        write(I), write(' Chicken'), nl,
+        write(J), write(' Sheep'), nl,
+        write(K), write(' Cow'), nl,
         write('What do you want to do?')
     ),
     !.
@@ -84,9 +79,9 @@ chicken :-
     /* no chicken */
     isInRanch,
     playerInventory(ListInventory),
-    countItem('chicken', ListInventory, I),
+    countItem('Chicken', ListInventory, I),
     I =:= 0,
-    write('You don\'t have any chicken.'),
+    write('You don\'t have any Chicken.'),
     !.
 
 chicken :-
@@ -100,10 +95,10 @@ chicken :-
     (TimeT-TimeC) >= Time,
     nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
-    countItem('chicken', ListInventory, I),
+    countItem('Chicken', ListInventory, I),
     write('Your chicken lays '), write(I), write(' eggs.'), nl,
     write('You got '), write(I), write(' eggs'), nl,
-    addItem(I, 'egg'),
+    addItem(I, 'Egg'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -178,9 +173,9 @@ sheep :-
     /* no sheep */
     isInRanch,
     playerInventory(ListInventory),
-    countItem('sheep', ListInventory, I),
+    countItem('Sheep', ListInventory, I),
     I =:= 0,
-    write('You don\'t have any sheep.'),
+    write('You don\'t have any Sheep.'),
     !.
 
 sheep :-
@@ -194,10 +189,10 @@ sheep :-
     (TimeT-TimeC) >= Time,
     nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
-    countItem('sheep', ListInventory, I),
+    countItem('Sheep', ListInventory, I),
     write('Your sheep produces '), write(I), write(' wool.'), nl,
     write('You got '), write(I), write(' wool'), nl,
-    addItem(I, 'wool'),
+    addItem(I, 'Wool'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -273,9 +268,9 @@ cow :-
     /* no cow */
     isInRanch,
     playerInventory(ListInventory),
-    countItem('cow', ListInventory, I),
+    countItem('Cow', ListInventory, I),
     I =:= 0,
-    write('You don\'t have any cow.'),
+    write('You don\'t have any Cow.'),
     !.
 
 cow :-
@@ -289,10 +284,10 @@ cow :-
     (TimeT-TimeC) >= Time,
     nl, incrementTime, decStamina(10), updateStamina, nl,
     playerInventory(ListInventory),
-    countItem('cow', ListInventory, I),
+    countItem('Cow', ListInventory, I),
     write('Your cow produces '), write(I), write(' milk.'), nl,
     write('You got '), write(I), write(' milk'), nl,
-    addItem(I, 'milk'),
+    addItem(I, 'Milk'),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,

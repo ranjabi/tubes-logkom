@@ -84,7 +84,9 @@ start :-
     assertz(exp_ranching(0)),
     assertz(exp_total(0)),
     assertz(gold(10000)),
-    assertz(playerInventory(['fishing rod', 'shovel', 'hencoop', 'shear', 'bucket'])),
+    assertz(stamina(100)),
+    assertz(isNotifyStamina(0, 0, 0)),
+    assertz(playerInventory(['Fishing rod', 'Shovel', 'Hencoop', 'Shear', 'Bucket'])),
     assertz(playerDiary([])),
 
     % Inisialisasi Posisi Pemain dan Bangunan
