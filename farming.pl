@@ -41,7 +41,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     addItem(Reward,Veg),
     farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
-    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    write('You received '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
     exp_farming(S),
     exp_total(AB),
@@ -53,7 +53,9 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     retract(exp_farming(S)),
     expUp(W,Z),
     (
-        S1 < Z,!, write('exp farming anda : '), write(S1),fail;
+        S1 < Z,!, write('farming exp : '), write(S1),nl,
+        write('total exp : '),write(AB1),nl,
+        level_up_player,fail;
 
         S1 >= Z,
         S2 is S1 - Z,
@@ -68,10 +70,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         M1 is M + 1,
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
-        write('level anda naik menjadi : '), write(W1),nl,
-        write('exp farming anda : '),write(S2),nl
-    ),
-    level_up_player.
+        write('your level increased to : Level '), write(W1),nl,
+        write('farming exp : '),write(S2),nl,
+        write('total exp : '),write(AB1),nl,
+        level_up_player
+    ).
 
 /* harvest jika tidak menggunakan shovel dan specialty farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
@@ -81,7 +84,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     addItem(Reward,Veg),
     farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
-    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    write('You received '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
     exp_farming(S),
     exp_total(AB),
@@ -94,7 +97,9 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     retract(exp_farming(S)),
     expUp(W,Z),
     (
-        S1 < Z,!, write('exp farming anda : '), write(S1),fail;
+        S1 < Z,!, write('farming exp : '), write(S1),nl,
+        write('total exp : '),write(AB1),nl,
+        level_up_player,fail;
 
         S1 >= Z,
         S2 is S1 - Z,
@@ -109,10 +114,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         M1 is M + 1,
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
-        write('level anda naik menjadi : '), write(W1),nl,
-        write('exp farming anda : '),write(S2),nl
-    ),
-    level_up_player.
+        write('your level increased to : Level '), write(W1),nl,
+        write('farming exp : '),write(S2),nl,
+        write('total exp : '),write(AB1),nl,
+        level_up_player
+    ).
 
 /* harvest jika menggunakan shovel dan specialty bukan farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
@@ -124,7 +130,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     addItem(Reward,Veg),
     farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
-    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    write('You received '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
     exp_farming(S),
     exp_total(AB),
@@ -141,10 +147,12 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     farm_equip_expUp(EquipLevel,EquipExp),
     expUp(W,Z),
     (
-        S1 < Z,!, write('exp farming anda : '), write(S1),nl,
+        S1 < Z,!, write('farming exp : '), write(S1),nl,
         (
 
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -159,7 +167,9 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22),nl
+            write('Equipment exp : '),write(E22),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player
         );
     
         S1 >= Z,
@@ -175,10 +185,12 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         M1 is M + 1,
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
-        write('level anda naik menjadi : '), write(W1),nl,
-        write('exp farming anda : '),write(S2),nl,
+        write('your level increased to : Level '), write(W1),nl,
+        write('farming exp : '),write(S2),nl,
         (
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -193,10 +205,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22),nl
+            write('Equipment exp : '),write(E22),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player
         )
-    ),
-    level_up_player.
+    ).
 
 /* harvest jika menggunakan shovel dan specialty farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
@@ -208,7 +221,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     addItem(Reward,Veg),
     farmingDone(Reward),
     retract(map_object(X,Y,Symbol)),
-    write('Anda mendapatkan '),write(Reward),write(' '),write(Veg),nl,
+    write('You received '),write(Reward),write(' '),write(Veg),nl,
     vegetable(Veg,R),
     exp_farming(S),
     exp_total(AB),
@@ -226,10 +239,12 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     farm_equip_expUp(EquipLevel,EquipExp),
     expUp(W,Z),
     (
-        S1 < Z,!, write('exp farming anda : '), write(S1),nl,
+        S1 < Z,!, write('farming exp : '), write(S1),nl,
         (
 
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -244,7 +259,9 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22),nl
+            write('Equipment exp : '),write(E22),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player
         );
     
         S1 >= Z,
@@ -260,10 +277,12 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         M1 is M + 1,
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
-        write('level anda naik menjadi : '), write(W1),nl,
-        write('exp farming anda : '),write(S2),nl,
+        write('Equipment level increased : Level '), write(W1),nl,
+        write('farming exp : '),write(S2),nl,
         (
-            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,fail;
+            E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player,fail;
 
             E21 >= EquipExp,
             Level1 is Level + 1,
@@ -278,10 +297,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             assertz(farm_equip_expUp(EquipLevel1,EquipExp1)),
             retract(farm_equip_expUp(EquipLevel,EquipExp)),
             write('Equipment level increased : Level '),write(Level1),nl,
-            write('Equipment exp : '),write(E22),nl
+            write('Equipment exp : '),write(E22),nl,
+            write('total exp : '),write(AB1),nl,
+            level_up_player
         )
-    ),
-    level_up_player.
+    ).
     
 /* menggali tile */
 dig :-
@@ -342,7 +362,7 @@ plant :-
                     assertz(seed_grow(X,Y,Seed, 40, HourC, MinuteC, DayC, MonthC)),
                     retract(map_object(X,Y,'=')),
                     deleteItem(Seed, 1, ListInventory, NewList),
-                    write(Seed),write(' berhasil ditanam'),nl,
+                    write(Seed),write(' successfully planted'),nl,
                     retract(playerInventory(ListInventory)),
                     assertz(playerInventory(NewList)),!;
 
