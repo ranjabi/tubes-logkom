@@ -7,10 +7,12 @@
 :- dynamic(farm_equip_expUp/2).
 :- dynamic(farm_equip_exp/1).
 
+/* stat untuk shovel level 1*/
 farm_equip(1,2).
 farm_equip_expUp(1,100).
 farm_equip_exp(0).
 
+/* stat untuk level farming 1*/
 expUp(1,100).
 level_reward(1,3).
 
@@ -31,6 +33,7 @@ farmingDone(X) :-
     ),
     asserta(questStatus(Fishing,NewFarming,Ranching,Status)).
 
+/* harvest jika tidak menggunakan shovel dan specialty bukan farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
     Equip = 1,\+specialty('Farmer'),!,
     level_reward(N,M),
@@ -70,6 +73,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ),
     level_up_player.
 
+/* harvest jika tidak menggunakan shovel dan specialty farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
     Equip = 1,specialty('Farmer'),!,
     level_reward(N,M),
@@ -110,6 +114,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ),
     level_up_player.
 
+/* harvest jika menggunakan shovel dan specialty bukan farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
     Equip = 2,\+specialty('Farmer'),!,
     farm_equip(Level,Bonus),
@@ -193,6 +198,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ),
     level_up_player.
 
+/* harvest jika menggunakan shovel dan specialty farmer */
 gainStuff(Veg,Symbol,Equip,Seed):-
     Equip = 2,specialty('Farmer'),!,
     farm_equip(Level,Bonus),
@@ -277,7 +283,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ),
     level_up_player.
     
-
+/* menggali tile */
 dig :-
     map_object(X,Y,'P'),
     \+map_object(X,Y,'='),
@@ -296,11 +302,14 @@ dig :-
     addItem(1,'corn seed'),
     write('You digged the tile').
 
+/* melakukan plant */
 plant :- 
     map_object(X,Y,'P'),
     (
+        /* Jika belum digali */
         \+map_object(X,Y,'='), !, write('tile is not digged'),fail;
 
+        /* Jika sudah digali */
         map_object(X,Y,'='),!,
         \+ (map_object(X,Y,'M'), map_object(X,Y,'R'), map_object(X,Y,'H'), map_object(X,Y,'Q')),
         playerInventory(ListInventory),
@@ -374,7 +383,7 @@ plant :-
         )
     ),!.
 
-
+/* harvest */
 harvest:- 
     map_object(X,Y,'P'),
     time(HourT, MinuteT),
