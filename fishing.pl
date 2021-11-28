@@ -101,8 +101,7 @@ fish :-
         EquipLevel < 7 ->
         random(4,7,Rarity),!;
         
-        EquipLevel > 6,
-        EquipLevel < 10 ->
+        EquipLevel > 6 ->
         random(7,10,Rarity),!
     ),
         nl,write(Rarity),nl,!,
