@@ -46,9 +46,7 @@ level_up_player:-
     exp_total(Exp),
     playerLevelUp(M,Exp2),
     (
-        Exp<Exp2, !, fail;
-
-        Exp>Exp2,
+        Exp>Exp2,!,
         N1 is N + 1,
         assertz(level_player(N1)),
         retract(level_player(N)),
@@ -56,7 +54,8 @@ level_up_player:-
         M1 is M + 1,
         assertz(playerLevelUp(M1,Exp21)),
         retract(playerLevelUp(M,Exp2)),
-        write('your level player : '),write(N1)
+        write('your level player : '),write(N1);
+        Exp<Exp2, !
     ).
 
 
@@ -94,4 +93,4 @@ addGold(X) :- retract(gold(Gold)), NewGold is Gold+X, assertz(gold(NewGold)).
 
 goal :- gold(Gold), day(Days), Gold > 20000, Days < 365.
 
-ifGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,halt ; write('')).
+isGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,retract(isStart(_)),assertz(isStart(false)) ; write('')).
