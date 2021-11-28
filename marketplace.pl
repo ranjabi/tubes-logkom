@@ -248,6 +248,7 @@ pay(Cost) :-
 
 buy :-
     isInMarket(true), !,
+    playerInventory(ListInventory),
     level_shovel(LvShovel), NewLvShovel is LvShovel+1, CostShovel is 600*NewLvShovel,
     level_fishing_rod(LvFishingRod), NewLvFishingRod is LvFishingRod+1, CostFishingRod is 800*NewLvFishingRod,
     level_hencoop(LvHencoop), NewLvHencoop is LvHencoop+1, CostHencoop is 1000*NewLvHencoop,
@@ -328,6 +329,11 @@ buy :-
         pay(CostShovel),
         retract(level_shovel(LvShovel)),
         assertz(level_shovel(NewLvShovel)),
+        searchItem('Shovel', ListInventory, Found),
+        (
+            Found = false, addItem(1,'Shovel');
+            Found = true
+        ),
         farm_equip(LevelFarm,BonusLevel),
         farm_equip_expUp(LevelUp,ExpRequired),
         farm_equip_exp(Exp3),
@@ -347,24 +353,44 @@ buy :-
         pay(CostFishingRod),
         retract(level_fishing_rod(LvFishingRod)),
         assertz(level_fishing_rod(NewLvFishingRod)),
+        searchItem('Fishing rod', ListInventory, Found),
+        (
+            Found = false, addItem(1,'Fishing rod');
+            Found = true
+        ),
         write('You have bought a Level '), write(NewLvFishingRod), write(' Fishing rod');
 
         Item = 10,
         pay(CostHencoop),
         retract(level_hencoop(LvHencoop)),
         assertz(level_hencoop(NewLvHencoop)),
+        searchItem('Hencoop', ListInventory, Found),
+        (
+            Found = false, addItem(1,'Hencoop');
+            Found = true
+        ),
         write('You have bought a Level '), write(NewLvHencoop), write(' Hencoop');
 
         Item = 11,
         pay(CostShear),
         retract(level_shear(LvShear)),
         assertz(level_shear(NewLvShear)),
+        searchItem('Shear', ListInventory, Found),
+        (
+            Found = false, addItem(1,'Shear');
+            Found = true
+        ),
         write('You have bought a Level '), write(NewLvShear), write(' Shear');
 
         Item = 12,
         pay(CostBucket),
         retract(level_bucket(LvBucket)),
         assertz(level_bucket(NewLvBucket)),
+        searchItem('Bucket', ListInventory, Found),
+        (
+            Found = false, addItem(1,'Bucket');
+            Found = true
+        ),
         write('You have bought a Level '), write(NewLvBucket), write(' Bucket')
     ).
 

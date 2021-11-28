@@ -70,6 +70,28 @@ throwItem :-
         (
             Count < Amount, write('You don\'t have enough '), write(Item), write('. Cancelling...'), fail;
 
+            (
+                Item = 'Shovel',
+                retract(level_shovel(_)),
+                assertz(level_shovel(0));
+
+                Item = 'Fishing rod',
+                retract(level_fishing_rod(_)),
+                assertz(level_fishing_rod(0));
+
+                Item = 'Hencoop',
+                retract(level_hencoop(_)),
+                assertz(level_hencoop(0));
+
+                Item = 'Shear',
+                retract(level_shear(_)),
+                assertz(level_shear(0));
+
+                Item = 'Bucket',
+                retract(level_bucket(_)),
+                assertz(level_bucket(0))
+            ),
+            
             deleteItem(Item, Amount, ListInventory, NewList)
         ),
         
