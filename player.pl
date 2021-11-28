@@ -90,7 +90,7 @@ gain_exp_ranching(V) :-
     retract(exp_ranching(N)),
     retract(exp_total(M)).
 
-addGold(X) :- retract(Gold), NewGold is Gold+X, assertz(NewGold).
+addGold(X) :- retract(gold(Gold)), NewGold is Gold+X, assertz(gold(NewGold)).
 
 goal :- gold(Gold), day(Days), Gold > 20000, Days < 365.
 
