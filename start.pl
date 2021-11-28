@@ -88,12 +88,18 @@ start :-
     assertz(exp_fishing_rod(0)),
     assertz(exp_farming(0)),
     assertz(exp_ranching(0)),
+    assertz(exp_hencoop(0)),
+    assertz(exp_shear(0)),
+    assertz(exp_bucket(0)),
     assertz(exp_total(0)),
     assertz(gold(10000)),
     assertz(stamina(100)),
     assertz(isNotifyStamina(0, 0, 0)),
     assertz(playerInventory(['Fishing rod', 'Shovel', 'Hencoop', 'Shear', 'Bucket'])),
     assertz(playerDiary([])),
+    addItem(1, 'Chicken'),
+    addItem(1, 'Sheep'),
+    addItem(1, 'Cow'),
 
     % Inisialisasi Posisi Pemain dan Bangunan
     assertz(map_object(1, 1, 'P')),

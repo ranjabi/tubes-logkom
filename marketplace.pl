@@ -362,28 +362,32 @@ buy :-
 
                 pay(CostShovel),
                 retract(level_shovel(LvShovel)),
-                assertz(level_shovel(NewLvShovel))
+                assertz(level_shovel(NewLvShovel)),
+                assertz(farm_equip(1,2)),
+                assertz(farm_equip_expUp(1,100)),
+                assertz(farm_equip_exp(0))
             ),
             addItem(1,'Shovel');
             
             Found = true,
             pay(CostShovel),
             retract(level_shovel(LvShovel)),
-            assertz(level_shovel(NewLvShovel))
+            assertz(level_shovel(NewLvShovel)),
+            farm_equip(LevelFarm,BonusLevel),
+            farm_equip_expUp(LevelUp,ExpRequired),
+            farm_equip_exp(Exp3),
+            LevelFarm2 is LevelFarm + 1,
+            BonusLevel2 is BonusLevel + 1,
+            LevelUp2 is LevelUp + 1,
+            ExpRequired2 is ExpRequired + 40,
+            assertz(farm_equip(LevelFarm2,BonusLevel2)),
+            assertz(farm_equip_expUp(LevelUp2,ExpRequired2)),
+            assertz(farm_equip_exp(0)),
+            retract(farm_equip(LevelFarm,BonusLevel)),
+            retract(farm_equip_expUp(LevelUp,ExpRequired)),
+            retract(farm_equip_exp(Exp3)),
         ),
-        farm_equip(LevelFarm,BonusLevel),
-        farm_equip_expUp(LevelUp,ExpRequired),
-        farm_equip_exp(Exp3),
-        LevelFarm2 is LevelFarm + 1,
-        BonusLevel2 is BonusLevel + 1,
-        LevelUp2 is LevelUp + 1,
-        ExpRequired2 is ExpRequired + 40,
-        assertz(farm_equip(LevelFarm2,BonusLevel2)),
-        assertz(farm_equip_expUp(LevelUp2,ExpRequired2)),
-        assertz(farm_equip_exp(0)),
-        retract(farm_equip(LevelFarm,BonusLevel)),
-        retract(farm_equip_expUp(LevelUp,ExpRequired)),
-        retract(farm_equip_exp(Exp3)),
+        
         write('You have bought a Level '), write(NewLvShovel), write(' Shovel');
 
         Item = 9,
@@ -397,7 +401,7 @@ buy :-
                 retract(level_fishing_rod(LvFishingRod)),
                 assertz(level_fishing_rod(NewLvFishingRod))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Fishing rod');
             
             Found = true,
             pay(CostFishingRod),
@@ -417,7 +421,7 @@ buy :-
                 retract(level_hencoop(LvHencoop)),
                 assertz(level_hencoop(NewLvHencoop))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Hencoop');
             
             Found = true,
             pay(CostHencoop),
@@ -437,7 +441,7 @@ buy :-
                 retract(level_shear(LvShear)),
                 assertz(level_shear(NewLvShear))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Shear');
             
             Found = true,
             pay(CostShear),
@@ -457,7 +461,7 @@ buy :-
                 retract(level_bucket(LvBucket)),
                 assertz(level_bucket(NewLvBucket))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Bucket');
             
             Found = true,
             pay(CostBucket),

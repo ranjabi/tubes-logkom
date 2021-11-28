@@ -60,9 +60,11 @@ skipSickTime :-
         FinalMonth is Month
     ),
     assertz(date(FinalDay, FinalMonth)),
-    month(FinalMonth, MonthName),
+    month(FinalMonth, MonthName, Season),
+    day(DayC),
+    write('Day '), write(DayC), write(', '), write(Season), write('.'), nl,
     write(FinalDay), write(' '), write(MonthName), write('. '),
-    write(Hour), write(':'), write(Minute), write('.'), nl.
+    write(Hour), write(':'), write(Minute), write('.'), !, nl.
 
 updateStamina :-
     stamina(Stamina),

@@ -36,7 +36,7 @@ n :-
     YNew is Y-1,
     map_size(_, H),
     YNew > 0, YNew =< H, !,
-    retract(map_object(X, Y, 'P')),
+    retract(map_object(_, _, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved north.'),
     nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
@@ -76,7 +76,7 @@ e :-
     XNew is X+1,
     map_size(W, _),
     XNew > 0, XNew =< W, !,
-    retract(map_object(X, Y, 'P')),
+    retract(map_object(_, _, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved east.'),
     nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
@@ -116,7 +116,7 @@ s :-
     YNew is Y+1,
     map_size(_, H),
     YNew > 0, YNew =< H, !,
-    retract(map_object(X, Y, 'P')),
+    retract(map_object(_, _, 'P')),
     assertz(map_object(X,YNew,'P')),
     write('You moved south.'),
     nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
@@ -156,7 +156,7 @@ w :-
     XNew is X-1,
     map_size(W, _),
     XNew > 0, XNew =< W, !,
-    retract(map_object(X, Y, 'P')),
+    retract(map_object(_, _, 'P')),
     assertz(map_object(XNew,Y,'P')),
     write('You moved west.'),
     nl, nl, incrementNTime(5), showTime, decStamina(1), updateStamina.
@@ -169,4 +169,4 @@ w :-
     hit_fence.
 
 bengong :-
-    nl, incrementNTime(5), showTime.
+    nl, incrementNTime(10), showTime.
