@@ -21,9 +21,7 @@ levelUpFishing :-
     exp_fishing(CurFishExp),
     expUpFishing(L,X),
     (
-        CurFishExp < X, !, fail;
-
-        CurFishExp >= X,
+        CurFishExp >= X,!,
         NewCurFishExp is CurFishExp - X,
         assertz(exp_fishing(NewCurFishExp)),
         retract(exp_fishing(CurFishExp)),
@@ -35,7 +33,8 @@ levelUpFishing :-
         write('Selamat! Level fishing naik dari '),
         write(L),
         write(' menjadi '),
-        write(NewLvl),nl
+        write(NewLvl),nl;
+        CurFishExp < X, !
         
     ).
 
@@ -43,9 +42,7 @@ levelUpFishingRod :-
     exp_fishing_rod(CurFishExp),
     expUpFishingRod(L,X),
     (
-        CurFishExp < X, !, fail;
-
-        CurFishExp >= X,
+        CurFishExp >= X,!,
         NewCurFishExp is CurFishExp - X,
         assertz(exp_fishing_rod(NewCurFishExp)),
         retract(exp_fishing_rod(CurFishExp)),
@@ -57,7 +54,9 @@ levelUpFishingRod :-
         write('Selamat! Level fishing rod naik dari '),
         write(L),
         write(' menjadi '),
-        write(NewLvl),nl
+        write(NewLvl),nl;
+        CurFishExp < X, !
+
         
     ).
 
@@ -85,14 +84,14 @@ isAround :-
     ).
 
 fish :-
-    isAround,
+    % isAround,
     isQuestStart(true),
     random(1,101,FishingChance),
     0 =:= mod(FishingChance,2),
     level_fishing_rod(EquipLevel),
     level_fishing(FishingLevel),
     (
-        EquipLevel > 0,
+        EquipLevel >= 0,
         EquipLevel < 4 ->
         random(1,4,Rarity),!;
         
@@ -100,7 +99,7 @@ fish :-
         EquipLevel < 7 ->
         random(4,7,Rarity),!;
         
-        EquipLevel > 7,
+        EquipLevel > 6,
         EquipLevel < 10 ->
         random(7,10,Rarity),!
     ),
@@ -146,14 +145,16 @@ fish :-
         write('exp total: '),write(NewExpTotal),nl,!,
         write('level_fishing: '),write(LvlFishing),nl,!,
         write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
+        incrementNTime(10), decStamina(3), updateStamina,showTime,
         levelUpFishing,
         levelUpFishingRod,
         level_up_player,
-        incrementNTime(10), decStamina(3), updateStamina,showTime,
-        ifGoal.
+        write('dummy'),nl,
+        isGoal,
+        write('dummy 2'),nl.
     
 fish :- 
-    isAround, 
+    % isAround, 
     isQuestStart(true),
     retract(exp_total(ExpTotal)),
     NewExpTotal is ExpTotal+5,
@@ -169,14 +170,16 @@ fish :-
     write('exp total: '),write(NewExpTotal),nl,!,
     write('level_fishing: '),write(LvlFishing),nl,!,
     write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
+    incrementNTime(10), decStamina(3), updateStamina,showTime,
     levelUpFishing,
     levelUpFishingRod,
     level_up_player,
-    incrementNTime(10), decStamina(3), updateStamina,showTime,
-    ifGoal.
+    write('dummy'),nl,
+    isGoal,
+    write('dummy 2'),nl.
 
 fish :- 
-    isAround,
+    % isAround,
     isQuestStart(false), 
     write('You must start the quest first!'),nl,!.
 

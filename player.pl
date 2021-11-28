@@ -6,11 +6,17 @@
 :- dynamic(level_fishing_rod/1).
 :- dynamic(level_farming/1).
 :- dynamic(level_ranching/1).
+:- dynamic(level_hencoop/1).
+:- dynamic(level_shear/1).
+:- dynamic(level_bucket/1).
 :- dynamic(level_player/1).
 :- dynamic(exp_fishing_rod/1).
 :- dynamic(exp_fishing/1).
 :- dynamic(exp_farming/1).
 :- dynamic(exp_ranching/1).
+:- dynamic(exp_hencoop/1).
+:- dynamic(exp_shear/1).
+:- dynamic(exp_bucket/1).
 :- dynamic(exp_total/1).
 :- dynamic(gold/1).
 :- dynamic(playerLevelUp/2).
@@ -41,14 +47,30 @@ level_up_ranching :-
     assertz(level_ranching(N1)),
     retract(level_ranching(N)).
 
+level_up_hencoop :-
+    level_hencoop(N),
+    N1 is N+1,
+    assertz(level_hencoop(N1)),
+    retract(level_hencoop(N)).
+
+level_up_shear :-
+    level_shear(N),
+    N1 is N+1,
+    assertz(level_shear(N1)),
+    retract(level_shear(N)).
+
+level_up_bucket :-
+    level_bucket(N),
+    N1 is N+1,
+    assertz(level_bucket(N1)),
+    retract(level_bucket(N)).
+
 level_up_player:-
     level_player(N),
     exp_total(Exp),
     playerLevelUp(M,Exp2),
     (
-        Exp<Exp2, !, fail;
-
-        Exp>Exp2,
+        Exp>Exp2,!,
         N1 is N + 1,
         assertz(level_player(N1)),
         retract(level_player(N)),
@@ -56,7 +78,8 @@ level_up_player:-
         M1 is M + 1,
         assertz(playerLevelUp(M1,Exp21)),
         retract(playerLevelUp(M,Exp2)),
-        write('your level player : '),write(N1)
+        write('your level player : '),write(N1);
+        Exp<Exp2, !
     ).
 
 
@@ -94,4 +117,4 @@ addGold(X) :- retract(gold(Gold)), NewGold is Gold+X, assertz(gold(NewGold)).
 
 goal :- gold(Gold), day(Days), Gold > 20000, Days < 365.
 
-ifGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,halt ; write('')).
+isGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,retract(isStart(_)),assertz(isStart(false)) ; write('')).

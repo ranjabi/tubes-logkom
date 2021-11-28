@@ -11,18 +11,23 @@
 :- dynamic(waitTimeSheep/5). % (WaitTime, Hour, Minute, Day, Month)
 :- dynamic(waitTimeCow/5). % (WaitTime, Hour, Minute, Day, Month)
 
-:- dynamic(level_hencoop/1).
-:- dynamic(level_shear/1).
-:- dynamic(level_bucket/1).
+:- dynamic(boundRanching/1).
+:- dynamic(boundHencoop/1).
+:- dynamic(boundShear/1).
+:- dynamic(boundBucket/1).
+boundRanching(100).
+boundHencoop(100).
+boundShear(100).
+boundBucket(100).
 
 isInRanch(false).
 
 /* Daftar waktu 'panen' berdasarkan level */
-delayTime(0, 110). % 7210
-delayTime(1, 50). % 2890
-delayTime(2, 40). % 2170
-delayTime(3, 30). % 1450
-delayTime(4, 20). % 730
+delayTime(0, 100). % 7210
+delayTime(1, 40). % 2890
+delayTime(2, 30). % 2170
+delayTime(3, 20). % 1450
+delayTime(4, 10). % 730
 
 /* Daftar hewan ternak dan harga jual */
 cattle('Chicken').
@@ -43,11 +48,110 @@ waitTimeChicken(0, 0, 0, 0, 0).
 waitTimeSheep(0, 0, 0, 0, 0).
 waitTimeCow(0, 0, 0, 0, 0).
 
-initRanch :-
-    /* for testing purposes */
-    addItem(5, 'Chicken'),
-    addItem(5, 'Sheep'),
-    addItem(5, 'Cow').
+showStatusRanching :-
+    /* for testing purposes only */
+    exp_ranching(ExpRanch), exp_hencoop(ExpHencoop), exp_shear(ExpShear), exp_bucket(ExpBucket),
+    level_ranching(LevelRanch), level_hencoop(LevelHencoop), level_shear(LevelShear), level_bucket(LevelBucket),
+    write('Exp ranching  : '), write(ExpRanch), nl,
+    write('Exp hencoop   : '), write(ExpHencoop), nl,
+    write('Exp shear     : '), write(ExpShear), nl,
+    write('Exp bucket    : '), write(ExpBucket), nl,  
+    write('Level ranching: '), write(LevelRanch), nl,
+    write('Level hencoop : '), write(LevelHencoop), nl,
+    write('Level shear   : '), write(LevelShear), nl,
+    write('Level bucket  : '), write(LevelBucket), nl.
+
+levelUpRanching :-
+    exp_ranching(CurExpRanch),
+    level_ranching(CurLevelRanch),
+    boundRanching(CurBound),
+    (
+        CurExpRanch < CurBound,
+        write('');
+
+        CurExpRanch >= CurBound,
+        % NewExpRanch is CurExpRanch - CurBound,
+        % retract(exp_ranching(CurExpRanch)),
+        % assertz(exp_ranching(NewExpRanch)),
+        % level_up_ranching,
+        NewLevelRanch is CurLevelRanch + 1,
+        NewBound is CurBound * 2,
+        retract(level_ranching(CurLevelRanch)),
+        assertz(level_ranching(NewLevelRanch)),
+        retract(boundRanching(CurBound)),
+        assertz(boundRanching(NewBound)),
+        write('Congratulations! Ranching level has been levelled up from '), write(CurLevelRanch),
+        write(' to '), write(NewLevelRanch), write('!'), nl
+    ).
+
+levelUpHencoop :-
+    exp_hencoop(CurExpHencoop),
+    level_hencoop(CurLevelHencoop),
+    boundHencoop(CurBound),
+    (
+        CurExpHencoop < CurBound,
+        write('');
+
+        CurExpHencoop >= CurBound,
+        % NewExpHencoop is CurExpHencoop - CurBound,
+        % retract(exp_hencoopCurExpHencoop)),
+        % assertz(exp_hencoop(NewExpHencoop)),
+        % level_up_hencoop,
+        NewLevelHencoop is CurLevelHencoop + 1,
+        NewBound is CurBound * 2,
+        retract(level_hencoop(CurLevelHencoop)),
+        assertz(level_hencoop(NewLevelHencoop)),
+        retract(boundHencoop(CurBound)),
+        assertz(boundHencoop(NewBound)),
+        write('Congratulations! Hencoop level has been levelled up from '), write(CurLevelHencoop),
+        write(' to '), write(NewLevelHencoop), write('!'), nl
+    ).
+
+levelUpShear :-
+    exp_shear(CurExpShear),
+    level_shear(CurLevelShear),
+    boundShear(CurBound),
+    (
+        CurExpShear < CurBound,
+        write('');
+
+        CurExpShear >= CurBound,
+        % NewExpShear is CurExpShear - CurBound,
+        % retract(exp_shear(CurExpShear)),
+        % assertz(exp_shear(NewExpShear)),
+        % level_up_shear,
+        NewLevelShear is CurLevelShear + 1,
+        NewBound is CurBound * 2,
+        retract(level_shear(CurLevelShear)),
+        assertz(level_shear(NewLevelShear)),
+        retract(boundShear(CurBound)),
+        assertz(boundShear(NewBound)),
+        write('Congratulations! Shear level has been levelled up from '), write(CurLevelShear),
+        write(' to '), write(NewLevelShear), write('!'), nl
+    ).
+
+levelUpBucket :-
+    exp_bucket(CurExpBucket),
+    level_bucket(CurLevelBucket),
+    boundBucket(CurBound),
+    (
+        CurExpBucket < CurBound,
+        write('');
+
+        CurExpBucket >= CurBound,
+        NewExpBucket is CurExpBucket - CurBound,
+        % retract(exp_bucket(CurExpBucket)),
+        % assertz(exp_bucket(NewExpBucket)),
+        % level_up_bucket,
+        NewLevelBucket is CurLevelBucket + 1,
+        NewBound is CurBound * 2,
+        retract(level_bucket(CurLevelBucket)),
+        assertz(level_bucket(NewLevelBucket)),
+        retract(boundBucket(CurBound)),
+        assertz(boundBucket(NewBound)),
+        write('Congratulations! Bucket level has been levelled up from '), write(CurLevelBucket),
+        write(' to '), write(NewLevelBucket), write('!'), nl
+    ).
 
 ranch :-
     map_object(X, Y, 'P'),
@@ -109,12 +213,40 @@ chicken :-
     addItem(I, 'Egg'),
     ranchingDone(I),
     RanchingExp is I*1,
+
+    % level up ranching
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
     retract(exp_ranching(_)),
     asserta(exp_ranching(NewExp)),
+
+    % level up total
+    exp_total(CurExpTotal),
+    NewExpTotal is CurExpTotal + RanchingExp,
+    retract(exp_total(CurExpTotal)),
+    asserta(exp_total(NewExpTotal)),
+
+    % level up Hencoop
+    exp_hencoop(CurExpHencoop),
+    specialty(Job),
+    (
+        Job = 'Rancher' ->
+        NewExpHencoop is CurExpHencoop + RanchingExp + 3,
+        write('Rancher mendapatkan bonus exp!'), nl;
+
+        % else
+        NewExpHencoop is CurExpHencoop + RanchingExp,
+        write('Bukan rancher!'), nl
+    ),
+    retract(exp_hencoop(CurExpHencoop)),
+    asserta(exp_hencoop(NewExpHencoop)),
+
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
-    level_ranching(CurrentLevel), % prosedur naik level
+
+    levelUpRanching,
+    levelUpHencoop,
+    level_ranching(CurrentLevel),
+
     random(17, 21, SickFactor),
     !,
     (
@@ -207,12 +339,40 @@ sheep :-
     addItem(I, 'Wool'),
     ranchingDone(I),
     RanchingExp is I*1,
+
+    % level up ranching
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
     retract(exp_ranching(_)),
     asserta(exp_ranching(NewExp)),
+
+    % level up total
+    exp_total(CurExpTotal),
+    NewExpTotal is CurExpTotal + RanchingExp,
+    retract(exp_total(CurExpTotal)),
+    asserta(exp_total(NewExpTotal)),
+
+    % level up Shear
+    exp_shear(CurExpShear),
+    specialty(Job),
+    (
+        Job = 'Rancher' ->
+        NewExpShear is CurExpShear + RanchingExp + 3,
+        write('Rancher mendapatkan bonus exp!'), nl;
+
+        % else
+        NewExpShear is CurExpShear + RanchingExp,
+        write('Bukan rancher!'), nl
+    ),
+    retract(exp_shear(CurExpShear)),
+    asserta(exp_shear(NewExpShear)),
+
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
-    level_ranching(CurrentLevel), % prosedur naik level
+
+    levelUpRanching,
+    levelUpShear,
+    level_ranching(CurrentLevel),
+
     random(17, 21, SickFactor),
     !,
     (
@@ -306,12 +466,40 @@ cow :-
     addItem(I, 'Milk'),
     ranchingDone(I),
     RanchingExp is I*1,
+
+    % level up ranching
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
     retract(exp_ranching(_)),
     asserta(exp_ranching(NewExp)),
+
+    % level up total
+    exp_total(CurExpTotal),
+    NewExpTotal is CurExpTotal + RanchingExp,
+    retract(exp_total(CurExpTotal)),
+    asserta(exp_total(NewExpTotal)),
+
+    % level up Bucket
+    exp_bucket(CurExpBucket),
+    specialty(Job),
+    (
+        Job = 'Rancher' ->
+        NewExpBucket is CurExpBucket + RanchingExp + 3,
+        write('Rancher mendapatkan bonus exp!'), nl;
+
+        % else
+        NewExpBucket is CurExpBucket + RanchingExp,
+        write('Bukan rancher!'), nl
+    ),
+    retract(exp_bucket(CurExpBucket)),
+    asserta(exp_bucket(NewExpBucket)),
+
     write('You gained '), write(RanchingExp), write(' ranching exp!'), !, nl,
-    level_ranching(CurrentLevel), % prosedur naik level
+
+    levelUpRanching,
+    levelUpBucket,
+    level_ranching(CurrentLevel),
+
     random(17, 21, SickFactor),
     !,
     (
