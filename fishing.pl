@@ -85,7 +85,7 @@ isAround :-
     ).
 
 fish :-
-    isAround,
+    % isAround,
     isQuestStart(true),
     random(1,101,FishingChance),
     0 =:= mod(FishingChance,2),
@@ -133,7 +133,8 @@ fish :-
         write(NewExp),nl,!,nl,
 
         exp_fishing_rod(ExpRod),
-        NewExpRod is ExpRod+FishingExp,
+        specialty(Job),
+        ( Job = 'Fisherman' -> NewExpRod is ExpRod+FishingExp+50, write('Fisherman mendapat tambahan exp!'); NewExpRod is ExpRod+FishingExp, write('Bukan fisherman!')),
         retract(exp_fishing_rod(_)),
         asserta(exp_fishing_rod(NewExpRod)),
 
@@ -149,7 +150,7 @@ fish :-
         levelUpFishingRod.
     
 fish :- 
-    isAround, 
+    % isAround, 
     isQuestStart(true),
     retract(exp_total(ExpTotal)),
     NewExpTotal is ExpTotal+5,
@@ -169,7 +170,7 @@ fish :-
     levelUpFishingRod.
 
 fish :- 
-    isAround,
+    % isAround,
     isQuestStart(false), 
     write('You must start the quest first!'),nl,!.
 

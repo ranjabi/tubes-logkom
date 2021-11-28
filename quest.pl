@@ -7,6 +7,9 @@ isQuestStart(false).
 inProgressQuest :- questStatus(_,_,_,1). /* jika quest blom finish maka param ke 4 bernilai 1 */
 isFinishQuest :- questStatus(0,0,0,0).
 
+isQuestPos :- 
+    isQuestPos .
+
 finishQuest :- 
     questStatus(0,0,0,1),
     retractall(questStatus(_,_,_,_)),
@@ -14,6 +17,8 @@ finishQuest :-
 
 quest :- 
     isStart(true),
+    map_object(X, Y, 'P'),
+    map_object(X,Y, 'Q'),
     retract(isQuestStart(_)),
     asserta(isQuestStart(true)),
     isFinishQuest, 
@@ -35,11 +40,11 @@ quest :-
     assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
     % assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
     questStatus(Fishing,Farming,Ranching,Status),
-    write('- '), write(Fishing), write(' Fishing'), !, nl,
-    write('- '), write(Farming), write(' Farming'), !, nl,
-    write('- '), write(Ranching), write(' Ranching'), !, nl.
+    write('- '), write(Fishing), write(' fish'), !, nl,
+    write('- '), write(Farming), write(' farm item'), !, nl,
+    write('- '), write(Ranching), write(' ranch item'), !, nl.
 
-quest :- isStart(false), write('You need to start the game first!'), nl.
+quest :- isStart(false), write('You need to start the game first!'), nl,fail.
 
 quest :- 
     finishQuest,
@@ -59,14 +64,21 @@ quest :-
     write('You have an on-going quest!'),nl,
     write('You need to collect'),nl,
     questStatus(Fishing,Farming,Ranching,Status),
-    write('- '), write(Fishing), write('Fishing'), !, nl,
-    write('- '), write(Farming), write('Farming'), !, nl,
-    write('- '), write(Ranching), write('Ranching'), !, nl.
+    write('- '), write(Fishing), write(' fish'), !, nl,
+    write('- '), write(Farming), write(' farm item'), !, nl,
+    write('- '), write(Ranching), write(' ranch item'), !, nl.
+
+
+quest :- write('You need to be on the tile Q to get the new quest!'),nl.
 
 
 /* pake ini di farming/ranching kalian, X adalah banyak pengurangan quest (isi 1) setiap quest berhasil dijalankan, ada di line 78 fishing.pl buat contoh */
 fishingDone(X) :- 
     questStatus(Fishing,Farming,Ranching,Status),
     retract(questStatus(Fishing,Farming,Ranching,Status)),
-    NewFishing is Fishing-X,
+    (
+        X >= Fishing,
+        NewFishing is 0;
+        X < Fishing,
+        NewFishing is Fishing - X),
     asserta(questStatus(NewFishing,Farming,Ranching,Status)).
