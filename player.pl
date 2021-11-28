@@ -78,7 +78,9 @@ level_up_player:-
         M1 is M + 1,
         assertz(playerLevelUp(M1,Exp21)),
         retract(playerLevelUp(M,Exp2)),
-        write('your level player : '),write(N1);
+        write('your level player : '),write(N1),nl,
+        level_up_player;
+        
         Exp<Exp2, !
     ).
 
