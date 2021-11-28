@@ -12,7 +12,7 @@ countLength([_|Tail], Ans) :-
 /* Menambah item ke dalam inventory */
 addItem(_,_) :-
     playerInventory(ListItem), countLength(ListItem, Length), Length =:= 100, 
-    write('Inventory is full.'), !.
+    write('Inventory is full.'),nl, !.
 
 addItem(1,X) :-
     playerInventory(ListItem),
