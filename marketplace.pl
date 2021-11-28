@@ -17,7 +17,6 @@ market :-
 market :-
     write('You are not at the marketplace, use \'map.\' to see where you are right now').
 
-
 sell :-
     isInMarket(true), !,
     playerInventory(ListInventory),
@@ -249,6 +248,7 @@ pay(Cost) :-
 buy :-
     isInMarket(true), !,
     playerInventory(ListInventory),
+    countLength(ListInventory, Jumlah),
     level_shovel(LvShovel), NewLvShovel is LvShovel+1, CostShovel is 600*NewLvShovel,
     level_fishing_rod(LvFishingRod), NewLvFishingRod is LvFishingRod+1, CostFishingRod is 800*NewLvFishingRod,
     level_hencoop(LvHencoop), NewLvHencoop is LvHencoop+1, CostHencoop is 1000*NewLvHencoop,
@@ -272,67 +272,104 @@ buy :-
         Item = 1,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*50,
-        pay(Cost),
-        addItem(Amount, 'Carrot seed'),
-        write('You have bought '), write(Amount), write(' Carrot seed(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*50,
+            pay(Cost),
+            addItem(Amount, 'Carrot seed'),
+            write('You have bought '), write(Amount), write(' Carrot seed(s)')
+        );
 
         Item = 2,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*50,
-        pay(Cost),
-        addItem(Amount, 'Corn seed'),
-        write('You have bought '), write(Amount), write(' Corn seed(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*50,
+            pay(Cost),
+            addItem(Amount, 'Corn seed'),
+            write('You have bought '), write(Amount), write(' Corn seed(s)')
+        );
 
         Item = 3,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*50,
-        pay(Cost),
-        addItem(Amount, 'Tomato seed'),
-        write('You have bought '), write(Amount), write(' Tomato seed(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*50,
+            pay(Cost),
+            addItem(Amount, 'Tomato seed'),
+            write('You have bought '), write(Amount), write(' Tomato seed(s)')
+        );
 
         Item = 4,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*50,
-        pay(Cost),
-        addItem(Amount, 'Potato seed'),
-        write('You have bought '), write(Amount), write(' Potato seed(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*50,
+            pay(Cost),
+            addItem(Amount, 'Potato seed'),
+            write('You have bought '), write(Amount), write(' Potato seed(s)')
+        );
 
         Item = 5,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*500,
-        pay(Cost),
-        addItem(Amount, 'Chicken'),
-        write('You have bought '), write(Amount), write(' Chicken(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*500,
+            pay(Cost),
+            addItem(Amount, 'Chicken'),
+            write('You have bought '), write(Amount), write(' Chicken(s)')
+        );
 
         Item = 6,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*1000,
-        pay(Cost),
-        addItem(Amount, 'Sheep'),
-        write('You have bought '), write(Amount), write(' Sheep(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*1000,
+            pay(Cost),
+            addItem(Amount, 'Sheep'),
+            write('You have bought '), write(Amount), write(' Sheep(s)')
+        );
 
         Item = 7,
         write('How many do you want to buy?'),nl,
         write('> '), read(Amount), nl,
-        Cost is Amount*1500,
-        pay(Cost),
-        addItem(Amount, 'Cow'),
-        write('You have bought '), write(Amount), write(' Cow(s)');
+        (
+            NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
+
+            Cost is Amount*1500,
+            pay(Cost),
+            addItem(Amount, 'Cow'),
+            write('You have bought '), write(Amount), write(' Cow(s)')
+        );
 
         Item = 8,
-        pay(CostShovel),
-        retract(level_shovel(LvShovel)),
-        assertz(level_shovel(NewLvShovel)),
         searchItem('Shovel', ListInventory, Found),
         (
-            Found = false, addItem(1,'Shovel');
-            Found = true
+            Found = false,
+            (
+                NewJumlah is Jumlah+1, NewJumlah>100, !, write('Inventory full!'), fail;
+
+                pay(CostShovel),
+                retract(level_shovel(LvShovel)),
+                assertz(level_shovel(NewLvShovel))
+            ),
+            addItem(1,'Shovel');
+            
+            Found = true,
+            pay(CostShovel),
+            retract(level_shovel(LvShovel)),
+            assertz(level_shovel(NewLvShovel))
         ),
         farm_equip(LevelFarm,BonusLevel),
         farm_equip_expUp(LevelUp,ExpRequired),
@@ -350,46 +387,82 @@ buy :-
         write('You have bought a Level '), write(NewLvShovel), write(' Shovel');
 
         Item = 9,
-        pay(CostFishingRod),
-        retract(level_fishing_rod(LvFishingRod)),
-        assertz(level_fishing_rod(NewLvFishingRod)),
         searchItem('Fishing rod', ListInventory, Found),
         (
-            Found = false, addItem(1,'Fishing rod');
-            Found = true
+            Found = false,
+            (
+                NewJumlah is Jumlah+1, NewJumlah>100, !, write('Inventory full!'), fail;
+
+                pay(CostFishingRod),
+                retract(level_fishing_rod(LvFishingRod)),
+                assertz(level_fishing_rod(NewLvFishingRod))
+            ),
+            addItem(1,'Shovel');
+            
+            Found = true,
+            pay(CostFishingRod),
+            retract(level_fishing_rod(LvFishingRod)),
+            assertz(level_fishing_rod(NewLvFishingRod))
         ),
         write('You have bought a Level '), write(NewLvFishingRod), write(' Fishing rod');
 
         Item = 10,
-        pay(CostHencoop),
-        retract(level_hencoop(LvHencoop)),
-        assertz(level_hencoop(NewLvHencoop)),
         searchItem('Hencoop', ListInventory, Found),
         (
-            Found = false, addItem(1,'Hencoop');
-            Found = true
+            Found = false,
+            (
+                NewJumlah is Jumlah+1, NewJumlah>100, !, write('Inventory full!'), fail;
+
+                pay(CostHencoop),
+                retract(level_hencoop(LvHencoop)),
+                assertz(level_hencoop(NewLvHencoop))
+            ),
+            addItem(1,'Shovel');
+            
+            Found = true,
+            pay(CostHencoop),
+            retract(level_hencoop(LvHencoop)),
+            assertz(level_hencoop(NewLvHencoop))
         ),
         write('You have bought a Level '), write(NewLvHencoop), write(' Hencoop');
 
         Item = 11,
-        pay(CostShear),
-        retract(level_shear(LvShear)),
-        assertz(level_shear(NewLvShear)),
         searchItem('Shear', ListInventory, Found),
         (
-            Found = false, addItem(1,'Shear');
-            Found = true
+            Found = false,
+            (
+                NewJumlah is Jumlah+1, NewJumlah>100, !, write('Inventory full!'), fail;
+
+                pay(CostShear),
+                retract(level_shear(LvShear)),
+                assertz(level_shear(NewLvShear))
+            ),
+            addItem(1,'Shovel');
+            
+            Found = true,
+            pay(CostShear),
+            retract(level_shear(LvShear)),
+            assertz(level_shear(NewLvShear))
         ),
         write('You have bought a Level '), write(NewLvShear), write(' Shear');
 
         Item = 12,
-        pay(CostBucket),
-        retract(level_bucket(LvBucket)),
-        assertz(level_bucket(NewLvBucket)),
         searchItem('Bucket', ListInventory, Found),
         (
-            Found = false, addItem(1,'Bucket');
-            Found = true
+            Found = false,
+            (
+                NewJumlah is Jumlah+1, NewJumlah>100, !, write('Inventory full!'), fail;
+
+                pay(CostBucket),
+                retract(level_bucket(LvBucket)),
+                assertz(level_bucket(NewLvBucket))
+            ),
+            addItem(1,'Shovel');
+            
+            Found = true,
+            pay(CostBucket),
+            retract(level_bucket(LvBucket)),
+            assertz(level_bucket(NewLvBucket))
         ),
         write('You have bought a Level '), write(NewLvBucket), write(' Bucket')
     ).
