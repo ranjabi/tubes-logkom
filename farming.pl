@@ -57,7 +57,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('total exp : '),write(AB1),nl,
         level_up_player,fail;
 
-        S1 >= Z,
+        S1 >= Z,!,
         S2 is S1 - Z,
         assertz(exp_farming(S2)),
         retract(exp_farming(S1)),
@@ -101,7 +101,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         write('total exp : '),write(AB1),nl,
         level_up_player,fail;
 
-        S1 >= Z,
+        S1 >= Z,!,
         S2 is S1 - Z,
         assertz(exp_farming(S2)),
         retract(exp_farming(S1)),
@@ -154,7 +154,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             level_up_player,fail;
 
-            E21 >= EquipExp,
+            E21 >= EquipExp,!,
+            level_shovel(LvL),
+            LvL2 is LvL + 1,
+            assertz(level_shovel(LvL2)),
+            retract(level_shovel(LvL)),
             Level1 is Level + 1,
             Bonus1 is Bonus + 1,
             assertz(farm_equip(Level1,Bonus1)),
@@ -172,7 +176,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             level_up_player
         );
     
-        S1 >= Z,
+        S1 >= Z,!,
         S2 is S1 - Z,
         assertz(exp_farming(S2)),
         retract(exp_farming(S1)),
@@ -192,7 +196,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             level_up_player,fail;
 
-            E21 >= EquipExp,
+            E21 >= EquipExp,!,
+            level_shovel(LvL),
+            LvL2 is LvL + 1,
+            assertz(level_shovel(LvL2)),
+            retract(level_shovel(LvL)),
             Level1 is Level + 1,
             Bonus1 is Bonus + 1,
             assertz(farm_equip(Level1,Bonus1)),
@@ -246,7 +254,11 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             level_up_player,fail;
 
-            E21 >= EquipExp,
+            E21 >= EquipExp,!,
+            level_shovel(LvL),
+            LvL2 is LvL + 1,
+            assertz(level_shovel(LvL2)),
+            retract(level_shovel(LvL)),
             Level1 is Level + 1,
             Bonus1 is Bonus + 1,
             assertz(farm_equip(Level1,Bonus1)),
@@ -264,7 +276,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             level_up_player
         );
     
-        S1 >= Z,
+        S1 >= Z,!,
         S2 is S1 - Z,
         assertz(exp_farming(S2)),
         retract(exp_farming(S1)),
@@ -277,14 +289,18 @@ gainStuff(Veg,Symbol,Equip,Seed):-
         M1 is M + 1,
         assertz(level_reward(N1,M1)),
         retract(level_reward(N,M)),
-        write('Equipment level increased : Level '), write(W1),nl,
+        write('your level increased to : Level '), write(W1),nl,
         write('farming exp : '),write(S2),nl,
         (
             E21 < EquipExp, !, write('Equipment exp : '), write(E21),nl,
             write('total exp : '),write(AB1),nl,
             level_up_player,fail;
 
-            E21 >= EquipExp,
+            E21 >= EquipExp,!,
+            level_shovel(LvL),
+            LvL2 is LvL + 1,
+            assertz(level_shovel(LvL2)),
+            retract(level_shovel(LvL)),
             Level1 is Level + 1,
             Bonus1 is Bonus + 1,
             assertz(farm_equip(Level1,Bonus1)),
