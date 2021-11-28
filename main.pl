@@ -15,3 +15,4 @@
 :- include('time.pl').
 :- include('stamina.pl').
 :- include('house.pl').
+:- include('addition.pl').
