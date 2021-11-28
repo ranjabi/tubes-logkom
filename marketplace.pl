@@ -328,12 +328,27 @@ buy :-
         pay(300),
         retract(level_shovel(LvShovel)),
         assertz(level_shovel(NewLvShovel)),
+        farm_equip(LevelFarm,BonusLevel),
+        farm_equip_expUp(LevelUp,ExpRequired),
+        farm_equip_exp(Exp3),
+        levelFarm2 is LevelFarm + 1,
+        BonusLevel2 is BonusLevel + 1,
+        LevelUp2 is LevelUp + 1,
+        ExpRequired2 is ExpRequired + 40,
+        Exp31 is 0,
+        assertz(farm_equip(LevelFarm2,BonusLevel2)),
+        assertz(farm_equip_expUp(LevelUp2,ExpRequired2)),
+        assertz(farm_equip_exp(Exp31)),
+        retract(farm_equip(LevelFarm,BonusLevel)),
+        retract(farm_equip_expUp(LevelUp,ExpRequired)),
+        retract(farm_equip_exp(Exp3)),
         write('You have bought a Level '), write(NewLvShovel), write(' Shovel');
 
         Item = 9,
         pay(500),
         retract(level_fishing_rod(LvFishingRod)),
         assertz(level_fishing_rod(NewLvFishingRod)),
+
         write('You have bought a Level '), write(NewLvFishingRod), write(' Fishing rod');
 
         Item = 10,

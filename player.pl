@@ -13,6 +13,9 @@
 :- dynamic(exp_ranching/1).
 :- dynamic(exp_total/1).
 :- dynamic(gold/1).
+:- dynamic(playerLevelUp/2).
+
+playerLevelUp(1,1000).
 
 level_up_fishing :-
     level_fishing(N),
@@ -40,9 +43,22 @@ level_up_ranching :-
 
 level_up_player:-
     level_player(N),
-    N1 is N+1,
-    assertz(level_player(N1)),
-    retract(level_player(N)).
+    exp_total(Exp),
+    playerLevelUp(M,Exp2),
+    (
+        Exp<Exp2, !, fail;
+
+        Exp>Exp2,
+        N1 is N + 1,
+        assertz(level_player(N1)),
+        retract(level_player(N)),
+        Exp21 is Exp2 * 2,
+        M1 is M + 1,
+        assertz(playerLevelUp(M1,Exp21)),
+        retract(playerLevelUp(M,Exp2)),
+        write('your level player : '),write(N1)
+    ).
+
 
 gain_exp_fishing(V) :-
     exp_fishing(N),
