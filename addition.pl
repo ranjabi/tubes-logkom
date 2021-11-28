@@ -129,7 +129,7 @@ guess :-
             write('Thank you for playing!'), nl, nl,
             write('Do you want to play again?'), nl
         )
-    ).
+    ), isGoal.
 
 guess :-
     write('You are not in the secret gambling area.').
@@ -232,7 +232,7 @@ slot :-
         nl, write('You did not land at Lucky 2121.'), !, nl
     ),
     write('Thank you for playing!'), nl,
-    write('Do you want to play again?'), nl.
+    write('Do you want to play again?'), nl, isGoal.
 
 slot :-
     write('You are not in the secret gambling area.').
