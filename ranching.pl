@@ -229,10 +229,11 @@ chicken :-
 
     % level up Hencoop
     exp_hencoop(CurExpHencoop),
+    level_hencoop(CurLevelHencoop),
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpHencoop is CurExpHencoop + RanchingExp + 3,
+        NewExpHencoop is CurExpHencoop + RanchingExp + CurLevelHencoop,
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
@@ -355,10 +356,11 @@ sheep :-
 
     % level up Shear
     exp_shear(CurExpShear),
+    level_shear(CurLevelShear)
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpShear is CurExpShear + RanchingExp + 3,
+        NewExpShear is CurExpShear + RanchingExp + CurLevelShear,
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
@@ -482,10 +484,11 @@ cow :-
 
     % level up Bucket
     exp_bucket(CurExpBucket),
+    level_bucket(CurLevelBucket)
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpBucket is CurExpBucket + RanchingExp + 3,
+        NewExpBucket is CurExpBucket + RanchingExp + CurLevelBucket,
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
