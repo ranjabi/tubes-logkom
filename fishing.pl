@@ -148,6 +148,7 @@ fish :-
         write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
         levelUpFishing,
         levelUpFishingRod,
+        level_up_player,
         incrementNTime(10), decStamina(3), updateStamina,showTime,
         ifGoal.
     
@@ -170,6 +171,7 @@ fish :-
     write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
     levelUpFishing,
     levelUpFishingRod,
+    level_up_player,
     incrementNTime(10), decStamina(3), updateStamina,showTime,
     ifGoal.
 

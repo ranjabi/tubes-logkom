@@ -90,6 +90,8 @@ gain_exp_ranching(V) :-
     retract(exp_ranching(N)),
     retract(exp_total(M)).
 
+addGold(X) :- retract(Gold), NewGold is Gold+X, assertz(NewGold).
+
 goal :- gold(Gold), day(Days), Gold > 20000, Days < 365.
 
 ifGoal :- ( goal -> write('Congratulations! You have finally collected 20000 golds!'),nl,halt ; write('')).
