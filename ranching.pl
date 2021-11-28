@@ -356,7 +356,7 @@ sheep :-
 
     % level up Shear
     exp_shear(CurExpShear),
-    level_shear(CurLevelShear)
+    level_shear(CurLevelShear),
     specialty(Job),
     (
         Job = 'Rancher' ->
@@ -484,7 +484,7 @@ cow :-
 
     % level up Bucket
     exp_bucket(CurExpBucket),
-    level_bucket(CurLevelBucket)
+    level_bucket(CurLevelBucket),
     specialty(Job),
     (
         Job = 'Rancher' ->
