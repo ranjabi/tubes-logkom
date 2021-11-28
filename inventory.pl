@@ -76,6 +76,9 @@ throwItem :-
             (
                 Item = 'Shovel', !,
                 retract(level_shovel(_)),
+                retract(farm_equip(_,_)),
+                retract(farm_equip_expUp(_,_)),
+                retract(farm_equip_exp(_)),
                 assertz(level_shovel(0));
 
                 Item = 'Fishing rod', !,
