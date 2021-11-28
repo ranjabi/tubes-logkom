@@ -16,10 +16,10 @@ farm_equip_exp(0).
 expUp(1,100).
 level_reward(1,3).
 
-vegetable('carrot',25).
-vegetable('corn',30).
-vegetable('tomato',25).
-vegetable('potato',20).
+vegetable('Carrot',25).
+vegetable('Corn',30).
+vegetable('Tomato',25).
+vegetable('Potato',20).
 
 farmingDone(X) :- 
     questStatus(Fishing,Farming,Ranching,Status),
@@ -296,10 +296,10 @@ dig :-
     \+map_object(X,Y,'C'),
     \+map_object(X,Y,'O'),
     assertz(map_object(X,Y,'=')),
-    addItem(1,'carrot seed'),
-    addItem(1,'tomato seed'),
-    addItem(1,'potato seed'),
-    addItem(1,'corn seed'),
+    addItem(1,'Carrot seed'),
+    addItem(1,'Tomato seed'),
+    addItem(1,'Potato seed'),
+    addItem(1,'Corn seed'),
     write('You digged the tile').
 
 /* melakukan plant */
@@ -313,20 +313,20 @@ plant :-
         map_object(X,Y,'='),!,
         \+ (map_object(X,Y,'M'), map_object(X,Y,'R'), map_object(X,Y,'H'), map_object(X,Y,'Q')),
         playerInventory(ListInventory),
-        countItem('carrot seed', ListInventory, I),
-        countItem('corn seed', ListInventory, J),
-        countItem('tomato seed', ListInventory, K),
-        countItem('potato seed', ListInventory, L),
+        countItem('Carrot seed', ListInventory, I),
+        countItem('Corn seed', ListInventory, J),
+        countItem('Tomato seed', ListInventory, K),
+        countItem('Potato seed', ListInventory, L),
         M is I + J + K + L,!,
         (
             M =:= 0, !, write('You do not have any seed'), fail;
 
             M > 0,
             write('You have:'),nl,
-            write('1. '),write(I),write(' carrot seed'),nl,
-            write('2. '),write(J),write(' corn seed'),nl,
-            write('3. '),write(K),write(' tomato seed'),nl,
-            write('4. '),write(L),write(' potato seed'),nl,
+            write('1. '),write(I),write(' Carrot seed'),nl,
+            write('2. '),write(J),write(' Corn seed'),nl,
+            write('3. '),write(K),write(' Tomato seed'),nl,
+            write('4. '),write(L),write(' Potato seed'),nl,
             write('What do you want to plant?'),nl,
             write('> '),read(Seed),nl,
             searchItem(Seed, ListInventory, Found),
@@ -335,7 +335,7 @@ plant :-
 
                 Found = true,!,
                 (
-                    Seed = 'carrot seed',!,
+                    Seed = 'Carrot seed',!,
                     assertz(map_object(X,Y,'c')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -346,7 +346,7 @@ plant :-
                     retract(playerInventory(ListInventory)),
                     assertz(playerInventory(NewList)),!;
 
-                    Seed = 'corn seed',!,
+                    Seed = 'Corn seed',!,
                     assertz(map_object(X,Y,'C')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -357,7 +357,7 @@ plant :-
                     retract(playerInventory(ListInventory)),
                     assertz(playerInventory(NewList)),!;
 
-                    Seed = 'tomato seed',!,
+                    Seed = 'Tomato seed',!,
                     assertz(map_object(X,Y,'T')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -368,7 +368,7 @@ plant :-
                     retract(playerInventory(ListInventory)),
                     assertz(playerInventory(NewList)),!;
 
-                    Seed = 'potato seed',!,
+                    Seed = 'Potato seed',!,
                     assertz(map_object(X,Y,'O')),
                     time(HourC, MinuteC),
                     date(DayC, MonthC),
@@ -395,93 +395,93 @@ harvest:-
 
         map_object(X,Y,'T'),
         (
-            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'Tomato seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
             
-            seed_grow(X,Y,'tomato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'Tomato seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                retract(seed_grow(X,Y,'tomato seed',Time,HourC,MinuteC,DayC,MonthC)),
+                retract(seed_grow(X,Y,'Tomato seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('tomato','T',Equip,'tomato seed')
+                !,gainStuff('Tomato','T',Equip,'Tomato seed')
 
             )
         );
 
         map_object(X,Y,'c'),
         (
-            seed_grow(X,Y, 'carrot seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y, 'Carrot seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
             
-            seed_grow(X,Y,'carrot seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'Carrot seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                retract(seed_grow(X,Y,'carrot seed',Time,HourC,MinuteC,DayC,MonthC)),
+                retract(seed_grow(X,Y,'Carrot seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('carrot','c',Equip,'carrot seed')
+                !,gainStuff('Carrot','c',Equip,'Carrot seed')
 
             )
         );
 
         map_object(X,Y,'C'),
         (
-            seed_grow(X,Y, 'corn seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y, 'Corn seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
             
-            seed_grow(X,Y,'corn seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'Corn seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (   
     
-                retract(seed_grow(X,Y,'corn seed',Time,HourC,MinuteC,DayC,MonthC)),
+                retract(seed_grow(X,Y,'Corn seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('corn','C',Equip,'corn seed')
+                !,gainStuff('Corn','C',Equip,'Corn seed')
                 
             )
         );
 
         map_object(X,Y,'O'),
         (
-            seed_grow(X,Y, 'potato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y, 'Potato seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) < Time, !, write('Plant is still growing'), fail;
             
-            seed_grow(X,Y,'potato seed', Time, HourC, MinuteC, DayC, MonthC),
+            seed_grow(X,Y,'Potato seed', Time, HourC, MinuteC, DayC, MonthC),
             TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
             TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
             (TimeT-TimeC) >= Time,
 
             (
-                retract(seed_grow(X,Y,'potato seed',Time,HourC,MinuteC,DayC,MonthC)),
+                retract(seed_grow(X,Y,'Potato seed',Time,HourC,MinuteC,DayC,MonthC)),
                 write('Do you want to use a shovel?'),nl,
                 write('1. No'),nl,
                 write('2. Yes'),nl,
                 write('> '),read(Equip),nl,
-                !,gainStuff('potato','O',Equip,'potato seed')
+                !,gainStuff('Potato','O',Equip,'Potato seed')
                 
             )
         )
