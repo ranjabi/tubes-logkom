@@ -37,7 +37,7 @@ sell :-
             Count < Amount,!,write('Cannot find enough item'),fail;
 
             Item = 'Carrot',
-            Total is 15 * Amount,
+            Total is 25 * Amount,
             NewX is X + Total,
             retract(gold(X)),
             assertz(gold(NewX)),
@@ -49,7 +49,7 @@ sell :-
             write('Your gold : '),write(NewX);
 
             Item = 'Tomato',
-            Total is 20 * Amount,
+            Total is 30 * Amount,
             NewX is X + Total,
             retract(gold(X)),
             assertz(gold(NewX)),
@@ -61,7 +61,7 @@ sell :-
             write('Your gold : '),write(NewX);
 
             Item = 'Corn',
-            Total is 20 * Amount,
+            Total is 25 * Amount,
             NewX is X + Total,
             retract(gold(X)),
             assertz(gold(NewX)),
@@ -73,7 +73,7 @@ sell :-
             write('Your gold : '),write(NewX);
 
             Item = 'Potato',
-            Total is 15 * Amount,
+            Total is 20 * Amount,
             NewX is X + Total,
             retract(gold(X)),
             assertz(gold(NewX)),
@@ -255,10 +255,10 @@ buy :-
     level_shear(LvShear), NewLvShear is LvShear+1, CostShear is 1200*NewLvShear,
     level_bucket(LvBucket), NewLvBucket is LvBucket+1, CostBucket is 1400*NewLvBucket,
     write('What do you want to buy?'),nl,
-    write('1. Carrot seed (50 golds)'),nl,
-    write('2. Corn seed (50 golds)'),nl,
-    write('3. Tomato seed (50 golds)'),nl,
-    write('4. Potato seed (50 golds)'),nl,
+    write('1. Carrot seed (25 golds)'),nl,
+    write('2. Corn seed (30 golds)'),nl,
+    write('3. Tomato seed (25 golds)'),nl,
+    write('4. Potato seed (20 golds)'),nl,
     write('5. Chicken (500 golds)'),nl,
     write('6. Sheep (1000 golds)'),nl,
     write('7. Cow (1500 golds)'),nl,
@@ -275,7 +275,7 @@ buy :-
         (
             NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
 
-            Cost is Amount*50,
+            Cost is Amount*25,
             pay(Cost),
             addItem(Amount, 'Carrot seed'),
             write('You have bought '), write(Amount), write(' Carrot seed(s)')
@@ -287,7 +287,7 @@ buy :-
         (
             NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
 
-            Cost is Amount*50,
+            Cost is Amount*30,
             pay(Cost),
             addItem(Amount, 'Corn seed'),
             write('You have bought '), write(Amount), write(' Corn seed(s)')
@@ -299,7 +299,7 @@ buy :-
         (
             NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
 
-            Cost is Amount*50,
+            Cost is Amount*25,
             pay(Cost),
             addItem(Amount, 'Tomato seed'),
             write('You have bought '), write(Amount), write(' Tomato seed(s)')
@@ -311,7 +311,7 @@ buy :-
         (
             NewJumlah is Jumlah+Amount, NewJumlah>100, !, write('Inventory full!'), fail;
 
-            Cost is Amount*50,
+            Cost is Amount*20,
             pay(Cost),
             addItem(Amount, 'Potato seed'),
             write('You have bought '), write(Amount), write(' Potato seed(s)')
@@ -385,7 +385,7 @@ buy :-
             assertz(farm_equip_exp(0)),
             retract(farm_equip(LevelFarm,BonusLevel)),
             retract(farm_equip_expUp(LevelUp,ExpRequired)),
-            retract(farm_equip_exp(Exp3)),
+            retract(farm_equip_exp(Exp3))
         ),
         
         write('You have bought a Level '), write(NewLvShovel), write(' Shovel');
