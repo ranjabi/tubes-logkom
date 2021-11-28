@@ -60,7 +60,7 @@ throwItem :-
     write('> '), read(Item), nl,
     searchItem(Item, ListInventory, Found),
     (
-        Found = false, !, write("Item not available!"), fail;
+        Found = false, !, write('Item not available!'), fail;
         
         Found = true,
         countItem(Item, ListInventory, Count),
