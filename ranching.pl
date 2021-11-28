@@ -52,8 +52,14 @@ initRanch :-
 ranch :-
     map_object(X, Y, 'P'),
     map_object(X, Y, 'R'),
-    retract(isInRanch(false)),
-    assertz(isInRanch(true)), !,
+    (
+        isInRanch(false) ->
+        retract(isInRanch(false)),
+        assertz(isInRanch(true));
+
+        % else
+        write('')
+    ),
     write('Welcome to the ranch!'), nl,
     playerInventory(ListInventory),
     countItem('Chicken', ListInventory, I),
@@ -77,7 +83,7 @@ ranch :-
 
 chicken :-
     /* no chicken */
-    isInRanch,
+    isInRanch(true),
     playerInventory(ListInventory),
     countItem('Chicken', ListInventory, I),
     I =:= 0,
@@ -86,19 +92,22 @@ chicken :-
 
 chicken :-
     /* sick or not sick, waitTime = 0 */
-    isInRanch,
+    isInRanch(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
     waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC),
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, decStamina(10), updateStamina, nl,
+    incrementNTime(60), decStamina(10), updateStamina,
+    time(HourTNew, MinuteTNew), % updatetime
+    date(DayTNew, MonthTNew), % updatetime
     playerInventory(ListInventory),
     countItem('Chicken', ListInventory, I),
     write('Your chicken lays '), write(I), write(' eggs.'), nl,
     write('You got '), write(I), write(' eggs'), nl,
     addItem(I, 'Egg'),
+    ranchingDone(I),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -119,7 +128,7 @@ chicken :-
         ),
         delayTime(0, TimeDelay),
         retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeChicken(TimeDelay, HourT, MinuteT, DayT, MonthT));
+        asserta(waitTimeChicken(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -131,13 +140,13 @@ chicken :-
         ),
         delayTime(CurrentLevel, TimeDelay),
         retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeChicken(TimeDelay, HourT, MinuteT, DayT, MonthT))
+        asserta(waitTimeChicken(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),
     !.
 
 chicken :-
     /* sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isChickenSick(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -152,7 +161,7 @@ chicken :-
 
 chicken :-
     /* not sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isChickenSick(false),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -167,11 +176,12 @@ chicken :-
 
 chicken :-
     /* not in ranch */
+    isInRanch(false),
     write('You\'re not in ranch.').
 
 sheep :-
     /* no sheep */
-    isInRanch,
+    isInRanch(true),
     playerInventory(ListInventory),
     countItem('Sheep', ListInventory, I),
     I =:= 0,
@@ -180,19 +190,22 @@ sheep :-
 
 sheep :-
     /* sick or not sick, waitTime = 0 */
-    isInRanch,
+    isInRanch(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
     waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC),
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, decStamina(10), updateStamina, nl,
+    incrementNTime(60), decStamina(10), updateStamina,
+    time(HourTNew, MinuteTNew), % updatetime
+    date(DayTNew, MonthTNew), % updatetime
     playerInventory(ListInventory),
     countItem('Sheep', ListInventory, I),
     write('Your sheep produces '), write(I), write(' wool.'), nl,
     write('You got '), write(I), write(' wool'), nl,
     addItem(I, 'Wool'),
+    ranchingDone(I),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -213,7 +226,7 @@ sheep :-
         ),
         delayTime(0, TimeDelay),
         retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeSheep(TimeDelay, HourT, MinuteT, DayT, MonthT));
+        asserta(waitTimeSheep(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -225,13 +238,13 @@ sheep :-
         ),
         delayTime(CurrentLevel, TimeDelay),
         retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeSheep(TimeDelay, HourT, MinuteT, DayT, MonthT))
+        asserta(waitTimeSheep(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),
     !.
 
 sheep :-
     /* sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isSheepSick(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -246,7 +259,7 @@ sheep :-
 
 sheep :-
     /* not sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isSheepSick(false),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -261,12 +274,13 @@ sheep :-
 
 sheep :-
     /* not in ranch */
+    isInRanch(false),
     write('You\'re not in ranch.').
 
 
 cow :-
     /* no cow */
-    isInRanch,
+    isInRanch(true),
     playerInventory(ListInventory),
     countItem('Cow', ListInventory, I),
     I =:= 0,
@@ -275,19 +289,22 @@ cow :-
 
 cow :-
     /* sick or not sick, waitTime = 0 */
-    isInRanch,
+    isInRanch(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
     waitTimeCow(Time, HourC, MinuteC, DayC, MonthC),
     TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
     TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
     (TimeT-TimeC) >= Time,
-    nl, incrementTime, decStamina(10), updateStamina, nl,
+    incrementNTime(60), decStamina(10), updateStamina,
+    time(HourTNew, MinuteTNew), % updatetime
+    date(DayTNew, MonthTNew), % updatetime
     playerInventory(ListInventory),
     countItem('Cow', ListInventory, I),
     write('Your cow produces '), write(I), write(' milk.'), nl,
     write('You got '), write(I), write(' milk'), nl,
     addItem(I, 'Milk'),
+    ranchingDone(I),
     RanchingExp is I*1,
     exp_ranching(CurrentExp),
     NewExp is CurrentExp + RanchingExp,
@@ -308,7 +325,7 @@ cow :-
         ),
         delayTime(0, TimeDelay),
         retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeCow(TimeDelay, HourT, MinuteT, DayT, MonthT));
+        asserta(waitTimeCow(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -320,13 +337,13 @@ cow :-
         ),
         delayTime(CurrentLevel, TimeDelay),
         retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeCow(TimeDelay, HourT, MinuteT, DayT, MonthT))
+        asserta(waitTimeCow(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),
     !.
 
 cow :-
     /* sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isCowSick(true),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -341,7 +358,7 @@ cow :-
 
 cow :-
     /* not sick, waitTime != 0 */
-    isInRanch,
+    isInRanch(true),
     isCowSick(false),
     time(HourT, MinuteT),
     date(DayT, MonthT),
@@ -356,17 +373,20 @@ cow :-
 
 cow :-
     /* not in ranch */
+    isInRanch(false),
     write('You\'re not in ranch.').
 
-skipTime :-
-    /* for testing purposes */
-    retract(waitTimeChicken(_)),
-    asserta(waitTimeChicken(0)).
+ranchingDone(X) :-
+    questStatus(Fishing, Farming, Ranching, Status),
+    retract(questStatus(Fishing, Farming, Ranching, Status)),
+    (
+        X >= Ranching,
+        NewRanching is 0;
 
-addTime :-
-    /* for testing purposes */
-    retract(waitTimeChicken(0)),
-    asserta(waitTimeChicken(1)).
+        X < Ranching,
+        NewRanching is Ranching - X
+    ),
+    asserta(questStatus(Fishing, Farming, NewRanching, Status)).
 
 exitRanch :-
     isInRanch(true),
