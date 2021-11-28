@@ -62,7 +62,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             decStamina(1),
             incrementNTime(20),showTime,
-            level_up_player,fail;
+            level_up_player,isGoal,fail;
             
 
             S1 >= Z,!,
@@ -83,7 +83,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             decStamina(1),
             incrementNTime(20),showTime,
-            level_up_player
+            level_up_player,isGoal
             
         ),fail;
 
@@ -110,7 +110,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             decStamina(1),
             incrementNTime(20),showTime,
-            level_up_player,fail;
+            level_up_player,isGoal,fail;
             
             S1 >= Z,!,
             S2 is S1 - Z,
@@ -131,7 +131,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             decStamina(1),
             incrementNTime(20),
             showTime,
-            level_up_player 
+            level_up_player,isGoal 
         )
     ).
 
@@ -165,7 +165,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             decStamina(1),
             incrementNTime(20),showTime,
-            level_up_player,fail;
+            level_up_player,isGoal,fail;
             
 
             S1 >= Z,!,
@@ -187,7 +187,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             decStamina(1),
             incrementNTime(20),
             showTime,
-            level_up_player   
+            level_up_player,isGoal   
         ),fail;
 
         Length + Reward > 100,
@@ -214,7 +214,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             write('total exp : '),write(AB1),nl,
             decStamina(1),
             incrementNTime(20),showTime,
-            level_up_player,fail;
+            level_up_player,isGoal,fail;
             
 
             S1 >= Z,!,
@@ -236,7 +236,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
             decStamina(1),
             incrementNTime(20),
             showTime,
-            level_up_player
+            level_up_player,isGoal
             
         )
     ).
@@ -281,7 +281,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('total exp : '),write(AB1),nl,
                 decStamina(1),
                 incrementNTime(20),showTime,
-                level_up_player,fail;
+                level_up_player,isGoal,fail;
                 
 
                 E21 >= EquipExp,!,
@@ -306,7 +306,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 decStamina(1),
                 incrementNTime(20),
                 showTime,
-                level_up_player
+                level_up_player,isGoal
                 
             );
         
@@ -330,7 +330,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('total exp : '),write(AB1),nl,
                 decStamina(1),
                 incrementNTime(20),showTime,
-                level_up_player,fail;
+                level_up_player,isGoal,fail;
                 
 
                 E21 >= EquipExp,!,
@@ -355,7 +355,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 decStamina(1),
                 incrementNTime(20),
                 showTime,
-                level_up_player
+                level_up_player,isGoal
                 
             )
         ),fail;
@@ -391,7 +391,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('total exp : '),write(AB1),nl,
                 decStamina(1),
                 incrementNTime(20),showTime,
-                level_up_player,fail;
+                level_up_player,isGoal,fail;
                 
                 E21 >= EquipExp,!,
                 level_shovel(LvL),
@@ -415,7 +415,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 decStamina(1),
                 incrementNTime(20),
                 showTime,
-                level_up_player
+                level_up_player,isGoal
                 
             );
         
@@ -439,7 +439,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 write('total exp : '),write(AB1),nl,
                 decStamina(1),
                 incrementNTime(20),showTime,
-                level_up_player,fail;
+                level_up_player,isGoal,fail;
                 
 
                 E21 >= EquipExp,!,
@@ -464,7 +464,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
                 decStamina(1),
                 incrementNTime(20),
                 showTime,
-                level_up_player
+                level_up_player,isGoal
                 
             )
         )
@@ -711,10 +711,6 @@ dig :-
     \+map_object(X,Y,'C'),
     \+map_object(X,Y,'O'),
     assertz(map_object(X,Y,'=')),
-    addItem(1,'Carrot seed'),
-    addItem(1,'Tomato seed'),
-    addItem(1,'Potato seed'),
-    addItem(1,'Corn seed'),
     write('You digged the tile').
 
 dig:-
