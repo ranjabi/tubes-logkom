@@ -584,3 +584,10 @@ exitRanch :-
 
 exitRanch :-
     write('You are not in the ranch, use \'ranch.\' to enter the ranch').
+
+addExpRanch(X) :-
+    exp_ranching(CurExp),
+    NewExp is CurExp + X,
+    retract(exp_ranching(CurExp)),
+    assertz(exp_ranching(NewExp)),
+    levelUpRanching.

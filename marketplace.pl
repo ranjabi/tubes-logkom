@@ -397,7 +397,7 @@ buy :-
                 retract(level_fishing_rod(LvFishingRod)),
                 assertz(level_fishing_rod(NewLvFishingRod))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Fishing rod');
             
             Found = true,
             pay(CostFishingRod),
@@ -417,7 +417,7 @@ buy :-
                 retract(level_hencoop(LvHencoop)),
                 assertz(level_hencoop(NewLvHencoop))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Hencoop');
             
             Found = true,
             pay(CostHencoop),
@@ -437,7 +437,7 @@ buy :-
                 retract(level_shear(LvShear)),
                 assertz(level_shear(NewLvShear))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Shear');
             
             Found = true,
             pay(CostShear),
@@ -457,7 +457,7 @@ buy :-
                 retract(level_bucket(LvBucket)),
                 assertz(level_bucket(NewLvBucket))
             ),
-            addItem(1,'Shovel');
+            addItem(1,'Bucket');
             
             Found = true,
             pay(CostBucket),
