@@ -248,11 +248,11 @@ pay(Cost) :-
 
 buy :-
     isInMarket(true), !,
-    level_shovel(LvShovel), NewLvShovel is LvShovel+1,
-    level_fishing_rod(LvFishingRod), NewLvFishingRod is LvFishingRod+1,
-    level_hencoop(LvHencoop), NewLvHencoop is LvHencoop+1,
-    level_shear(LvShear), NewLvShear is LvShear+1,
-    level_bucket(LvBucket), NewLvBucket is LvBucket+1,
+    level_shovel(LvShovel), NewLvShovel is LvShovel+1, CostShovel is 600*NewLvShovel,
+    level_fishing_rod(LvFishingRod), NewLvFishingRod is LvFishingRod+1, CostFishingRod is 800*NewLvFishingRod,
+    level_hencoop(LvHencoop), NewLvHencoop is LvHencoop+1, CostHencoop is 1000*NewLvHencoop,
+    level_shear(LvShear), NewLvShear is LvShear+1, CostShear is 1200*NewLvShear,
+    level_bucket(LvBucket), NewLvBucket is LvBucket+1, CostBucket is 1400*NewLvBucket,
     write('What do you want to buy?'),nl,
     write('1. Carrot seed (50 golds)'),nl,
     write('2. Corn seed (50 golds)'),nl,
@@ -261,11 +261,11 @@ buy :-
     write('5. Chicken (500 golds)'),nl,
     write('6. Sheep (1000 golds)'),nl,
     write('7. Cow (1500 golds)'),nl,
-    write('8. Level '), write(NewLvShovel), write(' Shovel (300 golds)'),nl,
-    write('9. Level '), write(NewLvFishingRod), write(' Fishing rod (500 golds)'),nl,
-    write('10. Level '), write(NewLvHencoop), write(' Hencoop (400 golds)'),nl,
-    write('11. Level '), write(NewLvShear), write(' Shear (300 golds)'),nl,
-    write('12. Level '), write(NewLvShear), write(' Bucket (200 golds)'),nl,
+    write('8. Level '), write(NewLvShovel), write(' Shovel ('), write(CostShovel), write(' golds)'), nl,
+    write('9. Level '), write(NewLvFishingRod), write(' Fishing rod ('), write(CostFishingRod), write(' golds)'), nl,
+    write('10. Level '), write(NewLvHencoop), write(' Hencoop ('), write(CostHencoop), write(' golds)'), nl,
+    write('11. Level '), write(NewLvShear), write(' Shear ('), write(CostShear), write(' golds)'), nl,
+    write('12. Level '), write(NewLvShear), write(' Bucket ('), write(CostBucket), write(' golds)'), nl,
     write('> '), read(Item), nl,
     (
         Item = 1,
@@ -325,7 +325,7 @@ buy :-
         write('You have bought '), write(Amount), write(' Cow(s)');
 
         Item = 8,
-        pay(300),
+        pay(CostShovel),
         retract(level_shovel(LvShovel)),
         assertz(level_shovel(NewLvShovel)),
         farm_equip(LevelFarm,BonusLevel),
@@ -344,26 +344,25 @@ buy :-
         write('You have bought a Level '), write(NewLvShovel), write(' Shovel');
 
         Item = 9,
-        pay(500),
+        pay(CostFishingRod),
         retract(level_fishing_rod(LvFishingRod)),
         assertz(level_fishing_rod(NewLvFishingRod)),
-
         write('You have bought a Level '), write(NewLvFishingRod), write(' Fishing rod');
 
         Item = 10,
-        pay(400),
+        pay(CostHencoop),
         retract(level_hencoop(LvHencoop)),
         assertz(level_hencoop(NewLvHencoop)),
         write('You have bought a Level '), write(NewLvHencoop), write(' Hencoop');
 
         Item = 11,
-        pay(300),
+        pay(CostShear),
         retract(level_shear(LvShear)),
         assertz(level_shear(NewLvShear)),
         write('You have bought a Level '), write(NewLvShear), write(' Shear');
 
         Item = 12,
-        pay(200),
+        pay(CostBucket),
         retract(level_bucket(LvBucket)),
         assertz(level_bucket(NewLvBucket)),
         write('You have bought a Level '), write(NewLvBucket), write(' Bucket')
