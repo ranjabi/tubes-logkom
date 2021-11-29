@@ -233,6 +233,22 @@ chicken :-
     !.
 
 chicken :-
+    /* inventory penuh */
+    isInRanch(true),
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    playerInventory(ListInventory),
+    countItem('Chicken', ListInventory, I),
+    countLength(ListInventory, Counter),
+    (Counter + I) > 100,
+    write('Your inventory is full! Please throw some items first.'),
+    !.
+
+chicken :-
     /* sick or not sick, waitTime = 0 */
     isInRanch(true),
     time(HourT, MinuteT),
@@ -361,6 +377,22 @@ sheep :-
     countItem('Sheep', ListInventory, I),
     I =:= 0,
     write('You don\'t have any Sheep.'),
+    !.
+
+sheep :-
+    /* inventory penuh */
+    isInRanch(true),
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    playerInventory(ListInventory),
+    countItem('Sheep', ListInventory, I),
+    countLength(ListInventory, Counter),
+    (Counter + I) > 100,
+    write('Your inventory is full! Please throw some items first.'),
     !.
 
 sheep :-
@@ -494,6 +526,22 @@ cow :-
     countItem('Cow', ListInventory, I),
     I =:= 0,
     write('You don\'t have any Cow.'),
+    !.
+
+cow :-
+    /* inventory penuh */
+    isInRanch(true),
+    time(HourT, MinuteT),
+    date(DayT, MonthT),
+    waitTimeCow(Time, HourC, MinuteC, DayC, MonthC),
+    TimeC is MonthC * 30 * 24 * 60 + (DayC-1) * 24 * 60 + HourC * 60 + MinuteC,
+    TimeT is MonthT * 30 * 24 * 60 + (DayT-1) * 24 * 60 + HourT * 60 + MinuteT,
+    (TimeT-TimeC) >= Time,
+    playerInventory(ListInventory),
+    countItem('Cow', ListInventory, I),
+    countLength(ListInventory, Counter),
+    (Counter + I) > 100,
+    write('Your inventory is full! Please throw some items first.'),
     !.
 
 cow :-
