@@ -11,23 +11,21 @@
 :- dynamic(waitTimeSheep/5). % (WaitTime, Hour, Minute, Day, Month)
 :- dynamic(waitTimeCow/5). % (WaitTime, Hour, Minute, Day, Month)
 
+:- dynamic(delayTime/1).
+
+delayTime(0).
+
 :- dynamic(boundRanching/1).
 :- dynamic(boundHencoop/1).
 :- dynamic(boundShear/1).
 :- dynamic(boundBucket/1).
+
 boundRanching(100).
 boundHencoop(100).
 boundShear(100).
 boundBucket(100).
 
 isInRanch(false).
-
-/* Daftar waktu 'panen' berdasarkan level */
-delayTime(0, 100). % 7210
-delayTime(1, 40). % 2890
-delayTime(2, 30). % 2170
-delayTime(3, 20). % 1450
-delayTime(4, 10). % 730
 
 /* Daftar hewan ternak dan harga jual */
 cattle('Chicken').
@@ -47,6 +45,45 @@ isCowSick(false).
 waitTimeChicken(0, 0, 0, 0, 0).
 waitTimeSheep(0, 0, 0, 0, 0).
 waitTimeCow(0, 0, 0, 0, 0).
+
+calcTimeChicken(LevelRanch) :-
+    delayTime(Delay),
+    (
+        LevelRanch =< 15 ->
+        NewDelay is 180 - ((LevelRanch-1) * 10),
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay));
+
+        NewDelay is 30,
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay))
+    ).
+
+calcTimeSheep(LevelRanch) :-
+    delayTime(Delay),
+    (
+        LevelRanch =< 15 ->
+        NewDelay is 270 - ((LevelRanch-1) * 10),
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay));
+
+        NewDelay is 45,
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay))
+    ).
+
+calcTimeCow(LevelRanch) :-
+    delayTime(Delay),
+    (
+        LevelRanch =< 15 ->
+        NewDelay is 360 - ((LevelRanch-1) * 5),
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay));
+
+        NewDelay is 60,
+        retract(delayTime(Delay)),
+        assertz(delayTime(NewDelay))
+    ).
 
 showStatusRanching :-
     /* for testing purposes only */
@@ -140,7 +177,7 @@ levelUpBucket :-
         write('');
 
         CurExpBucket >= CurBound,
-        NewExpBucket is CurExpBucket - CurBound,
+        % NewExpBucket is CurExpBucket - CurBound,
         % retract(exp_bucket(CurExpBucket)),
         % assertz(exp_bucket(NewExpBucket)),
         % level_up_bucket,
@@ -213,7 +250,7 @@ chicken :-
     write('You got '), write(I), write(' eggs'), nl,
     addItem(I, 'Egg'),
     ranchingDone(I),
-    RanchingExp is I*1,
+    RanchingExp is I*10,
 
     % level up ranching
     exp_ranching(CurrentExp),
@@ -229,11 +266,10 @@ chicken :-
 
     % level up Hencoop
     exp_hencoop(CurExpHencoop),
-    level_hencoop(CurLevelHencoop),
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpHencoop is CurExpHencoop + RanchingExp + CurLevelHencoop,
+        NewExpHencoop is CurExpHencoop + (RanchingExp * 1.5),
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
@@ -247,12 +283,14 @@ chicken :-
 
     levelUpRanching,
     levelUpHencoop,
-    level_ranching(CurrentLevel),
+    level_ranching(CurLevelRanch),
+    level_hencoop(CurLevelHencoop),
 
-    random(17, 21, SickFactor),
+    RandomFactor is CurLevelHencoop + 3,
+    random(1, RandomFactor, SickFactor),
     !,
     (
-        SickFactor =:= 20 ->
+        SickFactor =:= 1 ->
         (
             isChickenSick(false) ->
             retract(isChickenSick(false)),
@@ -260,9 +298,11 @@ chicken :-
 
             write('') % prevent invalid
         ),
-        delayTime(0, TimeDelay),
+        calcTimeChicken(CurLevelRanch),
+        delayTime(TimeDelay),
+        NewTimeDelay is TimeDelay * 2,
         retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeChicken(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
+        asserta(waitTimeChicken(NewTimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -272,7 +312,8 @@ chicken :-
 
             write('') % prevent invalid
         ),
-        delayTime(CurrentLevel, TimeDelay),
+        calcTimeChicken(CurLevelRanch),
+        delayTime(TimeDelay),
         retract(waitTimeChicken(Time, HourC, MinuteC, DayC, MonthC)),
         asserta(waitTimeChicken(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),
@@ -340,7 +381,7 @@ sheep :-
     write('You got '), write(I), write(' wool'), nl,
     addItem(I, 'Wool'),
     ranchingDone(I),
-    RanchingExp is I*1,
+    RanchingExp is I*20,
 
     % level up ranching
     exp_ranching(CurrentExp),
@@ -360,7 +401,7 @@ sheep :-
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpShear is CurExpShear + RanchingExp + CurLevelShear,
+        NewExpShear is CurExpShear + (RanchingExp * 1.5),
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
@@ -374,12 +415,14 @@ sheep :-
 
     levelUpRanching,
     levelUpShear,
-    level_ranching(CurrentLevel),
+    level_ranching(CurLevelRanch),
+    level_shear(CurLevelShear),
 
-    random(17, 21, SickFactor),
+    RandomFactor is CurLevelShear + 3,
+    random(1, RandomFactor, SickFactor),
     !,
     (
-        SickFactor =:= 20 ->
+        SickFactor =:= 1 ->
         (
             isSheepSick(false) ->
             retract(isSheepSick(false)),
@@ -387,9 +430,11 @@ sheep :-
 
             write('') % prevent invalid
         ),
-        delayTime(0, TimeDelay),
+        calcTimeSheep(CurLevelRanch),
+        delayTime(TimeDelay),
+        NewTimeDelay is TimeDelay * 2,
         retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeSheep(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
+        asserta(waitTimeSheep(NewTimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -399,7 +444,8 @@ sheep :-
 
             write('') % prevent invalid
         ),
-        delayTime(CurrentLevel, TimeDelay),
+        calcTimeSheep(CurLevelRanch),
+        delayTime(TimeDelay),
         retract(waitTimeSheep(Time, HourC, MinuteC, DayC, MonthC)),
         asserta(waitTimeSheep(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),
@@ -468,7 +514,7 @@ cow :-
     write('You got '), write(I), write(' milk'), nl,
     addItem(I, 'Milk'),
     ranchingDone(I),
-    RanchingExp is I*1,
+    RanchingExp is I*30,
 
     % level up ranching
     exp_ranching(CurrentExp),
@@ -488,7 +534,7 @@ cow :-
     specialty(Job),
     (
         Job = 'Rancher' ->
-        NewExpBucket is CurExpBucket + RanchingExp + CurLevelBucket,
+        NewExpBucket is CurExpBucket + (RanchingExp * 1.5),
         write('Rancher mendapatkan bonus exp!'), nl;
 
         % else
@@ -502,12 +548,14 @@ cow :-
 
     levelUpRanching,
     levelUpBucket,
-    level_ranching(CurrentLevel),
+    level_ranching(CurLevelRanch),
+    level_bucket(CurLevelBucket),
 
-    random(17, 21, SickFactor),
+    RandomFactor is CurLevelBucket + 3,
+    random(1, RandomFactor, SickFactor),
     !,
     (
-        SickFactor =:= 20 ->
+        SickFactor =:= 1 ->
         (
             isCowSick(false) ->
             retract(isCowSick(false)),
@@ -515,9 +563,11 @@ cow :-
 
             write('') % prevent invalid
         ),
-        delayTime(0, TimeDelay),
+        calcTimeCow(CurLevelRanch),
+        delayTime(TimeDelay),
+        NewTimeDelay is TimeDelay * 2,
         retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
-        asserta(waitTimeCow(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
+        asserta(waitTimeCow(NewTimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew));
         
         % else
         (
@@ -527,7 +577,8 @@ cow :-
 
             write('') % prevent invalid
         ),
-        delayTime(CurrentLevel, TimeDelay),
+        calcTimeCow(CurLevelRanch),
+        delayTime(TimeDelay),
         retract(waitTimeCow(Time, HourC, MinuteC, DayC, MonthC)),
         asserta(waitTimeCow(TimeDelay, HourTNew, MinuteTNew, DayTNew, MonthTNew))
     ),

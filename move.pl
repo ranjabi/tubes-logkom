@@ -169,4 +169,4 @@ w :-
     hit_fence.
 
 bengong :-
-    nl, incrementNTime(10), isGoal, showTime.
+    nl, incrementNTime(20), isGoal, showTime.
