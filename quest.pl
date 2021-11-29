@@ -44,7 +44,7 @@ quest :-
     write('- '), write(Farming), write(' farm item'), !, nl,
     write('- '), write(Ranching), write(' ranch item'), !, nl.
 
-quest :- isStart(false), write('You need to start the game first!'), nl,fail.
+quest :- isStart(false),!, write('You need to start the game first!'), nl,fail.
 
 quest :- 
     finishQuest,
