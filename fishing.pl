@@ -1,21 +1,11 @@
 /* File fishing.pl */
 /* Menyimpan mekanisme fishing */
-% :- include('quest.pl').
-% :- include('inventory.pl'). 
-% :- include('status.pl'). 
-% :- include('player.pl').
 
 :- dynamic(expUpFishing/2).
 :- dynamic(expUpFishingRod/2).
 expUpFishing(1,100).
 expUpFishingRod(1,100).
 
-% initFishing :-
-%     write('init sukses'),
-%     asserta(exp_fishing(1)),
-%     asserta(level_fishing(1)),
-%     asserta(level_fishing_rod(1)),
-%     addItem(1,'Level 1 Fishing Rod').
 
 levelUpFishing :- 
     exp_fishing(CurFishExp),
@@ -134,25 +124,23 @@ fish :-
 
         exp_fishing_rod(ExpRod),
         specialty(Job),
-        ( Job = 'Fisherman' -> NewExpRod is ExpRod+FishingExp+50, write('Fisherman mendapat tambahan exp!'); NewExpRod is ExpRod+FishingExp, write('Bukan fisherman!')),
+        ( Job = 'Fisherman' -> NewExpRod is ExpRod+FishingExp+50, write('Fisherman mendapat tambahan exp!'); NewExpRod is ExpRod+FishingExp),
         retract(exp_fishing_rod(_)),
         asserta(exp_fishing_rod(NewExpRod)),
 
         exp_fishing(ExpFish),
         level_fishing(LvlFishing),
         level_fishing_rod(LvlFishingRod),nl,
-        write('exp_fishing_rod: '),write(ExpRod),nl,!,
-        write('exp_fishing: '),write(ExpFish),nl,!,
-        write('exp total: '),write(NewExpTotal),nl,!,
-        write('level_fishing: '),write(LvlFishing),nl,!,
-        write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
+        % write('exp_fishing_rod: '),write(ExpRod),nl,!,
+        % write('exp_fishing: '),write(ExpFish),nl,!,
+        % write('exp total: '),write(NewExpTotal),nl,!,
+        % write('level_fishing: '),write(LvlFishing),nl,!,
+        % write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
         incrementNTime(10), decStamina(3), updateStamina,showTime,
         levelUpFishing,
         levelUpFishingRod,
         level_up_player,
-        write('dummy'),nl,
-        isGoal,
-        write('dummy 2'),nl.
+        isGoal.
     
 fish :- 
     isAround, 
@@ -167,17 +155,15 @@ fish :-
     exp_fishing(ExpFish),
     level_fishing(LvlFishing),
     level_fishing_rod(LvlFishingRod),
-    write('exp_fishing: '),write(ExpFish),nl,!,
-    write('exp total: '),write(NewExpTotal),nl,!,
-    write('level_fishing: '),write(LvlFishing),nl,!,
-    write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
+    % write('exp_fishing: '),write(ExpFish),nl,!,
+    % write('exp total: '),write(NewExpTotal),nl,!,
+    % write('level_fishing: '),write(LvlFishing),nl,!,
+    % write('level_fishing_rod: '),write(LvlFishingRod),nl,!,
     incrementNTime(10), decStamina(3), updateStamina,showTime,
     levelUpFishing,
     levelUpFishingRod,
     level_up_player,
-    write('dummy'),nl,
-    isGoal,
-    write('dummy 2'),nl.
+    isGoal.
 
 fish :- 
     isAround,

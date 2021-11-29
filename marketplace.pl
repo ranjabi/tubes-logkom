@@ -399,14 +399,24 @@ buy :-
 
                 pay(CostFishingRod),
                 retract(level_fishing_rod(LvFishingRod)),
-                assertz(level_fishing_rod(NewLvFishingRod))
+                assertz(level_fishing_rod(NewLvFishingRod)),
+                expUpFishingRod(L,X),
+                NewLvl is L + 1,
+                NewExp is X + 100, /* Exp bounds */
+                assertz(expUpFishingRod(NewLvl,NewExp)),
+                retract(expUpFishingRod(L,X))
             ),
             addItem(1,'Fishing rod');
             
             Found = true,
             pay(CostFishingRod),
             retract(level_fishing_rod(LvFishingRod)),
-            assertz(level_fishing_rod(NewLvFishingRod))
+            assertz(level_fishing_rod(NewLvFishingRod)),
+            expUpFishingRod(L,X),
+            NewLvl is L + 1,
+            NewExp is X + 100, /* Exp bounds */
+            assertz(expUpFishingRod(NewLvl,NewExp)),
+            retract(expUpFishingRod(L,X))
         ),
         write('You have bought a Level '), write(NewLvFishingRod), write(' Fishing rod');
 

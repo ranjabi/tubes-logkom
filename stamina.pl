@@ -97,9 +97,9 @@ updateStamina :-
         write('Stamina kamu 0%.'), nl, nl,
         write('Waktu telah 5 hari berlalu...'), nl,
         nl, skipSickTime, nl,
-        decGold(10000),
+        decGold(3000),
         incStamina(100),
-        write('Gold berkurang 10000 untuk pengobatan.'), nl,
+        write('Gold berkurang 3000 untuk pengobatan.'), nl,
         write('Stamina kamu sekarang kembali 100%.'), nl,
         assertz(isNotifyStamina(0, 0, 0));
 
