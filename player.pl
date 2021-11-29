@@ -70,7 +70,7 @@ level_up_player:-
     exp_total(Exp),
     playerLevelUp(M,Exp2),
     (
-        Exp>Exp2,!,
+        Exp>=Exp2,!,
         N1 is N + 1,
         assertz(level_player(N1)),
         retract(level_player(N)),
@@ -78,12 +78,11 @@ level_up_player:-
         M1 is M + 1,
         assertz(playerLevelUp(M1,Exp21)),
         retract(playerLevelUp(M,Exp2)),
-        write('your level player : '),write(N1),nl,
+        write('your player level : '),write(N1),nl,
         level_up_player;
-        
+
         Exp<Exp2, !
     ).
-
 
 gain_exp_fishing(V) :-
     exp_fishing(N),
