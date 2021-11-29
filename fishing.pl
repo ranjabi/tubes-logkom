@@ -94,7 +94,7 @@ fish :-
         EquipLevel > 6 ->
         random(7,10,Rarity),!
     ),
-        nl,write(Rarity),nl,!,
+        % nl,write(Rarity),nl,!,
         ikan(FishName,Rarity,FishingExp,FishGold),
         write('You got '),
         write(FishName),

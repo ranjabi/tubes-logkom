@@ -99,3 +99,10 @@ nextDay :-
     ),
     retract(time(_,_)),
     assertz(time(08,00)).
+
+addDay(0).
+addDay(N) :-
+    N > 0,
+    nextDay,
+    N1 is N - 1,
+    addDay(N1), !.

@@ -46,7 +46,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Tomato',
             Total is 30 * Amount,
@@ -58,7 +58,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Corn',
             Total is 25 * Amount,
@@ -70,7 +70,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Potato',
             Total is 20 * Amount,
@@ -82,7 +82,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Egg',
             Total is 50 * Amount,
@@ -94,7 +94,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Wool',
             Total is 100 * Amount,
@@ -106,7 +106,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Milk',
             Total is 150 * Amount,
@@ -118,7 +118,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Tuna',
             Total is 100 * Amount,
@@ -130,7 +130,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Salmon',
             Total is 200 * Amount,
@@ -142,7 +142,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Piranha',
             Total is 300 * Amount,
@@ -154,7 +154,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Arwana',
             Total is 400 * Amount,
@@ -166,7 +166,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Mujair',
             Total is 500 * Amount,
@@ -178,7 +178,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Green Arwana',
             Total is 600 * Amount,
@@ -190,7 +190,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Dorado',
             Total is 700 * Amount,
@@ -202,7 +202,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Hiu',
             Total is 800 * Amount,
@@ -214,7 +214,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX);
+            write('Your gold : '),write(NewX),isGoal;
 
             Item = 'Goldfish',
             Total is 900 * Amount,
@@ -226,7 +226,7 @@ sell :-
             assertz(playerInventory(NewList)),
             write('You sell '),write(Amount),write(' '),write(Item),nl,
             write('gold received : '),write(Total),nl,
-            write('Your gold : '),write(NewX)
+            write('Your gold : '),write(NewX),isGoal
         )
     ).
 
