@@ -29,7 +29,7 @@ sleep :-
     rechargeStamina,
     day(Days),
     date(Day, Month),
-    month(Month, MonthName, Season),
+    month(Month, MonthName, Season), isGoal,
     write('Day '), write(Days), write(', '), write(Season), write('.'), nl,
     write(Day), write(' '), write(MonthName), write('. '),
     write('8:00.'), nl.

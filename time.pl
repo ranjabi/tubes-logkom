@@ -79,7 +79,7 @@ nextDay :-
     date(Day, Month),
     day(Days),
     (
-        Day =:= 31,
+        Day =:= 30,
         Day1 is 1,
         Month1 is mod(Month + 1, 12),
         NewDays is Days + 1,
@@ -88,7 +88,7 @@ nextDay :-
         assertz(day(NewDays)),
         retract(day(Days));
 
-        Day < 31,
+        Day < 30,
         Day1 is Day + 1,
         Month1 is Month,
         NewDays is Days + 1,
