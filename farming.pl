@@ -808,6 +808,13 @@ plant:-
 harvest:-
     isStart(true),
     playerInventory(ListInventory),
+    countLength(ListInventory,N),
+    N >= 100, !, 
+    write('Your inventory is full').
+    
+harvest:-
+    isStart(true),
+    playerInventory(ListInventory),
     searchItem('Shovel',ListInventory,Found),
     Found = false, !, 
     write('shovel tidak ditemukan dalam inventory'),nl,
@@ -895,12 +902,7 @@ harvest:-
     ).
 
 
-harvest:-
-    isStart(true),
-    playerInventory(ListInventory),
-    countLength(ListInventory,N),
-    N >= 100, !, 
-    write('Your inventory is full').
+
 
 harvest:- 
     isStart(true),
