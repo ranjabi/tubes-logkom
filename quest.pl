@@ -2,7 +2,6 @@
 :- dynamic(peningkatan/1).
 :- dynamic(isQuestStart/1).
 
-/* di start.pl harus startQuest dulu, jalanin manual aja ketik di terminal kalo belum dimasukin ke start.pl */
 isQuestStart(false).
 inProgressQuest :- questStatus(_,_,_,1). /* jika quest blom finish maka param ke 4 bernilai 1 */
 isFinishQuest :- questStatus(0,0,0,0).
@@ -76,8 +75,6 @@ quest :-
 
 quest :- write('You need to be on the tile Q to get the new quest!'),nl.
 
-
-/* pake ini di farming/ranching kalian, X adalah banyak pengurangan quest (isi 1) setiap quest berhasil dijalankan, ada di line 78 fishing.pl buat contoh */
 fishingDone(X) :- 
     questStatus(Fishing,Farming,Ranching,Status),
     retract(questStatus(Fishing,Farming,Ranching,Status)),
