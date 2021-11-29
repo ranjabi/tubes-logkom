@@ -148,7 +148,7 @@ isGoal :-
     retractall(playerDiary(_)),
     retractall(map_object(_, _, _)),
     retractall(questStatus(_,_,_,_)), 
-    retractall(peningkatan(1)),
+    retractall(peningkatan(_)),
     retractall(time(_, _)), % start at 8 oclock
     retractall(date(_, _)), % start at 1 January
     retractall(day(_))
