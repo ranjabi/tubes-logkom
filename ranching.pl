@@ -300,9 +300,9 @@ chicken :-
     levelUpRanching,
     levelUpHencoop,
     level_ranching(CurLevelRanch),
-    level_hencoop(CurLevelHencoop),
+    level_hencoop(NewLevelHencoop),
 
-    RandomFactor is CurLevelHencoop + 3,
+    RandomFactor is NewLevelHencoop + 3,
     random(1, RandomFactor, SickFactor),
     !,
     (
@@ -429,7 +429,7 @@ sheep :-
 
     % level up Shear
     exp_shear(CurExpShear),
-    level_shear(CurLevelShear),
+    level_shear(_CurLevelShear),
     specialty(Job),
     (
         Job = 'Rancher' ->
@@ -448,9 +448,9 @@ sheep :-
     levelUpRanching,
     levelUpShear,
     level_ranching(CurLevelRanch),
-    level_shear(CurLevelShear),
+    level_shear(NewLevelShear),
 
-    RandomFactor is CurLevelShear + 3,
+    RandomFactor is NewLevelShear + 3,
     random(1, RandomFactor, SickFactor),
     !,
     (
@@ -578,7 +578,7 @@ cow :-
 
     % level up Bucket
     exp_bucket(CurExpBucket),
-    level_bucket(CurLevelBucket),
+    level_bucket(_CurLevelBucket),
     specialty(Job),
     (
         Job = 'Rancher' ->
@@ -597,9 +597,9 @@ cow :-
     levelUpRanching,
     levelUpBucket,
     level_ranching(CurLevelRanch),
-    level_bucket(CurLevelBucket),
+    level_bucket(NewLevelBucket),
 
-    RandomFactor is CurLevelBucket + 3,
+    RandomFactor is NewLevelBucket + 3,
     random(1, RandomFactor, SickFactor),
     !,
     (

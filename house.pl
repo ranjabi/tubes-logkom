@@ -54,7 +54,7 @@ searchDiary(X, [X|_], true) :- !.
 
 searchDiary(_, [], false) :- !.
 
-searchDiary(X, [Head|Tail], Found) :-
+searchDiary(X, [_Head|Tail], Found) :-
     searchDiary(X, Tail, Found).
 
 /* Perintah writeDiary */

@@ -26,11 +26,12 @@ quest :-
     /* ini dia bakal set batas atas dan bawah sesuai dynamic <peningkatan> */
     Down = 1,
     Up = 2,
-    nl,write('Down '),write(Down),nl,write('Up '),write(Up),nl,
-    peningkatan(Current),
+    % nl,write('Down '),write(Down),nl,write('Up '),write(Up),nl,
+    peningkatan(_Current),
     NewDown is Down * 2,
     NewUp is Up * 2,
-    write(NewDown),nl,write(NewUp),nl,
+    % write(NewDown),nl,write(NewUp),
+    nl,
     /* quest barunya di init */
     random(NewDown,NewUp,InitFishing),
     random(NewDown,NewUp,InitFarming),
@@ -38,7 +39,7 @@ quest :-
     retractall(questStatus(_,_,_,_)),
     assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
     % assertz(questStatus(InitFishing,InitFarming,InitRanching,1)), 
-    questStatus(Fishing,Farming,Ranching,Status),
+    questStatus(Fishing,Farming,Ranching,_Status),
     write('- '), write(Fishing), write(' fish'), !, nl,
     write('- '), write(Farming), write(' farm item'), !, nl,
     write('- '), write(Ranching), write(' ranch item'), !, nl.
@@ -67,7 +68,7 @@ quest :-
     inProgressQuest,
     write('You have an on-going quest!'),nl,
     write('You need to collect'),nl,
-    questStatus(Fishing,Farming,Ranching,Status),
+    questStatus(Fishing,Farming,Ranching,_Status),
     write('- '), write(Fishing), write(' fish'), !, nl,
     write('- '), write(Farming), write(' farm item'), !, nl,
     write('- '), write(Ranching), write(' ranch item'), !, nl.

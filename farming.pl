@@ -34,7 +34,7 @@ farmingDone(X) :-
     asserta(questStatus(Fishing,NewFarming,Ranching,Status)).
 
 /* harvest jika tidak menggunakan shovel dan specialty bukan farmer */
-gainStuff(Veg,Symbol,Equip,Seed):-
+gainStuff(Veg,Symbol,Equip,_Seed):-
     Equip = 1,\+specialty('Farmer'),!,
     level_reward(N,M),
     playerInventory(ListInventory),
@@ -136,7 +136,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ).
 
 /* harvest jika tidak menggunakan shovel dan specialty farmer */
-gainStuff(Veg,Symbol,Equip,Seed):-
+gainStuff(Veg,Symbol,Equip,_Seed):-
     Equip = 1,specialty('Farmer'),!,
     level_reward(N,M),
     playerInventory(ListInventory),
@@ -243,7 +243,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     
 
 /* harvest jika menggunakan shovel dan specialty bukan farmer */
-gainStuff(Veg,Symbol,Equip,Seed):-
+gainStuff(Veg,Symbol,Equip,_Seed):-
     Equip = 2,\+specialty('Farmer'),!,
     playerInventory(ListInventory),
     countLength(ListInventory,Length),
@@ -471,7 +471,7 @@ gainStuff(Veg,Symbol,Equip,Seed):-
     ).
 
 /* harvest jika menggunakan shovel dan specialty farmer */
-gainStuff(Veg,Symbol,Equip,Seed):-
+gainStuff(Veg,Symbol,Equip,_Seed):-
     Equip = 2,specialty('Farmer'),!,
     playerInventory(ListInventory),
     countLength(ListInventory,Length),
@@ -909,7 +909,7 @@ harvest:-
     map_object(X,Y,'P'),
     time(HourT, MinuteT),
     date(DayT, MonthT),
-    playerInventory(ListInventory),
+    playerInventory(_ListInventory),
 
     (
         \+ ( map_object(X,Y,'c'); map_object(X,Y,'C'); map_object(X,Y,'T'); map_object(X,Y,'O')), !, write('Cannot find any plant'), fail;

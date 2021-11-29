@@ -118,11 +118,11 @@ countItem(X, [Head|Tail], Count) :-
     Head \= X, countItem(X, Tail, Count), !.
 
 /* Mengecek keberadaan item di dalam inventory */
-searchItem(X, [X|Tail], true) :- !.
+searchItem(X, [X|_Tail], true) :- !.
 
 searchItem(_, [], false) :- !.
 
-searchItem(X, [Head|Tail], Found) :-
+searchItem(X, [_Head|Tail], Found) :-
     searchItem(X, Tail, Found), !.
 
 /* Menuliskan isi inventory */
